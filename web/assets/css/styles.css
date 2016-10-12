@@ -1,7 +1,20 @@
 /* Master Styles */
 body {
+  font-family: 'Lato';
   margin: 2em;
-  background-color: #2980b9;
+  background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.3) 1px, rgba(0, 0, 0, 0.2) 1px, rgba(0, 0, 0, 0.2) 1px), 
+  repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.3) 1px, rgba(0, 0, 0, 0.2) 1px, rgba(0, 0, 0, 0.2) 1px),
+  linear-gradient(150deg, #3498db 0%, #2cb5e8 75%);
+}
+
+h1 {
+   font-weight: 700;
+   margin-bottom: 5px;
+}
+
+h2 {
+   font-weight: 400;
+   margin-top: 0px;
 }
 
 .loading {
@@ -24,15 +37,24 @@ body {
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border-radius: 10px;
-  font-family: Georgia;
   color: #ffffff;
   font-size: 20px;
   background: #DA1E05;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
 }
 
 .btn:hover {
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
   background: #e74c3c;
   text-decoration: none;
 }
