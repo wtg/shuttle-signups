@@ -9,15 +9,18 @@ body {
 
 h1 {
    font-weight: 700;
+   color: white;
    margin-bottom: 5px;
 }
 
 h2 {
    font-weight: 400;
+   color: white;
    margin-top: 0px;
 }
 
 .loading {
+   color: white;
    position: fixed;
    top: 50%;
    left: 50%;
