@@ -14,7 +14,7 @@ var AppComponent = (function () {
     }
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
+            selector: 'shuttle-signups',
             templateUrl: 'views/login.html'
         }), 
         __metadata('design:paramtypes', [])

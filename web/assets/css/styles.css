@@ -19,6 +19,10 @@ h2 {
    margin-top: 0px;
 }
 
+p {
+   color: white;
+}
+
 .loading {
    color: white;
    position: fixed;
@@ -60,4 +64,23 @@ h2 {
   transition:.5s;
   background: #e74c3c;
   text-decoration: none;
+}
+
+#credits {
+   position: fixed;
+   left: 0;
+   bottom: 0px;
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+#credits p {
+   text-align: center;
+   margin-top: 5px;
+}
+
+#credits img {
+   display: block;
+   margin: auto;
 }
