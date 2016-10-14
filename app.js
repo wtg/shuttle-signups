@@ -16,20 +16,30 @@ app.use('/scripts', express.static('node_modules'));
 app.use('/app', express.static('web/app'));
 app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'super secret key',
+    resave: false,
+    saveUninitialized: true,
+}));
+
 // Create a new instance of CASAuthentication.
 var cas = new CASAuthentication({
     cas_url: 'https://cas-auth.rpi.edu/cas',
     service_url: config.service_url,
     cas_version: '2.0',
-    is_dev_mode: config.cas_dev_mode,
-    dev_mode_user: config.cas_dev_mode_user
 });
 
 app.get('/login', cas.bounce, function (req, res) {
-    if (!req.session || !req.session.cas_user) {
+   if (!req.session || !req.session.cas_user) {
         res.redirect('/logout');
     }
+   
+   var rcs_id = req.session.cas_user.toLowerCase();
+   res.send( '<html><body><a href = "/logout">Hello ' + rcs_id + '!</a></body></html>' );
+   console.log(rcs_id);
 });
+
+app.get('/logout', cas.logout);
 
 app.listen(3000, function () {
   console.log('Listening on port 3000.');
