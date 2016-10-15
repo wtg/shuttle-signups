@@ -8,6 +8,6 @@ The Rensselaer Union, along with support from Auxiliary Services and Parking & T
 Before this project came to exist, a Google Form was used to facilitate sign-ups for these special shuttles. These forms weren't the best solution. This project aims to simplify that process, helping both students, and those at Auxiliary Services and Parking & Transportation.
 
 ## Development and Deployment
-This project is developed on the MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).
+This project is developed on a modified MEAN stack (NEDB, Express.js, Angular.js, and Node.js).
 
 *Depolyment information will come shortly*
