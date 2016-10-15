@@ -5,7 +5,7 @@ A web interface to simplify the process of signing up for special shuttles at RP
 The Rensselaer Union, along with support from Auxiliary Services and Parking & Transportation, runs a pilot program for a Capital District shuttle service. Certain weekends of the year, shuttles leave from the Rensselaer Union to destinations around the Capital District such as Crossgates Mall and Albany International Airport.
 
 ## Why is this project needed?
-Before this project came to exist, a Google Form was used to facilitate sign-ups for these special shuttles. These forms weren't the best solution. This project aims to simplify that process, helping both students, and those at Parking and Transportation.
+Before this project came to exist, a Google Form was used to facilitate sign-ups for these special shuttles. These forms weren't the best solution. This project aims to simplify that process, helping both students, and those at Auxiliary Services and Parking & Transportation.
 
 ## Development and Deployment
 This project is developed on the MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).
