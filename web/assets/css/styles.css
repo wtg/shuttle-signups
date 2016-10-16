@@ -19,17 +19,26 @@ h2 {
    margin-top: 0px;
 }
 
+h3 {
+   margin-top: 0px;
+   font-weight: 400;
+   color: white;
+}
+
 p {
    color: white;
 }
 
-.loading {
-   color: white;
+.center {
    position: fixed;
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
    text-align: center;
+}
+
+.loading {
+   color: white;
    font-size: 25px;
 }
 

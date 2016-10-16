@@ -8,7 +8,7 @@ const NedbStore = require('connect-nedb-session')(session);
 const path = require('path');
 const config = require('./config.js');
 const cms = require('./cms.js');
-const app = express();
+const app = module.exports = express();
 const sessionStore = new NedbStore({ filename: config.session_persistence_file });
 
 app.use(session({
@@ -25,22 +25,14 @@ const cas = new CASAuthentication({
     cas_version: '2.0',
 });
 
+app.use(express.static('web'));
 app.use('/scripts', express.static('node_modules'));
 app.use('/app', express.static('web/app'));
 app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
 
 //ROUTES
-app.get('/', function (req, res, next) {
-   if (req.session.cas_user) {
-      res.redirect('/dashboard');
-   }
-   
-   else {
-      app.use(express.static('web'));
-      next();
-   }
-});
+app.use('/api/current_user', require('./routes/current_user'));
 
 app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {
@@ -54,16 +46,31 @@ app.get('/dashboard', function (req, res) {
    if (!req.session || !req.session.cas_user) {
         res.redirect('/login');
    }
-   var rcs_id = req.session.cas_user.toLowerCase();
-    cms.getRCS(rcs_id).then(function (user_data) {
-       user_data = JSON.parse(user_data);
-       var first_name = user_data.preferred_name || user_data.first_name;
-       // username, student_id (is rin), last_name, middle_name, user_type
-       res.send( '<html><body><a href = "/logout">Hello ' + first_name + '!</a></body></html>' );
-   });
+   
+   res.sendFile( __dirname + "/web/dashboard.html" );
 });
 
 app.get('/logout', cas.logout);
+
+// Catch 404s
+app.use(function (req, res, next) {
+    res.status = 404;
+   
+   // respond with html page
+   if (req.accepts('html')) {
+      res.sendFile(__dirname + "/web/404.html");
+      return;
+   }
+
+   // respond with json
+   if (req.accepts('json')) {
+       res.send({ error: 'Not found' });
+       return;
+   }
+   
+   res.type('txt').send('Not found');
+});
+
 
 app.listen(3000, function () {
   console.log('Listening on port 3000.');

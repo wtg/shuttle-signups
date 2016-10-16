@@ -15,15 +15,15 @@
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
-      System.import('login').catch(function(err){ console.error(err); });
+      System.import('dashboard').catch(function(err){ console.error(err); });
     </script>
   </head>
   <!-- 3. Display the application -->
   <body>
     <shuttle-signups>
        <div class = "loading center">
-          <img alt = "Shuttle logo" src = "assets/images/shuttle.png">
-          <h4 class = "loading-text">Loading</h4>
+          <h1>Hello there {{first_name}}!</h1>
+          <h4 class = "loading-text">We're setting things up for you</h4>
        </div>
     </shuttle-signups>
    </body>
