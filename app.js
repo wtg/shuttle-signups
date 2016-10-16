@@ -9,11 +9,6 @@ const path = require('path');
 const config = require('./config.js');
 const cms = require('./cms.js');
 const app = express();
-
-app.use('/scripts', express.static('node_modules'));
-app.use('/app', express.static('web/app'));
-app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
-
 const sessionStore = new NedbStore({ filename: config.session_persistence_file });
 
 app.use(session({
@@ -30,8 +25,12 @@ const cas = new CASAuthentication({
     cas_version: '2.0',
 });
 
-//ROUTES
+app.use('/scripts', express.static('node_modules'));
+app.use('/app', express.static('web/app'));
+app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
+
+//ROUTES
 app.get('/', function (req, res, next) {
    if (req.session.cas_user) {
       res.redirect('/dashboard');

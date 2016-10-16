@@ -4,7 +4,7 @@
   "description": "A web interface to simplify the process of signing up for special shuttles at RPI.",
   "main": "app.js",
   "scripts": {
-    "start": "concurrently \"tsc -w\" \"node app.js\" ",
+    "start": "tsc -p ./web/ && concurrently \"tsc -p ./web/ -w\" \"node app.js\" ",
     "postinstall": "typings install",
     "typings": "typings"
   },
