@@ -1,6 +1,6 @@
 var https = require('https'),
     Q = require('q'),
-    token = require('./config.js').cms;
+    token = require('./config.js').cms_key;
 
 var defaults = {
     method: "GET",

@@ -30,6 +30,7 @@
     "@angular/upgrade": "~2.0.2",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
+    "camo": "^0.12.2",
     "cas-authentication": "0.0.8",
     "connect-nedb-session": "0.0.3",
     "core-js": "^2.4.1",
