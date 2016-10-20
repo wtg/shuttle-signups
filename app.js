@@ -4,30 +4,23 @@ const bodyParser = require('body-parser');
 const CASAuthentication = require('cas-authentication');
 const favicon = require('serve-favicon');
 const session = require('express-session');
-const DataStore = require('nedb');
-const NedbStore = require('connect-nedb-session')(session);
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
 const path = require('path');
 const config = require('./config.js');
 const cms = require('./cms.js');
 const fs = require('fs')
 const app = module.exports = express();
-const db = new DataStore({filename: config.db_persistence_file});
-const camoConnect = require('camo').connect;
-const sessionStore = new NedbStore({ filename: config.session_persistence_file });
-
 var helperLib = require("./helper.js").helpers;
 const helper = new helperLib();
 
-var uri = config.db_persistence_file;
-camoConnect(uri).then(function(r) {
-    db = r;
-}); 
+mongoose.connect('mongodb://localhost/shuttle-signups');
 
 app.use(session({
     secret: process.env.SESSION_SECRET || 'super secret key',
-    resave: false,
-    saveUninitialized: true,
-    store: sessionStore
+    saveUninitialized: false, // don't create session until something stored
+    resave: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 // Create a new instance of CASAuthentication.
@@ -47,6 +40,7 @@ app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 //ROUTES
 app.use('/api/current_user', require('./routes/current_user'));
 app.use('/api/add_shuttle', require('./routes/add_shuttle'));
+app.use('/api/get_shuttles', require('./routes/get_shuttles'));
 
 app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {

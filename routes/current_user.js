@@ -16,10 +16,10 @@ router.get('/', function(req, res) {
       cms.getRCS(rcs_id).then(function (user_data) {
        user_data = JSON.parse(user_data);
        // username, student_id (is rin), last_name, middle_name, user_type
-       res.json({
-            username: rcs_id,
-            first_name: user_data.preferred_name || user_data.first_name
-       });
+          res.json({
+               username: rcs_id,
+               first_name: user_data.preferred_name || user_data.first_name
+          });
        });
     }
 });
