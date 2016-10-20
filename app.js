@@ -41,6 +41,8 @@ app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 app.use('/api/current_user', require('./routes/current_user'));
 app.use('/api/add_shuttle', require('./routes/add_shuttle'));
 app.use('/api/get_shuttles', require('./routes/get_shuttles'));
+app.use('/api/cancel_shuttle', require('./routes/cancel_shuttle'));
+app.use('/api/delete_shuttle', require('./routes/delete_shuttle'));
 
 app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {
