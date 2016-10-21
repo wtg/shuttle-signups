@@ -9,7 +9,7 @@ const helper = new helperLib();
 module.exports = router;
 
 router.post('/', function(req, res) {
-    if (!req.session || !req.session.cas_user) {
+   if (!req.session || !req.session.cas_user) {
         res.send("You must be logged in to complete this action.");
     } 
    
@@ -18,20 +18,20 @@ router.post('/', function(req, res) {
       if (helper.isAdmin(rcs_id)) {
          var shuttleID = req.body.id;
          
-         Shuttle.findOneAndUpdate({_id: shuttleID}, {isActive: false}, function(err){
-            if (err) {
-               res.send("There was an issue cancelling shuttle " + shuttleID);
-            }
-            else {
-               res.send("Shuttle " + shuttleID + " sucessfully cancelled.");
-            }
-            
-         });
-      
+         Shuttle.findOneAndUpdate({_id: shuttleID}, function (err){
+            origin: req.body.origin,
+            destination: req.body.destination,
+            departureDate: req.body.dateTime,
+            // I guess the size of a shuttle can change, but I'll have to think about how to handle a shuttle losing capacity.
+            maxCapacity: req.body.maxCapacity,
+            vacancies: req.body.maxCapacity,
+            // I don't want to kick guests off if they were originally allowed
+            guestsAllowed: req.body.guestsAllowed,
+         })
       }
-      
       else {
          res.send("You don't seem authorized for this action.");
       }
    }
+   
 });

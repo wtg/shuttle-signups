@@ -16,7 +16,7 @@ router.post('/', function(req, res) {
    else {
       var rcs_id = req.session.cas_user.toLowerCase();
       if (helper.isAdmin(rcs_id)) {
-         shuttleID = req.body.id;
+         var shuttleID = req.body.id;
          
          Shuttle.findOneAndRemove({_id: shuttleID}, function (err){
             if (err) {
