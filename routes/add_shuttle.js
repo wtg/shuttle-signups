@@ -17,10 +17,13 @@ router.post('/', function(req, res) {
       var rcs_id = req.session.cas_user.toLowerCase();
       if (helper.isAdmin(rcs_id)) {
          var shuttle = new Shuttle({
-            destination: req.body.destination,
-            origin: req.body.origin,
             isActive: req.body.isActive,
-            dateTime: req.body.dateTime,
+            origin: req.body.origin,
+            destination: req.body.destination,
+            departureDate: req.body.dateTime,
+            maxCapacity: req.body.maxCapacity,
+            vacancies: req.body.maxCapacity,
+            guestAllowed: req.body.guestsAllowed,
             riders: [],
             waitlist: []
          });

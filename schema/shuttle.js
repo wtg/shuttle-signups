@@ -7,6 +7,7 @@ var shuttleSchema = new Schema({
       destination: Array,
       departureDate: Date,
       maxCapacity: Number,
+      vacancies: Number,
       guestsAllowed: Number,
       riders: Array,
       waitlist: Array,
