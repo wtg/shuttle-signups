@@ -19,6 +19,7 @@ router.post('/', function(req, res) {
          var shuttleID = req.body.id;
          
          Shuttle.findOneAndUpdate({_id: shuttleID}, function (err){
+            /*
             origin: req.body.origin,
             destination: req.body.destination,
             departureDate: req.body.dateTime,
@@ -27,6 +28,7 @@ router.post('/', function(req, res) {
             vacancies: req.body.maxCapacity,
             // I don't want to kick guests off if they were originally allowed
             guestsAllowed: req.body.guestsAllowed,
+            */
          })
       }
       else {

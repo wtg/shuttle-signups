@@ -43,6 +43,8 @@ app.use('/api/add_shuttle', require('./routes/add_shuttle'));
 app.use('/api/get_shuttles', require('./routes/get_shuttles'));
 app.use('/api/cancel_shuttle', require('./routes/cancel_shuttle'));
 app.use('/api/delete_shuttle', require('./routes/delete_shuttle'));
+app.use('/api/modify_shuttle', require('./routes/modify_shuttle'));
+app.use('/api/signup_shuttle', require('./routes/signup_shuttle'));
 
 app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {
