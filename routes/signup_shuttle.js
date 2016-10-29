@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
       
       var query = Shuttle.find({_id: shuttleID}).lean();
       
-      query.exec(function (err, docs){
+      query.exec(function (err, docs) {
          if (err) {
             res.send("There was an error signing up for shuttle " + shuttleID)
          }
@@ -31,17 +31,20 @@ router.post('/', function(req, res) {
             
             // Great, they're not bringing guests.
             if (numGuests == 0) {
-               if (shuttle.vacancies > 0) {
-                  // Let's go ahead and add them to the list.
-                  var riders = shuttle.riders;
-                  var vacancies = shuttle.vacancies;
-                  
-                  // Let's make sure they're not already signed up for a shuttle.
-                  if (riders.find(rcs_id) == -1) {
-                         res.send("Hey, you've already signed up for shuttle " + shuttleID);
-                  }
-                  
-                  else {
+
+               // Let's go ahead and add them to the list.
+               var riders = shuttle.riders;
+               var waitlist = shuttle.waitlist;
+               var vacancies = shuttle.vacancies;
+
+               // Let's make sure they're not already signed up for a shuttle.
+               if (riders.indexOf(rcs_id) != -1 || waitlist.indexOf(rcs_id) != -1) {
+                      res.send("Hey, you've already signed up for shuttle " + shuttleID);
+               }
+
+               else {
+                  // If the shuttle currently has a vacancy
+                  if (vacancies >= 1) {
                      riders.push(rcs_id);
                      vacancies--;
 
@@ -52,6 +55,21 @@ router.post('/', function(req, res) {
 
                         else {
                            res.send("Hey, you're signed up for shuttle " + shuttleID);
+                        }
+                     });
+                  }
+
+                  // This means there aren't any vacancies on the shuttle
+                  else {
+                     waitlist.push(rcs_id);
+
+                     Shuttle.findOneAndUpdate({_id: shuttleID}, {waitlist: waitlist}, function(err) {
+                        if (err) {
+                           res.send("There was an error adding you to the waitlist for shuttle " + shuttleID);
+                        }
+
+                        else {
+                           res.send("You've been added to the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.length + " in line.");
                         }
                      });
                   }
