@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const cms = require('../cms.js');
-var mongoose = require('mongoose');
-var Shuttle = require("../schema/shuttle.js");
-var helperLib = require("../helper.js").helpers;
+const mongoose = require('mongoose');
+const Shuttle = require("../schema/shuttle.js");
+const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
 
 module.exports = router;
@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
     } else {
         var rcs_id = req.session.cas_user.toLowerCase();
         if (helper.isAdmin(rcs_id)) {
-            var query = Shuttle.find({});
+            var query = Shuttle.find({}).lean();
             query.exec(function(err, docs) {
                 res.send(docs);
             });

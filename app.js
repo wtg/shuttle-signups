@@ -46,6 +46,7 @@ app.use('/api/cancel_shuttle', require('./routes/cancel_shuttle'));
 app.use('/api/delete_shuttle', require('./routes/delete_shuttle'));
 app.use('/api/modify_shuttle', require('./routes/modify_shuttle'));
 app.use('/api/signup_shuttle', require('./routes/signup_shuttle'));
+app.use('/api/unsignup_shuttle', require('./routes/unsignup_shuttle'));
 
 app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {

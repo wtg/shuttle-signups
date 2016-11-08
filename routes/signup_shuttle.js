@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const cms = require('../cms.js');
-var mongoose = require('mongoose');
-var Shuttle = require("../schema/shuttle.js");
-var helperLib = require("../helper.js").helpers;
+const mongoose = require('mongoose');
+const Shuttle = require("../schema/shuttle.js");
+const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
 
 module.exports = router;
@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
                         if (riders.indexOf(rcs_id) != -1) {
                             res.send("Hey, you've already signed up for shuttle " + shuttleID);
                         } else if (waitlist.indexOf(rcs_id) != -1) {
-                            res.send("Hey, you're on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
+                            res.send("Hey, you're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
                         } else {
                             // If the shuttle currently has a vacancy
                             if (vacancies >= 1) {
@@ -116,8 +116,6 @@ router.post('/', function(req, res) {
                                         res.send("Your " + numGuests + " guests and you have signed up for shuttle " + shuttleID);
                                     }
                                 });
-
-
                             }
                         }
                     }
