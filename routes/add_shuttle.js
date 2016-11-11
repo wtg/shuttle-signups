@@ -35,6 +35,7 @@ router.post('/', function(req, res) {
                 }
             });
         } else {
+            res.status(403);
             res.send("You don't seem authorized for this action.");
         }
     }
