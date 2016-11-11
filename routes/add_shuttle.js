@@ -35,7 +35,8 @@ router.post('/', function(req, res) {
 			res.send("Shuttle was sucessfully saved.");
 			return;
 		});
+	} else {
+		res.status(403);
+		res.send("You don't seem authorized for this action.");
 	}
-	res.status(403);
-	res.send("You don't seem authorized for this action.");
 });

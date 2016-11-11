@@ -26,54 +26,55 @@ router.get('/', function(req, res) {
 		}).lean();
 		query.exec(function(err, docs) {
 			res.send(docs);
-			return;
+      return;
 		});
-	}
-	var query = Shuttle.find({
-		$or: [{
-			'riders': rcs_id
-                }, {
-			'waitlist': rcs_id
-                }]
-	}).lean();
-	query.exec(function(err, docs) {
-		var response = [];
-		for (var i in docs) {
-			// There's no point in searching the array for user's guests if the shuttle doesn't allow them in the first place
-			if (docs[i].guestsAllowed === 0) {
-				response.push({
-					id: docs[i]._id,
-					numGuests: 0,
-					onWaitlist: (docs[i].waitlist.indexOf(rcs_id) != -1)
-				});
-			} else {
-				var numGuests = 0;
-				var onWaitlist;
-				// Let's first figure out if the user is on the waitlist or not
-				// If the user isn't on the waitlist
-				if (docs[i].waitlist.indexOf(rcs_id) == -1) {
-					onWaitlist = false;
-					for (var user in docs[i].riders) {
-						if (docs[i].riders[user].includes(rcs_id + "-guest")) {
-							numGuests++;
-						}
-					}
-				} else {
-					onWaitlist = true;
-					for (var user in docs[i].waitlist) {
-						if (docs[i].riders[user].includes(rcs_id + "-guest")) {
-							numGuests++;
-						}
-					}
-				}
-				response.push({
-					id: docs[i]._id,
-					numGuests: numGuests,
-					onWaitlist: onWaitlist
-				});
-			}
-		}
-		res.contentType('application/json');
-		res.send(JSON.stringify(response));
-	});
+	} else {
+      var query = Shuttle.find({
+      $or: [{
+        'riders': rcs_id
+                  }, {
+        'waitlist': rcs_id
+                  }]
+    }).lean();
+    query.exec(function(err, docs) {
+      var response = [];
+      for (var i in docs) {
+        // There's no point in searching the array for user's guests if the shuttle doesn't allow them in the first place
+        if (docs[i].guestsAllowed === 0) {
+          response.push({
+            id: docs[i]._id,
+            numGuests: 0,
+            onWaitlist: (docs[i].waitlist.indexOf(rcs_id) != -1)
+          });
+        } else {
+          var numGuests = 0;
+          var onWaitlist;
+          // Let's first figure out if the user is on the waitlist or not
+          // If the user isn't on the waitlist
+          if (docs[i].waitlist.indexOf(rcs_id) == -1) {
+            onWaitlist = false;
+            for (var user in docs[i].riders) {
+              if (docs[i].riders[user].includes(rcs_id + "-guest")) {
+                numGuests++;
+              }
+            }
+          } else {
+            onWaitlist = true;
+            for (var user in docs[i].waitlist) {
+              if (docs[i].riders[user].includes(rcs_id + "-guest")) {
+                numGuests++;
+              }
+            }
+          }
+          response.push({
+            id: docs[i]._id,
+            numGuests: numGuests,
+            onWaitlist: onWaitlist
+          });
+        }
+      }
+      res.contentType('application/json');
+      res.send(JSON.stringify(response));
+    });
+  }
 });

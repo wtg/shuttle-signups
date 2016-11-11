@@ -25,7 +25,8 @@ router.post('/', function(req, res) {
 			res.send("Shuttle " + shuttleID + " sucessfully deleted.");
 			return;
 		});
-	}
-	res.status(403);
-	res.send("You don't seem authorized for this action.");
+	} else {
+    res.status(403);
+	  res.send("You don't seem authorized for this action.");
+  }
 });

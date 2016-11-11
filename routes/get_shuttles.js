@@ -16,17 +16,16 @@ router.get('/', function(req, res) {
 		var query = Shuttle.find({}).lean();
 		query.exec(function(err, docs) {
 			res.send(docs);
-			return;
+		});
+	} else {
+		var query = Shuttle.find({
+			'isActive': true
+		}).lean();
+		// Ensure non-admin users cannot see other riders, nor the waitlist for a shuttle.
+		query.select('-riders');
+		query.select('-waitlist');
+		query.exec(function(err, docs) {
+			res.send(docs);
 		});
 	}
-	var query = Shuttle.find({
-		'isActive': true
-	}).lean();
-	// Ensure non-admin users cannot see other riders, nor the waitlist for a shuttle.
-	query.select('-riders');
-	query.select('-waitlist');
-	query.exec(function(err, docs) {
-		res.send(docs);
-		return;
-	});
 });

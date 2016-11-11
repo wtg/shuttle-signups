@@ -12,4 +12,5 @@ router.post('/', function(req, res) {
 		return;
 	}
 	if (helper.isAdmin(rcs_id)) {}
+  else {}
 });
