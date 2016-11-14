@@ -18,9 +18,7 @@ router.get('/', function(req, res) {
 			res.send(docs);
 		});
 	} else {
-		var query = Shuttle.find({
-			'isActive': true
-		}).lean();
+		var query = Shuttle.find({}).lean();
 		// Ensure non-admin users cannot see other riders, nor the waitlist for a shuttle.
 		query.select('-riders');
 		query.select('-waitlist');
