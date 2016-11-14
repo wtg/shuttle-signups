@@ -61,7 +61,7 @@ router.get('/', function(req, res) {
           } else {
             onWaitlist = true;
             for (var user in docs[i].waitlist) {
-              if (docs[i].riders[user].includes(rcs_id + "-guest")) {
+              if (docs[i].waitlist[user].includes(rcs_id + "-guest")) {
                 numGuests++;
               }
             }
