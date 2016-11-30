@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc -p ./web/\" \"tsc -p ./web/ -w\" \"node app.js\" ",
+    "dev":"tsc -p ./web/ tsc -p ./web/ -w node app.js",
     "postinstall": "typings install",
     "typings": "typings"
   },
