@@ -7,14 +7,18 @@ const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
 module.exports = router;
 router.post('/', function(req, res) {
+	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
 		res.status(401);
 		res.send("You must be logged in to complete this action.");
 		return;
 	}
 	var rcs_id = req.session.cas_user.toLowerCase();
+
+	//checks if the user is an admin
 	if (helper.isAdmin(rcs_id)) {
 		var shuttleID = req.body.id;
+		//find and remove shuttle from database
 		Shuttle.findOneAndRemove({
 			_id: shuttleID
 		}, function(err) {
@@ -26,7 +30,8 @@ router.post('/', function(req, res) {
 			return;
 		});
 	} else {
-    res.status(403);
+	  //deny access if not an admin
+      res.status(403);
 	  res.send("You don't seem authorized for this action.");
   }
 });
