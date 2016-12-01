@@ -1,8 +1,8 @@
 export class User {
   first_name: string;
-  user_name:string;
-  constructor(first_name:string,user_name:string){
+  username:string;
+  constructor(first_name:string,username:string){
     this.first_name = first_name;
-    this.user_name = user_name;
+    this.username = username;
   }
 }
