@@ -4,7 +4,13 @@
 <h4>
   you RCS ID is {{user.username}}
 </h4>
-<p>
-  Data from the server is:
-  {{data}}
-</p>
+<hr />
+<h1>Current Shuttles:</h1>
+<ul class="shuttles">
+  <li *ngFor="let shuttle of shuttles">
+    {{shuttle.origin[0].name}} ➡️ {{shuttle.destination[0].name}} ,
+    {{shuttle.riders.length}} of
+    {{shuttle.guestsAllowed}} riders
+  </li>
+</ul>
+<hr />
