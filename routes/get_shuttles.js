@@ -15,7 +15,8 @@ router.get('/', function(req, res) {
 	if (helper.isAdmin(rcs_id)) {
 		var query = Shuttle.find({}).lean();
 		query.exec(function(err, docs) {
-			res.send(docs);
+
+			res.send({"data":docs});
 		});
 	} else {
 		var query = Shuttle.find({}).lean();
