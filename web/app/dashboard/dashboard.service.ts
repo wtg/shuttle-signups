@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import {User } from './user';
 import {Shuttle} from './shuttle';
+import { Headers, RequestOptions } from '@angular/http';
 
 // Statics
 import 'rxjs/add/observable/throw';
@@ -20,21 +21,36 @@ export class DashboardService {
     private baseURL = '/api/';
 
     constructor(private http: Http) {
-    console.log("Made a service");
-  }
+        console.log("Made a service");
+    }
 
     getUser(): Promise<User> {
-      return this.http.get(this.baseURL + "current_user/")
+        return this.http.get(this.baseURL + "current_user/")
 
-               .toPromise()
-               .then(response => response.json() as User)
-               .catch(this.handleError);
+            .toPromise()
+            .then(response => response.json() as User)
+            .catch(this.handleError);
     }
     getShuttles(): Promise<Shuttle[]> {
-      return this.http.get(this.baseURL + "get_shuttles/")
-               .toPromise()
-               .then(response => response.json().data as Shuttle[])
-               .catch(this.handleError);
+        return this.http.get(this.baseURL + "get_shuttles/")
+            .toPromise()
+            .then(response => response.json().data as Shuttle[])
+            .catch(this.handleError);
+    }
+    signup(user:User,shuttle:Shuttle) {
+      console.log(user);
+        var data = {
+          "id":shuttle._id,
+          "numGuests":user.numGuests,
+          "guestsOnly":user.guestsOnly
+        }
+        console.log(data);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        this.http.post(this.baseURL + "signup_shuttle/",data,options).toPromise().then(res =>{
+          console.log(res);
+          shuttle.message = "" + res.status;
+        } );
     }
 
     // private extractData(res: Response) {

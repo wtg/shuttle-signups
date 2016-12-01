@@ -1,8 +1,13 @@
 export class User {
   first_name: string;
   username:string;
-  constructor(first_name:string,username:string){
-    this.first_name = first_name;
-    this.username = username;
+  numGuests:number;
+  guestsOnly:boolean;
+  constructor(arg?:any){
+    console.log("made a user");
+    this.first_name = arg && arg.first_name || "Shirley";
+    this.username = arg && arg.username || "001RPI";
+    this.numGuests = arg && arg.numGuests || 0;
+    this.guestsOnly = arg && arg.guestsOnly || false;
   }
 }

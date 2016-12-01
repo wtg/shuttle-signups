@@ -15,16 +15,15 @@ export class DashboardComponent implements OnInit{
   //declare member variables of the dashboard class
   public user: User;
   public shuttles: Shuttle[];
-  public test = [{say:"hello"},{say:"world"}];
-
   //dashboard constructor, fetch data from server
   constructor(private dashboardService: DashboardService){
     // Display entertaining blank user while async load
-    this.user = new User("Shirley","001RPI");
+    // this.user = new User("Shirley","001RPI");
+    this.user = new User();
     // this.shuttles = new Array<Shuttle>();
 
     //async load current user from /current_user
-    this.dashboardService.getUser().then(user =>this.user = user);
+    this.dashboardService.getUser().then(user =>this.user = new User(user));
 
     //async load list of shuttles from /get_shuttles
     this.dashboardService.getShuttles().then(shuttles => console.log(this.shuttles = shuttles));
@@ -38,4 +37,8 @@ export class DashboardComponent implements OnInit{
     console.log("called init");
     console.log(this.shuttles);
   }
+  signup(shuttle:Shuttle){
+    this.dashboardService.signup(this.user,shuttle);
+  }
+
 }
