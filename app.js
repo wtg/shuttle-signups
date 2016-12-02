@@ -52,7 +52,7 @@ app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {
         res.redirect('/logout');
    }
-   
+
    res.redirect('/dashboard');
 });
 
@@ -60,7 +60,7 @@ app.get('/dashboard', function (req, res) {
    if (!req.session || !req.session.cas_user) {
         res.redirect('/login');
    }
-   
+
    res.sendFile( __dirname + "/web/dashboard.html" );
 });
 
@@ -69,7 +69,7 @@ app.get('/logout', cas.logout);
 // Catch 404s
 app.use(function (req, res, next) {
     res.status = 404;
-   
+
    // respond with html page
    if (req.accepts('html')) {
       res.sendFile(__dirname + "/web/404.html");
@@ -81,11 +81,17 @@ app.use(function (req, res, next) {
        res.send({ error: 'Not found' });
        return;
    }
-   
+
    res.type('txt').send('Not found');
 });
 
+if(!(process.env.NODE_ENV == "development" ||
+    process.env.NODE_ENV == "production")){
+    process.env.NODE_ENV = "production";
+}
+const port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log('Listening on port ' + port);
+  console.log('...in ' + process.env.NODE_ENV + ' mode.');
 
-app.listen(3000, function () {
-  console.log('Listening on port 3000.');
 });

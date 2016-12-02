@@ -24,12 +24,11 @@ export class DashboardComponent implements OnInit{
 
     //async load current user from /current_user
     this.dashboardService.getUser().then(user =>this.user = new User(user));
+      //async load list of shuttles from /get_shuttles
+        this.dashboardService.getShuttles().then(shuttles => console.log(this.shuttles = shuttles));
 
-    //async load list of shuttles from /get_shuttles
-    this.dashboardService.getShuttles().then(shuttles => console.log(this.shuttles = shuttles));
-
-    //debug log that the component loaded.
-    console.log("Made a Component");
+        //debug log that the component loaded.
+        console.log("Made a Component");
   }
 
   //called after construcotr, the promises should be resolved by now.
@@ -39,6 +38,10 @@ export class DashboardComponent implements OnInit{
   }
   signup(shuttle:Shuttle){
     this.dashboardService.signup(this.user,shuttle);
+  }
+  unsignup(shuttle:Shuttle){
+    this.dashboardService.unsignup(this.user,shuttle);
+
   }
 
 }

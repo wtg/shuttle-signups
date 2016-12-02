@@ -52,6 +52,21 @@ export class DashboardService {
           shuttle.message = "" + res.status;
         } );
     }
+    unsignup(user:User,shuttle:Shuttle){
+      console.log(user);
+        var data = {
+          "id":shuttle._id,
+          "numGuests":user.numGuests,
+          "guestsOnly":user.guestsOnly
+        }
+        console.log(data);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        this.http.post(this.baseURL + "unsignup_shuttle/",data,options).toPromise().then(res =>{
+          console.log(res);
+          shuttle.message = "" + res.status;
+        } );
+    }
 
     // private extractData(res: Response) {
     //     let body = res.json();
