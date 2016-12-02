@@ -67,6 +67,12 @@ export class DashboardService {
           shuttle.message = "" + res.status;
         } );
     }
+    getusershuttles(user:User):Promise<Shuttle[]>{
+      return this.http.get(this.baseURL + "get_user_shuttles/")
+          .toPromise()
+          .then(response => response.json() as Shuttle[] )
+          .catch(this.handleError);
+    }
 
     // private extractData(res: Response) {
     //     let body = res.json();
