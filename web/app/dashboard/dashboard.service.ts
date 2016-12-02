@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import {User } from './user';
+import {Shuttle} from './shuttle';
+import { Headers, RequestOptions } from '@angular/http';
+
 // Statics
 import 'rxjs/add/observable/throw';
 
@@ -15,24 +18,48 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DashboardService {
-    private userUrl = '/api/current_user'
+    private baseURL = '/api/';
+
     constructor(private http: Http) {
-    console.log("Made a service");
-  }
+        console.log("Made a service");
+    }
 
     getUser(): Promise<User> {
-      return this.http.get(this.userUrl)
-               .toPromise()
-               .then(response => response.json() as User)
-               .catch(this.handleError);
+        return this.http.get(this.baseURL + "current_user/")
+
+            .toPromise()
+            .then(response => response.json() as User)
+            .catch(this.handleError);
+    }
+    getShuttles(): Promise<Shuttle[]> {
+        return this.http.get(this.baseURL + "get_shuttles/")
+            .toPromise()
+            .then(response => response.json().data as Shuttle[])
+            .catch(this.handleError);
+    }
+    signup(user:User,shuttle:Shuttle) {
+      console.log(user);
+        var data = {
+          "id":shuttle._id,
+          "numGuests":user.numGuests,
+          "guestsOnly":user.guestsOnly
+        }
+        console.log(data);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        this.http.post(this.baseURL + "signup_shuttle/",data,options).toPromise().then(res =>{
+          console.log(res);
+          shuttle.message = "" + res.status;
+        } );
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        console.log("extracting data");
-        // console.log(body);
-        return body.data || {};
-    }
+    // private extractData(res: Response) {
+    //     let body = res.json();
+    //     console.log("extracting data");
+    //     console.log(body);
+    //     return body.data || {};
+    // }
+
 
     private handleError(error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure

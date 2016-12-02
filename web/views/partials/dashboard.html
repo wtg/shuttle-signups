@@ -5,6 +5,22 @@
   you RCS ID is {{user.username}}
 </h4>
 <p>
-  Data from the server is:
-  {{data}}
+  Guests: {{user.numGuests}}</p>
+<p>
+  guestsOnly: {{user.guestsOnly}}
 </p>
+
+<hr />
+<h1>Current Shuttles:</h1>
+<ul class="shuttles">
+  <li *ngFor="let shuttle of shuttles">
+    <span>
+    {{shuttle.origin[0].name}} ➡️ {{shuttle.destination[0].name}} ,
+    {{shuttle.riders.length}} of
+    {{shuttle.guestsAllowed}} riders</span>
+    <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
+    <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
+    {{shuttle.message}}
+  </li>
+</ul>
+<hr />
