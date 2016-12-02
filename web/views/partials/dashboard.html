@@ -5,7 +5,9 @@
   you RCS ID is {{user.username}}
 </h4>
 <p>
-  Guests: {{user.numGuests}}</p>
+  <!-- un comment this and change the value to crash the app-->
+  <!-- <label>Guests: <input type="number" ng-model="user.numGuests"></label> -->
+  guests: {{user.numGuests}}
 <p>
   guestsOnly: {{user.guestsOnly}}
 </p>
@@ -17,10 +19,23 @@
     <span>
     {{shuttle.origin[0].name}} ➡️ {{shuttle.destination[0].name}} ,
     {{shuttle.riders.length}} of
-    {{shuttle.guestsAllowed}} riders</span>
+    {{shuttle.maxCapacity}} riders</span>
     <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
     <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
     {{shuttle.message}}
   </li>
 </ul>
 <hr />
+<h1>User Shuttles:</h1>
+<!-- <button  (click)="getusershuttles()">get user shuttles</button> -->
+<ul class="shuttles">
+  <li *ngFor="let shuttle of usershuttles">
+    <span>
+    {{shuttle.origin[0].name}} ➡️ {{shuttle.destination[0].name}} ,
+    {{shuttle.riders.length}} of
+    {{shuttle.maxCapacity}} riders</span>
+    <button  (click)="unsignup(shuttle)">Unsign up</button>
+    {{shuttle.message}}
+  </li>
+</ul>
+{{user.shuttles}}
