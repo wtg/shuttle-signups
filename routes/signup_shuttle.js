@@ -73,20 +73,23 @@ router.post('/', function(req, res) {
 					return;
 				});
 			}
-			// This means there aren't any vacancies on the shuttle
-			waitlist.push(rcs_id);
-			Shuttle.findOneAndUpdate({
-				_id: shuttleID
-			}, {
-				waitlist: waitlist
-			}, function(err) {
-				if (err) {
-					res.send("There was an error adding you to the waitlist for shuttle " + shuttleID);
+			
+			else {
+				// This means there aren't any vacancies on the shuttle
+				waitlist.push(rcs_id);
+				Shuttle.findOneAndUpdate({
+					_id: shuttleID
+				}, {
+					waitlist: waitlist
+				}, function(err) {
+					if (err) {
+						res.send("There was an error adding you to the waitlist for shuttle " + shuttleID);
+						return;
+					}
+					res.send("You've been added to the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.length + " in line.");
 					return;
-				}
-				res.send("You've been added to the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.length + " in line.");
-				return;
-			});
+				});
+			}
 		}
 		// ... They're bringing guests (or at least have indicated their willingness to do so)
 		else if (numGuests > 0) {
