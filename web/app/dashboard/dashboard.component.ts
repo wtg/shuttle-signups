@@ -16,10 +16,11 @@ export class DashboardComponent implements OnInit {
     public user: User;
     public shuttles: Shuttle[];
     public usershuttles: Shuttle[];
+    private godmode:boolean;
     //dashboard constructor, fetch data from server
     constructor(private dashboardService: DashboardService) {
+      this.godmode = false;
         // Display entertaining blank user while async load
-        // this.user = new User("Shirley","001RPI");
         this.user = new User();
         // this.shuttles = new Array<Shuttle>();
 
@@ -41,14 +42,29 @@ export class DashboardComponent implements OnInit {
         console.log("called init");
     }
     signup(shuttle: Shuttle) {
-        this.dashboardService.signup(this.user, shuttle);
+        this.dashboardService.signup(this.user, shuttle).then(data =>this.usershuttles.push(shuttle))
     }
     unsignup(shuttle: Shuttle) {
-        this.dashboardService.unsignup(this.user, shuttle);
+        this.dashboardService.unsignup(this.user, shuttle).then(data => this.usershuttles.pop());
     }
     getusershuttles() {
         this.dashboardService.getusershuttles(this.user).then(shuttles =>
           console.log(this.usershuttles = shuttles));
     }
+    togglegodmode(){
+      this.godmode = !this.godmode;
+      // console.log("godmode: " + this.godmode)
+    }
+    deleteshuttle(shuttle:Shuttle){
+      this.dashboardService.cancelshuttle(shuttle);
+    }
+    cancelshuttle(shuttle:Shuttle){
+      this.dashboardService.cancelshuttle(shuttle);
+
+    }
+    // modifyshuttle(shuttle:Shuttle){
+    //   this.dashboardService.modifyshuttle(shuttle);
+    //
+    // }
 
 }

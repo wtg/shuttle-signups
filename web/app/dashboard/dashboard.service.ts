@@ -37,7 +37,7 @@ export class DashboardService {
             .then(response => response.json().data as Shuttle[])
             .catch(this.handleError);
     }
-    signup(user:User,shuttle:Shuttle) {
+    signup(user:User,shuttle:Shuttle):Promise<void> {
       console.log(user);
         var data = {
           "id":shuttle._id,
@@ -47,12 +47,12 @@ export class DashboardService {
         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post(this.baseURL + "signup_shuttle/",data,options).toPromise().then(res =>{
+        return this.http.post(this.baseURL + "signup_shuttle/",data,options).toPromise().then(res =>{
           console.log(res);
           shuttle.message = "" + res.status;
         } );
     }
-    unsignup(user:User,shuttle:Shuttle){
+    unsignup(user:User,shuttle:Shuttle):Promise<void>{
       console.log(user);
         var data = {
           "id":shuttle._id,
@@ -62,7 +62,7 @@ export class DashboardService {
         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this.http.post(this.baseURL + "unsignup_shuttle/",data,options).toPromise().then(res =>{
+        return this.http.post(this.baseURL + "unsignup_shuttle/",data,options).toPromise().then(res =>{
           console.log(res);
           shuttle.message = "" + res.status;
         } );
@@ -73,6 +73,44 @@ export class DashboardService {
           .then(response => response.json() as Shuttle[] )
           .catch(this.handleError);
     }
+    deleteshuttle(shuttle:Shuttle):Promise<Response>{
+      var data = {
+        "id":shuttle._id,
+      }
+      console.log(data);
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(this.baseURL + "delete_shuttle/",data,options)
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+    }
+    cancelshuttle(shuttle:Shuttle){
+      var data = {
+        "id":shuttle._id,
+      }
+      console.log(data);
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      this.http.post(this.baseURL + "cancel_shuttle/",data,options)
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+
+    }
+    //uncomment once implemented on backend
+    // modifyshuttle(shuttle:Shuttle):Promise<Response>{
+      // var data = {
+      //   "id":shuttle._id,
+      // }
+      // console.log(data);
+      // let headers = new Headers({ 'Content-Type': 'application/json' });
+      // let options = new RequestOptions({ headers: headers });
+      // return this.http.post(this.baseURL + "modify_shuttle/",data,options)
+      // .toPromise()
+      // .then(response => response)
+      // .catch(this.handleError);
+    // }
 
     // private extractData(res: Response) {
     //     let body = res.json();
