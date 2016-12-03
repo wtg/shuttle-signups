@@ -9,15 +9,15 @@ button{
   border: none;
   text-decoration: none;
   height: 100%;
-  padding: 10px;
+  padding: 0;
   margin: 0;
-  max-height: 2em;
+  max-height: 3em;
   background-color: $button-bg-color;
   color: $button-f-color;
   font-family: $font-stack;
   font-size: 1em;
   padding: .25em;
-  margin-right: .25em;
+  margin-right: 1px;
 }
 button[disabled=disabled], button:disabled{
   background-color: lighten($button-bg-color, 10%);
@@ -50,12 +50,15 @@ button[disabled=disabled], button:disabled{
     // padding-top: 0.5em;
     padding: 0;
     margin: 0;
-    height: 2em;
+    // height: 2em;
+    max-height: 5em;
     background-color: whitesmoke;
     flex-basis: fit-content;
     display: flex;
     flex-flow: row;
+    flex-wrap: wrap;
     justify-content:flex-start;
+    overflow-x: scroll;
 }
 .shuttle-info span{
   // padding: .25em;
