@@ -23,9 +23,9 @@ your RCS ID is {{user.username}}
             <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
             <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
             <span *ngIf="godmode">
-              <button>click me</button>
               <button (click)="deleteshuttle(shuttle)">delete</button>
               <button (click)="cancelshuttle(shuttle)">cancel</button>
+              <span>id: {{shuttle._id}}</span>
             </span> {{shuttle.message}}
         </li>
     </ul>
@@ -39,11 +39,14 @@ your RCS ID is {{user.username}}
     {{shuttle.riders.length}} of
     {{shuttle.maxCapacity}} riders</span>
             <button (click)="unsignup(shuttle)">Unsign up</button> {{shuttle.message}}
+            <span *ngIf="godmode">
+              <span>id: {{shuttle._id}}</span>
+            </span>
         </li>
     </ul>
     <hr />
     <h1>Admin</h1>
     <button (click)="togglegodmode()">god mode</button>
     <div *ngIf="godmode">
-
+      <shuttle-form></shuttle-form>
     </div>

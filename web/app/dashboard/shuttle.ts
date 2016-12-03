@@ -16,11 +16,23 @@ export class Shuttle {
     this.isActive= arg && arg.isActive || false;
     this.maxCapacity= arg && arg.maxCapacity || 0;
     this.vacancies= arg && arg.vacancies || 0;
-    this.guestsAllowed= arg && arg.guestsAllowed || false;
+    this.guestsAllowed= arg && arg.guestsAllowed || 0;
     this.riders= arg && arg.riders || 0;
     this.waitlist= arg && arg.waitlist || [];
-    this.destination= arg && arg.destination || "NoWhere";
-    this.origin= arg && arg.origin || "NoWhere";
+    this.destination= arg && arg.destination || [
+        {
+          "longitude": null,
+          "latitude": null,
+          "name": "No Where"
+        }
+      ];
+    this.origin= arg && arg.origin || [
+        {
+          "longitude": null,
+          "latitude": null,
+          "name": "No Where"
+        }
+      ];
     this.message= arg && arg.message || "nothing";
 
   }
