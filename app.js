@@ -89,7 +89,7 @@ if(!(process.env.NODE_ENV == "development" ||
     process.env.NODE_ENV == "production")){
     process.env.NODE_ENV = "production";
 }
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.listen(port, function () {
   console.log('Listening on port ' + port);
   console.log('...in ' + process.env.NODE_ENV + ' mode.');
