@@ -1,136 +1,3 @@
-<style>
-  .shuttle {
-    padding-top: 1em;
-  }
-
-  .breadcrumb,
-  ul {
-    padding: 0;
-    list-style: none;
-    overflow: hidden;
-    font: 18px Helvetica, Arial, Sans-Serif;
-  }
-
-  .breadcrumb li {
-    float: left;
-  }
-
-  .breadcrumb li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 10px 10px 55px;
-    background: brown;
-    /* fallback color */
-    background: hsla(34, 85%, 35%, 1);
-    position: relative;
-    display: block;
-    float: left;
-  }
-
-  .breadcrumb li a:after {
-    content: " ";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 50px solid transparent;
-    /* Go big on the size, and let overflow hide */
-    border-bottom: 50px solid transparent;
-    border-left: 30px solid hsla(34, 85%, 35%, 1);
-    position: absolute;
-    top: 50%;
-    margin-top: -50px;
-    left: 100%;
-    z-index: 2;
-  }
-
-  .breadcrumb li a:before {
-    content: " ";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 50px solid transparent;
-    /* Go big on the size, and let overflow hide */
-    border-bottom: 50px solid transparent;
-    border-left: 30px solid white;
-    position: absolute;
-    top: 50%;
-    margin-top: -50px;
-    margin-left: 1px;
-    left: 100%;
-    z-index: 1;
-  }
-
-  .breadcrumb li:first-child a {
-    padding-left: 10px;
-  }
-
-  .breadcrumb li:nth-child(2) a {
-    background: hsla(34, 85%, 45%, 1);
-  }
-
-  .breadcrumb li:nth-child(2) a:after {
-    border-left-color: hsla(34, 85%, 45%, 1);
-  }
-
-  .breadcrumb li:nth-child(3) a {
-    background: hsla(34, 85%, 55%, 1);
-  }
-
-  .breadcrumb li:nth-child(3) a:after {
-    border-left-color: hsla(34, 85%, 55%, 1);
-  }
-
-  .breadcrumb li:nth-child(4) a {
-    background: hsla(34, 85%, 65%, 1);
-  }
-
-  .breadcrumb li:nth-child(4) a:after {
-    border-left-color: hsla(34, 85%, 65%, 1);
-  }
-
-  .breadcrumb li:nth-child(5) a {
-    background: hsla(34, 85%, 75%, 1);
-  }
-
-  .breadcrumb li:nth-child(5) a:after {
-    border-left-color: hsla(34, 85%, 75%, 1);
-  }
-
-  .breadcrumb li:last-child a {
-    /*background: white !important;*/
-    /*color: black;*/
-    /*pointer-events: none;*/
-    /*cursor: default;*/
-    /*padding-right: 100px;*/
-  }
-
-  .breadcrumb li:last-child a:after {
-    content: " ";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 50px solid white;
-    /* Go big on the size, and let overflow hide */
-    border-bottom: 50px solid white;
-    border-left: 30px solid white;
-    position: absolute;
-    top: 50%;
-    /*margin-top: -50px;*/
-    /*margin-left: 1px;*/
-    /*left: 100%;*/
-    z-index: 1;
-
-  }
-
-
-  .breadcrumb li a:hover {
-    background: hsla(34, 85%, 25%, 1);
-  }
-
-  .breadcrumb li a:hover:after {
-    border-left-color: hsla(34, 85%, 25%, 1) !important;
-  }
-</style>
 <h1>
   Hey, {{user.first_name}}
 </h1>
@@ -146,29 +13,33 @@ your RCS ID is {{user.username}}
   </p>
 
   <hr />
-  <span></span>
   <h1>Availible Shuttles:</h1>
   <button (click)="getshuttles() ">refresh</button>
   <ul class="shuttles">
     <li *ngFor="let shuttle of shuttles">
-      <div class="shuttle">
-        <ul class="breadcrumb">
-          <li><a href="#">{{shuttle.origin[0].name}}</a>
-          </li>
-          <li>
-            <a href="#">{{shuttle.destination[0].name}}</a>
-          </li>
-          <li>
-            <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
-          </li>
-        </ul>
-        <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
-        <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
-        <span *ngIf="godmode">
-              <button (click)="deleteshuttle(shuttle)">delete</button>
-              <button (click)="cancelshuttle(shuttle)">cancel</button>
-              <span>id: {{shuttle._id}}</span>
-        </span> {{shuttle.message}}
+      <div class="shuttle-container">
+        <div class="shuttle">
+          <div class="shuttle-route-container">
+            <ul class="breadcrumb">
+              <li><a href="#">{{shuttle.origin[0].name}}</a>
+              </li>
+              <li>
+                <a href="#">{{shuttle.destination[0].name}}</a>
+              </li>
+              <li>
+                <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="shuttle-info">
+            <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
+            <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
+            <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
+            <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
+            <span *ngIf="godmode">id: {{shuttle._id}}</span>
+            <span *ngIf="godmode">message: {{shuttle.message}}</span>
+          </div>
+        </div>
       </div>
     </li>
   </ul>
@@ -177,14 +48,30 @@ your RCS ID is {{user.username}}
   <!-- <button  (click)="getusershuttles()">get user shuttles</button> -->
   <ul class="shuttles">
     <li *ngFor="let shuttle of usershuttles">
-      <span>
-    {{shuttle.origin[0].name}} ➡️ {{shuttle.destination[0].name}} ,
-    {{shuttle.riders.length}} of
-    {{shuttle.maxCapacity}} riders</span>
-      <button (click)="unsignup(shuttle)">Unsign up</button> {{shuttle.message}}
-      <span *ngIf="godmode">
-              <span>id: {{shuttle._id}}</span>
-      </span>
+      <div class="shuttle-container">
+        <div class="shuttle">
+          <div class="shuttle-route-container">
+            <ul class="breadcrumb">
+              <li><a href="#">{{shuttle.origin[0].name}}</a>
+              </li>
+              <li>
+                <a href="#">{{shuttle.destination[0].name}}</a>
+              </li>
+              <li>
+                <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="shuttle-info">
+            <button *ngIf="shuttle.isActive" (click)="unsignup(shuttle)">Unsign up</button>
+            <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
+            <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
+            <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
+            <span *ngIf="godmode">id: {{shuttle._id}}</span>
+            <span *ngIf="godmode">message: {{shuttle.message}}</span>
+          </div>
+        </div>
+      </div>
     </li>
   </ul>
   <hr />
