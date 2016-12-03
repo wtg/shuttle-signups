@@ -27,12 +27,12 @@ In the future, we'll provide an init script that will allow running Shuttle Sign
   - [ ] Allow storing of student phone numbers
     * This one is rather tricky because it requires us to actually store users in the database in some form, instead of relying completely on CMS
   - [ ] Store shuttle history
-		* Currently, shuttles don't ever leave the database, so they can be queryable after they've been completed. However, this can cause the database to fill up rather quickly, so in the future, we'll probably make an archive for shuttles, sepearate from the main, active database.
-	- [ ] Email reminders to users
-		* [Nodemailer](https://nodemailer.com/) is totally going to be our friend here. We should allow the time frame for the reminder to be configured per-shuttle, for groups of shuttles, or globally across the application. This will also be useful in notifying students of cancelled, or delayed shuttles.
-	- [X] Luggage restrictions
-		* This information, and much more, can be specified in the notes section for a shuttle, which was added in ```e09fe30```.
-	- [ ] Allow administrator override to add people past bus capacity
-		* We'll need to modify signup_shuttle and unsignup_shuttle to allow administators to specify a user, and add and remove them from shuttles.
-	- [ ] Close waitlist when departure is soon
-		* Allow the closing time to be configurable. I don't know if we'd like to extend this functionality to the ```users``` list for a shuttle as well.
+    * Currently, shuttles don't ever leave the database, so they can be queryable after they've been completed. However, this can cause the database to fill up rather quickly, so in the future, we'll probably make an archive for shuttles, sepearate from the main, active database.
+  - [ ] Email reminders to users
+    * [Nodemailer](https://nodemailer.com/) is totally going to be our friend here. We should allow the time frame for the reminder to be configured per-shuttle, for groups of shuttles, or globally across the application. This will also be useful in notifying students of cancelled, or delayed shuttles.
+  - [X] Luggage restrictions
+    * This information, and much more, can be specified in the notes section for a shuttle, which was added in ```e09fe30```.
+  - [ ] Allow administrator override to add people past bus capacity
+    * We'll need to modify signup_shuttle and unsignup_shuttle to allow administators to specify a user, and add and remove them from shuttles.
+  - [ ] Close waitlist when departure is soon
+    * Allow the closing time to be configurable. I don't know if we'd like to extend this functionality to the ```users``` list for a shuttle as well.
