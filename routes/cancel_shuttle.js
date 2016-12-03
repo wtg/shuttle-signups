@@ -1,6 +1,6 @@
 //include all required helper files
-const express = require('express');
-const router = express.Router();
+const feathers = require('feathers');
+const router = feathers.Router();
 const cms = require('../cms.js');
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
