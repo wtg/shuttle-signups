@@ -13,7 +13,7 @@ your RCS ID is {{user.username}}
     </p>
 
     <hr />
-    <h1>Availible Shuttles:</h1>
+    <span></span><h1>Availible Shuttles:</h1><button (click)="getshuttles()">refresh</button>
     <ul class="shuttles">
         <li *ngFor="let shuttle of shuttles">
             <span>
