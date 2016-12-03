@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const cms = require('../cms.js');
+const helperLib = require("../helper.js").helpers;
+const helper = new helperLib();
 module.exports = router;
 router.get('/', function(req, res) {
 
@@ -20,7 +22,8 @@ router.get('/', function(req, res) {
 		// username, student_id (is rin), last_name, middle_name, user_type
 		res.json({
 			username: rcs_id,
-			first_name: user_data.preferred_name || user_data.first_name
+			first_name: user_data.preferred_name || user_data.first_name,
+			isAdmin: helper.isAdmin(rcs_id)
 		});
 	});
 });
