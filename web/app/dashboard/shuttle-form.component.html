@@ -1,0 +1,42 @@
+<div class="container">
+  {{diagnostic}}
+  <div [hidden]="submitted">
+    <h1>Shuttle Form</h1>
+    <form (ngSubmit)="onSubmit()" #shuttleForm="ngForm">
+      <div class="form-group">
+        <label for="isActive">Active</label>
+        <div *ngFor="let opt of booleans">
+          <span><label>
+            <input type="radio" name="isActive" [(ngModel)]="model.isActive" [value]="opt.value"> {{opt.display}}
+          </label></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="maxCapacity">maxCapacity</label>
+        <input type="number" class="form-control" id="maxCapacity" required [(ngModel)]="model.maxCapacity" name="maxCapacity" #name="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="guestsAllowed">guestsAllowed</label>
+        <input type="number" class="form-control" id="guestsAllowed" required [(ngModel)]="model.guestsAllowed" name="guestsAllowed" #name="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="destination">destination</label>
+        <input type="text" class="form-control" id="destination" required [(ngModel)]="model.destination[0].name" name="destination" #name="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="origin">origin</label>
+        <input type="text" class="form-control" id="origin" required [(ngModel)]="model.origin[0].name" name="origin" #name="ngModel">
+      </div>
+      <button type="submit" class="btn btn-default" [disabled]="!shuttleForm.form.valid">Submit</button>
+      <button type="button" class="btn btn-default" (click)="newShuttle(); shuttleForm.reset()">New shuttle</button>
+    </form>
+  </div>
+  <div [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <pre>
+      {{diagnostic}}
+    </pre>
+    <br>
+    <button class="btn btn-default" (click)="submitted=false">Edit</button>
+  </div>
+</div>

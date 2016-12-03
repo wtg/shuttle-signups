@@ -42,10 +42,18 @@ export class DashboardComponent implements OnInit {
         console.log("called init");
     }
     signup(shuttle: Shuttle) {
-        this.dashboardService.signup(this.user, shuttle).then(data =>this.usershuttles.push(shuttle))
+        this.dashboardService.signup(this.user, shuttle).then(data => {
+          this.usershuttles.push(shuttle);
+          var index: number = this.shuttles.indexOf(shuttle,0);
+          if(index > -1){
+            this.shuttles.splice(index,1);
+          }
+        }
+        )
     }
     unsignup(shuttle: Shuttle) {
-        this.dashboardService.unsignup(this.user, shuttle).then(data => this.usershuttles.pop());
+        var res: any = this.dashboardService.unsignup(this.user, shuttle).then(data => this.usershuttles.pop());
+        res.then(d => console.log("d is" + d,d));
     }
     getusershuttles() {
         this.dashboardService.getusershuttles(this.user).then(shuttles =>
@@ -56,11 +64,14 @@ export class DashboardComponent implements OnInit {
       // console.log("godmode: " + this.godmode)
     }
     deleteshuttle(shuttle:Shuttle){
-      this.dashboardService.cancelshuttle(shuttle);
+      this.dashboardService.deleteshuttle(shuttle);
     }
     cancelshuttle(shuttle:Shuttle){
       this.dashboardService.cancelshuttle(shuttle);
 
+    }
+    addshuttle(shuttle:Shuttle){
+      this.dashboardService.addshuttle(shuttle);
     }
     // modifyshuttle(shuttle:Shuttle){
     //   this.dashboardService.modifyshuttle(shuttle);

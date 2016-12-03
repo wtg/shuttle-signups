@@ -49,7 +49,7 @@ export class DashboardService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.baseURL + "signup_shuttle/",data,options).toPromise().then(res =>{
           console.log(res);
-          shuttle.message = "" + res.status;
+          shuttle.message = "" + res["_body"];
         } );
     }
     unsignup(user:User,shuttle:Shuttle):Promise<void>{
@@ -64,7 +64,7 @@ export class DashboardService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.baseURL + "unsignup_shuttle/",data,options).toPromise().then(res =>{
           console.log(res);
-          shuttle.message = "" + res.status;
+          shuttle.message = "" + res["_body"];
         } );
     }
     getusershuttles(user:User):Promise<Shuttle[]>{
@@ -95,6 +95,15 @@ export class DashboardService {
       this.http.post(this.baseURL + "cancel_shuttle/",data,options)
       .toPromise()
       .then(response => response)
+      .catch(this.handleError);
+
+    }
+    addshuttle(shuttle:Shuttle){
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      this.http.post(this.baseURL + "add_shuttle/",shuttle,options)
+      .toPromise()
+      .then(response => console.log(response))
       .catch(this.handleError);
 
     }
