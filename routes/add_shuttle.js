@@ -28,6 +28,7 @@ router.post('/', function(req, res) {
 			maxCapacity: req.body.maxCapacity,
 			vacancies: req.body.maxCapacity,
 			guestsAllowed: req.body.guestsAllowed,
+			notes: req.body.notes,
 			riders: [],
 			waitlist: []
 		});

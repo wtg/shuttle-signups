@@ -11,6 +11,7 @@ var shuttleSchema = new Schema({
       guestsAllowed: Number,
       riders: Array,
       waitlist: Array,
+      notes: String
 });
 
 module.exports = mongoose.model('Shuttle', shuttleSchema);
