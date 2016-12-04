@@ -1,5 +1,7 @@
 //dependencies
-const express = require('express');
+const feathers = require('feathers');
+const rest = require('feathers-rest');
+const socketio = require('feathers-socketio');
 const bodyParser = require('body-parser');
 const CASAuthentication = require('cas-authentication');
 const favicon = require('serve-favicon');
@@ -10,10 +12,11 @@ const path = require('path');
 const config = require('./config.js');
 const cms = require('./cms.js');
 const fs = require('fs')
-const app = module.exports = express();
+const app = module.exports = feathers().configure(socketio()).configure(rest()).use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}));
 var helperLib = require("./helper.js").helpers;
 const helper = new helperLib();
 
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/shuttle-signups');
 
 app.use(session({
@@ -30,10 +33,9 @@ const cas = new CASAuthentication({
     cas_version: '2.0',
 });
 
-app.use(express.static('web'));
-app.use(bodyParser.json())
-app.use('/scripts', express.static('node_modules'));
-app.use('/app', express.static('web/app'));
+app.use(feathers.static('web'));
+app.use('/scripts', feathers.static('node_modules'));
+app.use('/app', feathers.static('web/app'));
 app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
 
