@@ -85,14 +85,14 @@ export class DashboardService {
       .then(response => response)
       .catch(this.handleError);
     }
-    cancelshuttle(shuttle:Shuttle){
+    cancelshuttle(shuttle:Shuttle):Promise<Response>{
       var data = {
         "id":shuttle._id,
       }
       console.log(data);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      this.http.post(this.baseURL + "cancel_shuttle/",data,options)
+      return this.http.post(this.baseURL + "cancel_shuttle/",data,options)
       .toPromise()
       .then(response => response)
       .catch(this.handleError);

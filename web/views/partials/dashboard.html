@@ -46,6 +46,7 @@
           <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
           <span *ngIf="godmode">id: {{shuttle._id}}</span>
           <span>{{shuttle.message}}</span>
+          <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
         </div>
       </div>
     </div>

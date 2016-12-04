@@ -17,7 +17,7 @@ export class Shuttle {
     this.maxCapacity= arg && arg.maxCapacity || 0;
     this.vacancies= arg && arg.vacancies || 0;
     this.guestsAllowed= arg && arg.guestsAllowed || 0;
-    this.riders= arg && arg.riders || 0;
+    this.riders= arg && arg.riders || [];
     this.waitlist= arg && arg.waitlist || [];
     this.destination= arg && arg.destination || [
         {

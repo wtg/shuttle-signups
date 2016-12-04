@@ -101,14 +101,19 @@ export class DashboardComponent implements OnInit {
         // console.log("godmode: " + this.godmode)
     }
     deleteshuttle(shuttle: Shuttle) {
-        this.dashboardService.deleteshuttle(shuttle);
+        this.dashboardService.deleteshuttle(shuttle).then(dataa =>
+          this.getshuttles()
+        )
     }
     cancelshuttle(shuttle: Shuttle) {
-        this.dashboardService.cancelshuttle(shuttle);
+        this.dashboardService.cancelshuttle(shuttle).then(data => this.getshuttles());
 
     }
     addshuttle(shuttle: Shuttle) {
         this.dashboardService.addshuttle(shuttle);
+    }
+    getriders(shuttle:Shuttle){
+      return JSON.stringify(shuttle.riders);
     }
     // modifyshuttle(shuttle:Shuttle){
     //   this.dashboardService.modifyshuttle(shuttle);
