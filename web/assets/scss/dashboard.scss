@@ -55,7 +55,7 @@ button[disabled=disabled], button:disabled{
     margin: 0;
     // height: 2em;
     max-height: 5em;
-    background-color: whitesmoke;
+    background-color: rgba(190, 216, 227, 0.78);
     flex-basis: fit-content;
     display: flex;
     flex-flow: row;
@@ -201,4 +201,28 @@ button[disabled=disabled], button:disabled{
     list-style: none;
     flex-direction: column;
   }
+}
+
+.search-container{
+  width: 100vw;
+  min-width: 20em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .search-box{
+    flex-grow: 4;
+    padding-right: 10px;
+  }
+  .search-buttons{
+    flex-grow: 1;
+    align-self: flex-end;
+  }
+  .search-box input{
+    min-width: 10em;
+    width: 100%;
+    font-size: 2em;
+    background-color: darken(whitesmoke,5%);
+  }
+
 }

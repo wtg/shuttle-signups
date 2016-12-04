@@ -18,8 +18,11 @@ export class DashboardComponent implements OnInit {
     public shuttles: Shuttle[];
     public usershuttles: Shuttle[];
     private godmode: boolean;
+    private searchquery: string;
+
     //dashboard constructor, fetch data from server
     constructor(private dashboardService: DashboardService) {
+        this.searchquery = "Rensselaer Union to Crossgates 09/12/16";
         this.godmode = false;
         // Display entertaining blank user while async load
         this.user = new User();
