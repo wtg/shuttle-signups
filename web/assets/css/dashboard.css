@@ -1,3 +1,7 @@
+body, html, div {
+  padding: 0;
+  margin: 0; }
+
 button {
   border: none;
   text-decoration: none;
@@ -129,3 +133,9 @@ button[disabled=disabled], button:disabled {
     background: #134565; }
   .breadcrumb li a:hover:after {
     border-left-color: #134565 !important; } }
+
+@media (max-width: 499px) {
+  .breadcrumb, ul {
+    padding: 0;
+    list-style: none;
+    flex-direction: column; } }

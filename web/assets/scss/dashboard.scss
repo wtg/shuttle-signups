@@ -4,7 +4,10 @@ $shuttle-color3: blue;
 $button-bg-color: grey;
 $button-f-color:white;
 $font-stack: Lato,Helvetica,sans-serif;
-
+body,html,div{
+  padding: 0;
+  margin: 0;
+}
 button{
   border: none;
   text-decoration: none;
@@ -65,6 +68,7 @@ button[disabled=disabled], button:disabled{
   margin-right: 10px;
   padding-right: 10px;
 }
+
 @media(min-width:500px) {
     .breadcrumb,
     ul {
@@ -190,4 +194,11 @@ button[disabled=disabled], button:disabled{
     .breadcrumb li a:hover:after {
         border-left-color: rgb(19, 69, 101) !important;
     }
+}
+@media(max-width:499px){
+  .breadcrumb  , ul{
+    padding: 0;
+    list-style: none;
+    flex-direction: column;
+  }
 }

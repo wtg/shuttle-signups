@@ -1,36 +1,49 @@
 <html>
-  <head>
-    <title>Shuttle Signups</title>
-    <meta charset="UTF-8">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="assets/js/dashboard.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="assets/css/site.css">
-    <!-- 1. Load libraries -->
-     <!-- Polyfill(s) for older browsers -->
-    <script src="/scripts/core-js/client/shim.min.js"></script>
-    <script src="/scripts/zone.js/dist/zone.js"></script>
-    <script src="/scripts/reflect-metadata/Reflect.js"></script>
-    <script src="/scripts/systemjs/dist/system.src.js"></script>
 
-    <!-- 2. Configure SystemJS -->
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('dashboard').catch(function(err){ console.error(err); });
-    </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body>
-    <!-- <shuttle-login> -->
-      <!-- <div class = "loading center"> -->
-      <!-- </div> -->
-    <!-- </shuttle-login> -->
+<head>
+  <title>Shuttle Signups</title>
+  <meta charset="UTF-8">
+  <meta name = "viewport" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport' />
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <!-- 1. Load libraries -->
+  <!-- Polyfill(s) for older browsers -->
+  <script src="/scripts/core-js/client/shim.min.js"></script>
+  <script src="/scripts/zone.js/dist/zone.js"></script>
+  <script src="/scripts/reflect-metadata/Reflect.js"></script>
+  <script src="/scripts/systemjs/dist/system.src.js"></script>
+
+  <!-- 2. Configure SystemJS -->
+  <script src="systemjs.config.js"></script>
+  <script>
+    System.import('dashboard').catch(function(err) {
+      console.error(err);
+    });
+  </script>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+  <!-- <shuttle-login> -->
+  <!-- <div class = "loading center"> -->
+  <!-- </div> -->
+  <!-- </shuttle-login> -->
+  <nav>
+
+  </nav>
+  <main>
     <shuttle-dashboard>
     </shuttle-dashboard>
-   </body>
+  </main>
+  <footer>
+
+  </footer>
+
+</body>
+
 </html>

@@ -9,11 +9,11 @@ your RCS ID is {{user.username}}
   <!-- <label>Guests: <input type="number" ng-model="user.numGuests"></label> -->
   guests: {{user.numGuests}}
   <p>
-    guestsOnly: {{user.guestsOnly}}
+    guests only: {{user.guestsOnly}}
   </p>
 
   <hr />
-  <h1>Availible Shuttles:</h1>
+  <h1>Available Shuttles:</h1>
   <button (click)="getshuttles() ">refresh</button>
   <ul class="shuttles">
     <li *ngFor="let shuttle of shuttles">
