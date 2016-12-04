@@ -1,8 +1,8 @@
-$shuttle-color1: red;
+$shuttle-color1: #e2231b;
 $shuttle-color2: green;
 $shuttle-color3: blue;
 $button-bg-color: grey;
-$button-f-color:white;
+$button-f-color:whitesmoke;
 $font-stack: Lato,Helvetica,sans-serif;
 body,html,div{
   padding: 0;
@@ -123,7 +123,7 @@ button[disabled=disabled], button:disabled{
         border-top: 50px solid transparent;
         /* Go big on the size, and let overflow hide */
         border-bottom: 50px solid transparent;
-        border-left: 30px solid white;
+        border-left: 30px solid transparent;
         position: absolute;
         top: 50%;
         margin-top: -50px;

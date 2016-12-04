@@ -10,7 +10,7 @@ button {
   margin: 0;
   max-height: 3em;
   background-color: grey;
-  color: white;
+  color: whitesmoke;
   font-family: Lato, Helvetica, sans-serif;
   font-size: 1em;
   padding: .25em;
@@ -18,7 +18,7 @@ button {
 
 button[disabled=disabled], button:disabled {
   background-color: #9a9a9a;
-  color: #cccccc; }
+  color: #c2c2c2; }
 
 .shuttle-container {
   width: 100vw; }
@@ -67,7 +67,7 @@ button[disabled=disabled], button:disabled {
     overflow: hidden;
     font: 18px Helvetica, Arial, Sans-Serif; }
   .breadcrumb li a {
-    background-color: red;
+    background-color: #e2231b;
     color: white;
     text-decoration: none;
     position: relative;
@@ -82,7 +82,7 @@ button[disabled=disabled], button:disabled {
     border-top: 50px solid transparent;
     /* Go big on the size, and let overflow hide */
     border-bottom: 50px solid transparent;
-    border-left: 30px solid red;
+    border-left: 30px solid #e2231b;
     position: absolute;
     top: 50%;
     margin-top: -50px;
@@ -96,7 +96,7 @@ button[disabled=disabled], button:disabled {
     border-top: 50px solid transparent;
     /* Go big on the size, and let overflow hide */
     border-bottom: 50px solid transparent;
-    border-left: 30px solid white;
+    border-left: 30px solid transparent;
     position: absolute;
     top: 50%;
     margin-top: -50px;
@@ -110,21 +110,21 @@ button[disabled=disabled], button:disabled {
     width: 100%; }
   
   .breadcrumb li:nth-child(2) a {
-    background: #1ae6e6; }
+    background: #34c3c9; }
   .breadcrumb li:nth-child(2) a:after {
-    border-left-color: #1ae6e6; }
+    border-left-color: #34c3c9; }
   .breadcrumb li:nth-child(3) a {
-    background: #cc3333; }
+    background: #af524e; }
   .breadcrumb li:nth-child(3) a:after {
-    border-left-color: #cc3333; }
+    border-left-color: #af524e; }
   .breadcrumb li:nth-child(4) a {
-    background: #b34d4d; }
+    background: #966967; }
   .breadcrumb li:nth-child(4) a:after {
-    border-left-color: #4db3b3; }
+    border-left-color: #699698; }
   .breadcrumb li:nth-child(5) a {
-    background: #996666; }
+    background: #7f7f7f; }
   .breadcrumb li:nth-child(5) a:after {
-    border-left-color: #669999; }
+    border-left-color: #818181; }
   .breadcrumb li:last-child {
     margin-right: 1em; }
   .breadcrumb li:last-child a {

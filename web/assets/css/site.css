@@ -4,5 +4,65 @@ html {
   background: #a62529; }
 
 body {
+  margin: 0;
+  padding: 0;
+  min-height: 101vh; }
+
+main {
+  min-height: 100vh;
   padding: 20px;
-  margin: 0; }
+  margin-left: auto; }
+
+nav {
+  padding: 0;
+  margin: 0;
+  background-color: black;
+  display: flex; }
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: column;
+  height: 5em;
+  background-color: black;
+  position: relative; }
+
+nav ul {
+  width: 100vw;
+  font: Lato,Helvetica;
+  font-size: 2.5em;
+  padding-left: 0;
+  margin: 0;
+  background-color: #0f3650;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  flex-wrap: nowrap; }
+
+nav ul li {
+  padding: .25em;
+  list-style: none; }
+
+nav ul li a {
+  cursor: pointer;
+  cursor: hand;
+  color: whitesmoke; }
+
+nav ul li a:active, nav ul li a:hover {
+  background-color: #2f678f; }
+
+.credits {
+  color: grey;
+  font-size: 1em;
+  text-align: center; }
+
+.credits a {
+  text-decoration: none;
+  color: lightgrey;
+  font-size: 1em; }
+
+#home {
+  align-self: flex-start; }
+
+#account {
+  align-self: flex-end; }
