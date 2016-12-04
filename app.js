@@ -10,8 +10,9 @@ const path = require('path');
 const config = require('./config.js');
 const cms = require('./cms.js');
 const fs = require('fs')
-const app = module.exports = express()
-var helperLib = require("./helper.js").helpers;
+const app = module.exports = express();
+const expressWs = require('express-ws')(app);
+const helperLib = require("./helper.js").helpers;
 const helper = new helperLib();
 
 mongoose.Promise = global.Promise;
@@ -42,6 +43,7 @@ app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 app.use('/api/current_user', require('./routes/current_user'));
 app.use('/api/add_shuttle', require('./routes/add_shuttle'));
 app.use('/api/get_shuttles', require('./routes/get_shuttles'));
+app.ws('/api/get_shuttles', require('./routes/get_shuttles_WEBSOCKETS'));
 app.use('/api/get_user_shuttles', require('./routes/get_user_shuttles'));
 app.use('/api/cancel_shuttle', require('./routes/cancel_shuttle'));
 app.use('/api/delete_shuttle', require('./routes/delete_shuttle'));
