@@ -1,5 +1,5 @@
-const feathers = require('feathers');
-const router = feathers.Router();
+const express = require('express');
+const router = express.Router();
 const cms = require('../cms.js');
 const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
