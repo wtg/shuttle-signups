@@ -7,6 +7,7 @@ import {Shuttle} from './shuttle'
 @Component({
     selector: 'shuttle-dashboard',
     templateUrl: 'views/partials/dashboard.html',
+    styleUrls: ['assets/css/dashboard.css'],
     providers: [DashboardService]
 })
 
@@ -42,7 +43,7 @@ export class DashboardComponent implements OnInit {
     }
     getshuttles() {
         this.dashboardService.getShuttles().then(shuttles => {
-            console.log(this.shuttles = shuttles);
+            // console.log(this.shuttles = shuttles);
             this.dashboardService.getusershuttles(this.user).then(data => {
                 this.usershuttles = data;
                 //now diff user shuttles and availible shuttles
@@ -53,10 +54,10 @@ export class DashboardComponent implements OnInit {
                   s.set(this.usershuttles[i]._id,this.usershuttles[i]);
                 }
                 console.log(s);
-                for(var i = 0; i < this.shuttles.length;i++){
-                  console.log(this.shuttles[i]._id,s.has(this.shuttles[i]._id));
-                  if(! s.has(this.shuttles[i]._id)){
-                    s_buf.push(this.shuttles[i]);
+                for(var i = 0; i < shuttles.length;i++){
+                  console.log(shuttles[i]._id,s.has(shuttles[i]._id));
+                  if(! s.has(shuttles[i]._id)){
+                    s_buf.push(shuttles[i]);
                   }
                 }
                 this.shuttles=s_buf;

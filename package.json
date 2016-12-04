@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc -p ./web/\" \"tsc -p ./web/ -w\" \"node app.js\" ",
-    "dev": "concurrently \"tsc -p ./web/ \" \"tsc -p ./web/ -w\" \"PORT=3000 NODE_ENV=development nodemon app.js\"",
-    "build-css":"node-sass --include-path scss web/assets/scss/site.scss web/assets/css/site.css",
+    "dev": "concurrently \"tsc -p ./web/ \" \"tsc -p ./web/ -w\" \"PORT=3000 NODE_ENV=development nodemon app.js\" \"npm run build-css\"",
+    "build-css":"node-sass -w web/assets/scss/ -o web/assets/css/",
     "postinstall": "typings install",
     "typings": "typings"
   },

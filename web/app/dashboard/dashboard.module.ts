@@ -8,7 +8,7 @@ import { DashboardComponent }   from './dashboard.component';
 import { ShuttleFormComponent} from './shuttle-form.component';
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, JsonpModule],
-    declarations: [DashboardComponent,ShuttleFormComponent],
+    declarations: [DashboardComponent, ShuttleFormComponent],
     bootstrap: [DashboardComponent]
 })
 export class DashboardModule { }

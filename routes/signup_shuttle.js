@@ -69,11 +69,11 @@ router.post('/', function(req, res) {
 						res.send("There was an error signing up for shuttle " + shuttleID);
 						return;
 					}
-					res.send("Hey, you're signed up for shuttle " + shuttleID);
+					res.send("OK, you're signed up for shuttle " + shuttleID);
 					return;
 				});
 			}
-			
+
 			else {
 				// This means there aren't any vacancies on the shuttle
 				waitlist.push(rcs_id);
