@@ -37,7 +37,7 @@ your RCS ID is {{user.username}}
             <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
             <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
             <span *ngIf="godmode">id: {{shuttle._id}}</span>
-            <span *ngIf="godmode">message: {{shuttle.message}}</span>
+            <span>{{shuttle.message}}</span>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ your RCS ID is {{user.username}}
             <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
             <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
             <span *ngIf="godmode">id: {{shuttle._id}}</span>
-            <span *ngIf="godmode">message: {{shuttle.message}}</span>
+            <span>{{shuttle.message}}</span>
           </div>
         </div>
       </div>
