@@ -157,3 +157,6 @@ button[disabled=disabled], button:disabled {
     width: 100%;
     font-size: 2em;
     background-color: #e8e8e8; }
+
+#numguests {
+  width: 3em; }

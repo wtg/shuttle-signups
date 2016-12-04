@@ -78,6 +78,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.shuttles.splice(index, 1);
             }
+            this.getshuttles();
         }
         )
     }
@@ -88,6 +89,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.usershuttles.splice(index, 1);
             }
+            this.getshuttles();
         });
     }
     getusershuttles() {
