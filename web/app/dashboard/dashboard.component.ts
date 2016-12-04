@@ -18,8 +18,11 @@ export class DashboardComponent implements OnInit {
     public shuttles: Shuttle[];
     public usershuttles: Shuttle[];
     private godmode: boolean;
+    private searchquery: string;
+
     //dashboard constructor, fetch data from server
     constructor(private dashboardService: DashboardService) {
+        this.searchquery = "Rensselaer Union to Crossgates 09/12/16";
         this.godmode = false;
         // Display entertaining blank user while async load
         this.user = new User();
@@ -75,6 +78,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.shuttles.splice(index, 1);
             }
+            this.getshuttles();
         }
         )
     }
@@ -85,6 +89,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.usershuttles.splice(index, 1);
             }
+            this.getshuttles();
         });
     }
     getusershuttles() {
@@ -96,14 +101,19 @@ export class DashboardComponent implements OnInit {
         // console.log("godmode: " + this.godmode)
     }
     deleteshuttle(shuttle: Shuttle) {
-        this.dashboardService.deleteshuttle(shuttle);
+        this.dashboardService.deleteshuttle(shuttle).then(dataa =>
+          this.getshuttles()
+        )
     }
     cancelshuttle(shuttle: Shuttle) {
-        this.dashboardService.cancelshuttle(shuttle);
+        this.dashboardService.cancelshuttle(shuttle).then(data => this.getshuttles());
 
     }
     addshuttle(shuttle: Shuttle) {
         this.dashboardService.addshuttle(shuttle);
+    }
+    getriders(shuttle:Shuttle){
+      return JSON.stringify(shuttle.riders);
     }
     // modifyshuttle(shuttle:Shuttle){
     //   this.dashboardService.modifyshuttle(shuttle);

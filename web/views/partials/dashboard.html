@@ -1,82 +1,91 @@
-<h1>
-  Hey, {{user.first_name}}
-</h1>
-<h4>
-your RCS ID is {{user.username}}
-</h4>
-<p>
-  <!-- un comment this and change the value to crash the app-->
-  <!-- <label>Guests: <input type="number" ng-model="user.numGuests"></label> -->
-  guests: {{user.numGuests}}
+<div >
+  <h1>
+    Hey, {{user.first_name}}
+  </h1>
+  <h4>
+  your RCS ID is {{user.username}}
+  </h4>
   <p>
-    guestsOnly: {{user.guestsOnly}}
-  </p>
 
-  <hr />
-  <h1>Availible Shuttles:</h1>
-  <button (click)="getshuttles() ">refresh</button>
-  <ul class="shuttles">
-    <li *ngFor="let shuttle of shuttles">
-      <div class="shuttle-container">
-        <div class="shuttle">
-          <div class="shuttle-route-container">
-            <ul class="breadcrumb">
-              <li><a href="#">{{shuttle.origin[0].name}}</a>
-              </li>
-              <li>
-                <a href="#">{{shuttle.destination[0].name}}</a>
-              </li>
-              <li>
-                <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
-              </li>
-            </ul>
-          </div>
-          <div class="shuttle-info">
-            <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
-            <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
-            <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
-            <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
-            <span *ngIf="godmode">id: {{shuttle._id}}</span>
-            <span *ngIf="godmode">message: {{shuttle.message}}</span>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-  <hr />
-  <h1>User Shuttles:</h1>
-  <!-- <button  (click)="getusershuttles()">get user shuttles</button> -->
-  <ul class="shuttles">
-    <li *ngFor="let shuttle of usershuttles">
-      <div class="shuttle-container">
-        <div class="shuttle">
-          <div class="shuttle-route-container">
-            <ul class="breadcrumb">
-              <li><a href="#">{{shuttle.origin[0].name}}</a>
-              </li>
-              <li>
-                <a href="#">{{shuttle.destination[0].name}}</a>
-              </li>
-              <li>
-                <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
-              </li>
-            </ul>
-          </div>
-          <div class="shuttle-info">
-            <button *ngIf="shuttle.isActive" (click)="unsignup(shuttle)">Unsign up</button>
-            <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
-            <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
-            <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
-            <span *ngIf="godmode">id: {{shuttle._id}}</span>
-            <span *ngIf="godmode">message: {{shuttle.message}}</span>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-  <hr />
-  <h1>Admin</h1>
-  <button (click)="togglegodmode()">god mode</button>
-  <div *ngIf="godmode">
-    <shuttle-form></shuttle-form>
+    number of guests: <input id="numguests" [(ngModel)]="user.numGuests" type = "number" />
+    <p>
+      guests only: {{user.guestsOnly}}
+    </p>
+    <hr />
+</div>
+
+<div class="search-container">
+  <div class="search-box">
+    <input [(ngModel)]="searchquery" type="text" />
   </div>
+  <div class="search-buttons">
+    <button>search</button>
+    <button (click)="getshuttles() ">refresh</button>
+  </div>
+</div>
+<ul class="shuttles">
+  <li *ngFor="let shuttle of shuttles">
+    <div class="shuttle-container">
+      <div class="shuttle">
+        <div class="shuttle-route-container">
+          <ul class="breadcrumb">
+            <li><a href="#">{{shuttle.origin[0].name}}</a>
+            </li>
+            <li>
+              <a href="#">{{shuttle.destination[0].name}}</a>
+            </li>
+            <li>
+              <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="shuttle-info">
+          <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
+          <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
+          <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
+          <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
+          <span *ngIf="godmode">id: {{shuttle._id}}</span>
+          <span>{{shuttle.message}}</span>
+          <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+<hr />
+<h1>User Shuttles:</h1>
+<!-- <button  (click)="getusershuttles()">get user shuttles</button> -->
+<ul class="shuttles">
+  <li *ngFor="let shuttle of usershuttles">
+    <div class="shuttle-container">
+      <div class="shuttle">
+        <div class="shuttle-route-container">
+          <ul class="breadcrumb">
+            <li><a href="#">{{shuttle.origin[0].name}}</a>
+            </li>
+            <li>
+              <a href="#">{{shuttle.destination[0].name}}</a>
+            </li>
+            <li>
+              <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="shuttle-info">
+          <button *ngIf="shuttle.isActive" (click)="unsignup(shuttle)">Unsign up</button>
+          <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
+          <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
+          <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
+          <span *ngIf="godmode">id: {{shuttle._id}}</span>
+          <span>{{shuttle.message}}</span>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+<hr />
+<h1>Admin</h1>
+<button (click)="togglegodmode()">god mode</button>
+<div *ngIf="godmode">
+  <shuttle-form></shuttle-form>
+</div>

@@ -4,7 +4,8 @@ import { Shuttle }    from './shuttle';
 @Component({
     moduleId: module.id,
     selector: 'shuttle-form',
-    templateUrl: 'shuttle-form.component.html'
+    templateUrl: 'shuttle-form.component.html',
+    styleUrls: ['assets/css/dashboard.css'],
 })
 export class ShuttleFormComponent {
   constructor(private dashboardService: DashboardService){};

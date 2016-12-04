@@ -1,5 +1,176 @@
-<div class="container">
-  {{diagnostic}}
+<!-- <div class="container"> -->
+<style>
+label{
+  color: white;
+}
+button {
+  border: none;
+  text-decoration: none;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  max-height: 3em;
+  background-color: grey;
+  color: white;
+  font-family: Lato, Helvetica, sans-serif;
+  font-size: 1em;
+  padding: .25em;
+  margin-right: 1px; }
+
+button[disabled=disabled], button:disabled {
+  background-color: #9a9a9a;
+  color: #cccccc; }
+
+.shuttle-container {
+  width: 100vw; }
+
+.shuttle {
+  padding-top: 1em;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap; }
+
+.shuttle-route-container {
+  background-color: #134565;
+  justify-content: space-between;
+  height: 2em;
+  overflow-y: visible;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; }
+
+.shuttle-info {
+  padding: 0;
+  margin: 0;
+  max-height: 5em;
+  background-color: whitesmoke;
+  flex-basis: fit-content;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  overflow-x: scroll; }
+
+.shuttle-info span {
+  margin-right: 10px;
+  padding-right: 10px; }
+  .breadcrumb li{
+    margin-right: 35px;
+  }
+
+
+@media (min-width: 500px) {
+  .breadcrumb,
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    font: 18px Helvetica, Arial, Sans-Serif; }
+  .breadcrumb li a {
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    padding-left: 25px;
+    padding: 10px;
+    display: inline-block;
+    float: left;
+    height: 1em; }
+  .breadcrumb li a:after {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    /* Go big on the size, and let overflow hide */
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid red;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    left: 100%;
+    z-index: 2; }
+  .breadcrumb li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    /* Go big on the size, and let overflow hide */
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 1px;
+    left: 100%;
+    z-index: 1; }
+  .breadcrumb li:first-child {
+    order: 0 !important; }
+  .breadcrumb li:first-child a {
+    padding-left: 10px;
+    width: 100%; }
+
+  .breadcrumb li:nth-child(2) a {
+    background: #1ae6e6; }
+  .breadcrumb li:nth-child(2) a:after {
+    border-left-color: #1ae6e6; }
+  .breadcrumb li:nth-child(3) a {
+    background: #cc3333; }
+  .breadcrumb li:nth-child(3) a:after {
+    border-left-color: #cc3333; }
+  .breadcrumb li:nth-child(4) a {
+    background: #b34d4d; }
+  .breadcrumb li:nth-child(4) a:after {
+    border-left-color: #4db3b3; }
+  .breadcrumb li:nth-child(5) a {
+    background: #996666; }
+  .breadcrumb li:nth-child(5) a:after {
+    border-left-color: #669999; }
+  .breadcrumb li:last-child {
+    margin-right: 1em; }
+  .breadcrumb li:last-child a {
+    min-width: 10em; }
+  .breadcrumb li a:hover {
+    background: #134565; }
+  .breadcrumb li a:hover:after {
+    border-left-color: #134565 !important; } }
+
+@media (max-width: 499px) {
+  .breadcrumb, ul {
+    padding: 0;
+    list-style: none;
+    flex-direction: column; } }
+</style>
+  <ul class="shuttles">
+    <li>
+      <div class="shuttle-container">
+        <div class="shuttle">
+          <div class="shuttle-route-container">
+            <ul class="breadcrumb">
+              <li><a href="#">{{model.origin[0].name}}</a>
+              </li>
+              <li>
+                <a href="#">{{model.destination[0].name}}</a>
+              </li>
+              <li>
+                <a><span>{{model.riders.length || "0"}} of {{model.maxCapacity}} riders</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="shuttle-info">
+            <button *ngIf="model.isActive">Sign up</button>
+            <button *ngIf=" ! model.isActive" disabled>Shuttle Inactive</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
   <div [hidden]="submitted">
     <h1>Shuttle Form</h1>
     <form (ngSubmit)="onSubmit()" #shuttleForm="ngForm">
@@ -20,15 +191,16 @@
         <input type="number" class="form-control" id="guestsAllowed" required [(ngModel)]="model.guestsAllowed" name="guestsAllowed" #name="ngModel">
       </div>
       <div class="form-group">
-        <label for="destination">destination</label>
-        <input type="text" class="form-control" id="destination" required [(ngModel)]="model.destination[0].name" name="destination" #name="ngModel">
-      </div>
-      <div class="form-group">
         <label for="origin">origin</label>
         <input type="text" class="form-control" id="origin" required [(ngModel)]="model.origin[0].name" name="origin" #name="ngModel">
       </div>
-      <button type="submit" class="btn btn-default" [disabled]="!shuttleForm.form.valid">Submit</button>
-      <button type="button" class="btn btn-default" (click)="newShuttle(); shuttleForm.reset()">New shuttle</button>
+      <div class="form-group">
+        <label for="destination">destination</label>
+        <input type="text" class="form-control" id="destination" required [(ngModel)]="model.destination[0].name" name="destination" #name="ngModel">
+      </div>
+      <br />
+      <button type="submit" class="" [disabled]="!shuttleForm.form.valid">Submit</button>
+      <button type="button" class="" (click)="newShuttle(); shuttleForm.reset()">New shuttle</button>
     </form>
   </div>
   <div [hidden]="!submitted">
@@ -37,6 +209,6 @@
       {{diagnostic}}
     </pre>
     <br>
-    <button class="btn btn-default" (click)="submitted=false">Edit</button>
+    <button class="" (click)="submitted=false">Edit</button>
   </div>
-</div>
+<!-- </div> -->

@@ -1,10 +1,13 @@
-$shuttle-color1: red;
+$shuttle-color1: #e2231b;
 $shuttle-color2: green;
 $shuttle-color3: blue;
 $button-bg-color: grey;
-$button-f-color:white;
+$button-f-color:whitesmoke;
 $font-stack: Lato,Helvetica,sans-serif;
-
+body,html,div{
+  padding: 0;
+  margin: 0;
+}
 button{
   border: none;
   text-decoration: none;
@@ -52,7 +55,7 @@ button[disabled=disabled], button:disabled{
     margin: 0;
     // height: 2em;
     max-height: 5em;
-    background-color: whitesmoke;
+    background-color: rgba(190, 216, 227, 0.78);
     flex-basis: fit-content;
     display: flex;
     flex-flow: row;
@@ -65,6 +68,7 @@ button[disabled=disabled], button:disabled{
   margin-right: 10px;
   padding-right: 10px;
 }
+
 @media(min-width:500px) {
     .breadcrumb,
     ul {
@@ -119,7 +123,7 @@ button[disabled=disabled], button:disabled{
         border-top: 50px solid transparent;
         /* Go big on the size, and let overflow hide */
         border-bottom: 50px solid transparent;
-        border-left: 30px solid white;
+        border-left: 30px solid transparent;
         position: absolute;
         top: 50%;
         margin-top: -50px;
@@ -190,4 +194,38 @@ button[disabled=disabled], button:disabled{
     .breadcrumb li a:hover:after {
         border-left-color: rgb(19, 69, 101) !important;
     }
+}
+@media(max-width:499px){
+  .breadcrumb  , ul{
+    padding: 0;
+    list-style: none;
+    flex-direction: column;
+  }
+}
+
+.search-container{
+  width: 100vw;
+  min-width: 20em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .search-box{
+    flex-grow: 4;
+    padding-right: 10px;
+  }
+  .search-buttons{
+    flex-grow: 1;
+    align-self: flex-end;
+  }
+  .search-box input{
+    min-width: 10em;
+    width: 100%;
+    font-size: 2em;
+    background-color: darken(whitesmoke,5%);
+  }
+
+}
+#numguests{
+  width: 3em;
 }

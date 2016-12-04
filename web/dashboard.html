@@ -1,36 +1,57 @@
 <html>
-  <head>
-    <title>Shuttle Signups</title>
-    <meta charset="UTF-8">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="assets/js/dashboard.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="assets/css/site.css">
-    <!-- 1. Load libraries -->
-     <!-- Polyfill(s) for older browsers -->
-    <script src="/scripts/core-js/client/shim.min.js"></script>
-    <script src="/scripts/zone.js/dist/zone.js"></script>
-    <script src="/scripts/reflect-metadata/Reflect.js"></script>
-    <script src="/scripts/systemjs/dist/system.src.js"></script>
 
-    <!-- 2. Configure SystemJS -->
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('dashboard').catch(function(err){ console.error(err); });
-    </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body>
-    <!-- <shuttle-login> -->
-      <!-- <div class = "loading center"> -->
-      <!-- </div> -->
-    <!-- </shuttle-login> -->
+<head>
+  <title>Shuttle Signups</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport' />
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <!-- 1. Load libraries -->
+  <!-- Polyfill(s) for older browsers -->
+  <script src="/scripts/core-js/client/shim.min.js"></script>
+  <script src="/scripts/zone.js/dist/zone.js"></script>
+  <script src="/scripts/reflect-metadata/Reflect.js"></script>
+  <script src="/scripts/systemjs/dist/system.src.js"></script>
+
+  <!-- 2. Configure SystemJS -->
+  <script src="systemjs.config.js"></script>
+  <script>
+    System.import('dashboard').catch(function(err) {
+      console.error(err);
+    });
+  </script>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+  <nav>
+    <ul class="nav">
+      <li id="home">
+        <a>Home</a>
+      </li>
+      <li id="dashboard">
+        <a>Dashboard</a>
+      </li>
+      <li id="account">
+        <a>Account</a>
+      </li>
+    </ul>
+
+  </nav>
+  <main>
     <shuttle-dashboard>
+      <h1 class='loading-text'>We're setting things up for you</h1>
     </shuttle-dashboard>
-   </body>
+  </main>
+  <footer>
+    <div class="credits">
+      🛠 w/ ❤️ by   <a href="https://jcaicedo.tk/">Jon Caicedo</a> &amp&nbsp<a href="https://lucienbrule.com" >Lucien Brulé</a> for <a href="http://webtech.union.rpi.edu/">Web Technologies Group</a> @ <a href="http://www.rpi.edu/">Rensselaer</a> w/ this <a href="https://raw.githubusercontent.com/wtg/shuttle-signups/master/LICENSE">LICENSE</a>.
+    </div>
+  </footer>
+
+</body>
+
 </html>
