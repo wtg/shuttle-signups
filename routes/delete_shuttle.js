@@ -4,6 +4,7 @@ const cms = require('../cms.js');
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
+const eventEmitter = require('../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
 router.post('/', function(req, res) {
@@ -26,6 +27,8 @@ router.post('/', function(req, res) {
 				res.send("There was an issue deleting shuttle " + shuttleID);
 				return;
 			}
+			var webSocketResponse = {type: "delete", shuttleID: shuttleID};
+			eventEmitter.emit('update_shuttle', JSON.stringify(webSocketResponse));
 			res.send("Shuttle " + shuttleID + " sucessfully deleted.");
 			return;
 		});

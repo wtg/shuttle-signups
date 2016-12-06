@@ -1,4 +1,5 @@
 const express = require('express');
+const eventEmitter = require('../app').eventEmitter;
 const router = express.Router();
 const cms = require('../cms.js');
 const mongoose = require('mongoose');

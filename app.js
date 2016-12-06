@@ -1,5 +1,7 @@
 //dependencies
 const express = require('express');
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
 const bodyParser = require('body-parser');
 const CASAuthentication = require('cas-authentication');
 const favicon = require('serve-favicon');
@@ -10,10 +12,11 @@ const path = require('path');
 const config = require('./config.js');
 const cms = require('./cms.js');
 const fs = require('fs')
-const app = module.exports = express();
+const app = express();
 const expressWs = require('express-ws')(app);
 const helperLib = require("./helper.js").helpers;
 const helper = new helperLib();
+module.exports = {app, eventEmitter};
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/shuttle-signups');

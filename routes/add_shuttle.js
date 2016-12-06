@@ -5,6 +5,7 @@ const cms = require('../cms.js');
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
+const eventEmitter = require('../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
 router.post('/', function(req, res) {
@@ -20,7 +21,7 @@ router.post('/', function(req, res) {
 	//checks if user is an administrator
 	if (helper.isAdmin(rcs_id)) {
 		//if so, create the new shuttle from json
-		var shuttle = new Shuttle({
+		var shuttleJSON = {
 			isActive: req.body.isActive,
 			origin: req.body.origin,
 			destination: req.body.destination,
@@ -31,7 +32,9 @@ router.post('/', function(req, res) {
 			notes: req.body.notes,
 			riders: [],
 			waitlist: []
-		});
+		}
+		
+		var shuttle = new Shuttle(shuttleJSON);
 
 		//saves the shuttle to the database
 		shuttle.save(function(err) {
@@ -41,6 +44,8 @@ router.post('/', function(req, res) {
 				res.send("There was an error in saving your shuttle. We're looking into it.");
 				return;
 			}
+			var webSocketResponse = {type: "add", shuttle: shuttleJSON};
+			eventEmitter.emit('update_shuttle', JSON.stringify(webSocketResponse));
 			res.send("Shuttle was sucessfully saved.");
 			return;
 		});
