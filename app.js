@@ -38,7 +38,6 @@ app.use('/scripts', express.static('node_modules'));
 app.use('/app', express.static('web/app'));
 app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
-
 //ROUTES
 app.use('/api/current_user', require('./routes/current_user'));
 app.use('/api/add_shuttle', require('./routes/add_shuttle'));
