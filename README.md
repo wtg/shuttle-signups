@@ -8,7 +8,11 @@ The Rensselaer Union, along with support from Auxiliary Services and Parking & T
 Before this project came to exist, a Google Form was used to facilitate sign-ups for these special shuttles. These forms weren't the best solution. This project aims to simplify that process, helping both students, and those at Auxiliary Services and Parking & Transportation.
 
 ## Development and Deployment
-**This project is developed on the MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).**
+
+**It isn't currently reccommended that you deploy this project for production. It's still under heavy development, and things will most likely change (break).**
+
+
+*This project is developed on the MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).*
 
 Before you begin, you should make sure that you have both MongoDB and Node.js installed on your system. If you don't, you can find information about installing each [here](https://docs.mongodb.com/v3.2/installation/) and [here](https://nodejs.org/en/download/package-manager/), respectively.
 Eventually, we want to look into installing MongoDB using [npm](https://www.npmjs.com/) automatically when you run ```npm install``` below.
