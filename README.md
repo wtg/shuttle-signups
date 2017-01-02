@@ -1,4 +1,4 @@
-# Shuttle Signups [![Build Status](https://travis-ci.org/wtg/shuttle-signups.svg?branch=master)](https://travis-ci.org/wtg/shuttle-signups)[![Stories in Ready](https://badge.waffle.io/wtg/shuttle-signups.svg?label=ready&title=Ready)](http://waffle.io/wtg/shuttle-signups) [<img align="right" width="150px" src="http://webtech.union.rpi.edu/assets/css/images/wtg.png">](http://webtech.union.rpi.edu/)
+# Shuttle Signups [![Build Status](https://travis-ci.org/wtg/shuttle-signups.svg?branch=master)](https://travis-ci.org/wtg/shuttle-signups) [![Stories in Ready](https://badge.waffle.io/wtg/shuttle-signups.svg?label=ready&title=Ready)](http://waffle.io/wtg/shuttle-signups) [<img align="right" width="150px" src="http://webtech.union.rpi.edu/assets/css/images/wtg.png">](http://webtech.union.rpi.edu/)
 A web interface to simplify the process of signing up for special shuttles at RPI.
 
 ## What exactly is a special shuttle?
