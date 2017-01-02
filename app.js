@@ -31,7 +31,7 @@ app.use(session({
 // Create a new instance of CASAuthentication.
 const cas = new CASAuthentication({
     cas_url: 'https://cas-auth.rpi.edu/cas',
-    service_url: config.service_url,
+    service_url: process.env.SERVICE_URL || config.service_url,
     cas_version: '2.0',
 });
 

@@ -9,7 +9,7 @@
     "build-css": "node-sass -w web/assets/scss/ -o web/assets/css/",
     "postinstall": "typings install",
     "typings": "typings",
-    "test": "npm start"
+    "test": "mocha test/test.js"
   },
   "repository": {
     "type": "git",
@@ -43,16 +43,17 @@
     "mongoose": "^4.6.5",
     "nodemon": "^1.11.0",
     "q": "^1.4.1",
-    "reflect-metadata": "0.1.2",
+    "reflect-metadata": "latest",
     "rxjs": "latest",
-    "serve-favicon": "^2.3.0",
+    "serve-favicon": "latest",
     "systemjs": "latest",
-    "zone.js": "^0.6.12"
+    "zone.js": "latest"
   },
   "devDependencies": {
     "concurrently": "^3.0.0",
     "node-sass": "^3.13.0",
     "typescript": "^2.0.3",
-    "typings": "^1.4.0"
+    "typings": "^1.4.0",
+    "mocha": "latest"
   }
 }
