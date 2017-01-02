@@ -8,7 +8,8 @@
     "dev": "concurrently \"tsc -p ./web/ \" \"tsc -p ./web/ -w\" \"PORT=3000 NODE_ENV=development nodemon app.js\" \"npm run build-css\"",
     "build-css": "node-sass -w web/assets/scss/ -o web/assets/css/",
     "postinstall": "typings install",
-    "typings": "typings"
+    "typings": "typings",
+    "test": 
   },
   "repository": {
     "type": "git",
