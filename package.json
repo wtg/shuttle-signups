@@ -9,7 +9,7 @@
     "build-css": "node-sass -w web/assets/scss/ -o web/assets/css/",
     "postinstall": "typings install",
     "typings": "typings",
-    "test": 
+    "test": "npm start"
   },
   "repository": {
     "type": "git",
