@@ -9,7 +9,7 @@
     "build-css": "node-sass -w web/assets/scss/ -o web/assets/css/",
     "postinstall": "typings install",
     "typings": "typings",
-    "test": "mocha test/test.js"
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
@@ -50,10 +50,15 @@
     "zone.js": "latest"
   },
   "devDependencies": {
+    "child_process": "^1.0.2",
     "concurrently": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nodemon": "^2.2.1",
+    "mocha": "latest",
     "node-sass": "^3.13.0",
+    "run-sequence": "^1.2.2",
     "typescript": "^2.0.3",
-    "typings": "^1.4.0",
-    "mocha": "latest"
+    "typings": "^1.4.0"
   }
 }

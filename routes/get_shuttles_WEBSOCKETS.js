@@ -6,6 +6,7 @@ module.exports = get_shuttles;
 
 function get_shuttles(ws, req) {
     eventEmitter.on('update_shuttle', function(update) {
+        console.log(update);
         ws.send(update);
     });
 };
