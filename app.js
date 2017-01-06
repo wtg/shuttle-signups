@@ -32,8 +32,9 @@ app.use(session({
 const cas = new CASAuthentication({
     cas_url: 'https://cas-auth.rpi.edu/cas',
     service_url: process.env.SERVICE_URL || config.service_url,
-    cas_dev_mode: process.env.CAS_DEV_MODE || config.cas_dev_mode,
-    cas_dev_mode_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user,
+    is_dev_mode: process.env.CAS_DEV_MODE || config.cas_dev_mode,
+    dev_mode_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user,
+    dev_mode_info: {cas_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user},
     cas_version: '2.0',
 });
 

@@ -17,6 +17,7 @@ router.post('/', function(req, res) {
 		return;
 	}
 	var rcs_id = req.session.cas_user.toLowerCase();
+	console.log(req.session);
 
 	//checks if user is an administrator
 	if (helper.isAdmin(rcs_id)) {

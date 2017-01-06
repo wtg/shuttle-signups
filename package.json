@@ -58,6 +58,7 @@
     "mocha": "latest",
     "node-sass": "^3.13.0",
     "run-sequence": "^1.2.2",
+    "supertest": "^2.0.1",
     "typescript": "^2.0.3",
     "typings": "^1.4.0"
   }
