@@ -1,6 +1,7 @@
-var request = require('supertest');
-var app = require('../app.js').app;
-var assert = require('assert');
+const request = require('supertest');
+const app = require('../app.js').app;
+const assert = require('assert');
+const config = require('../config.js');
 
 var cookies;
 
@@ -51,7 +52,8 @@ describe('Functionalty tests', function () {
         .set('Cookie', [cookies])
         .end(function(err, res) {
           if (err || !res.ok) return done(err);
-          var username = process.env.CAS_DEV_MODE_USER.toLowerCase();
+          var username = process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user;
+          username = username.toLowerCase();
           assert((res.body.username === username), 'Expected ' + username + ' but got ' + res.body.username);
           done();
         });
