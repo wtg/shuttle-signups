@@ -25,7 +25,6 @@ describe('Availability tests', function() {
         .end(function(err, res) {
           if (err) return done(err);
           cookies = res.headers['set-cookie'].pop().split(';')[0];
-          console.log(cookies);
           done();
         });
     });
@@ -35,6 +34,7 @@ describe('Availability tests', function() {
 describe('Functionalty tests', function () {
   describe('GET /api/current_user', function() {
     it('Respond with JSON.', function(done) {
+      this.timeout(10000);
       request(app)
         .get('/api/current_user')
         .set('Cookie', [cookies])
@@ -45,6 +45,7 @@ describe('Functionalty tests', function () {
     });
     
     it('Respond with the correct user.', function(done) {
+      this.timeout(10000);
       request(app)
         .get('/api/current_user')
         .set('Cookie', [cookies])
