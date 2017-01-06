@@ -5,27 +5,21 @@ const runSequence = require('run-sequence');
 
 gulp.task('create-data-directory', function() {
   exec('mkdir -p data', function(err, stdout, stderr) {
-    console.log(stdout);
   });
 });
 
 gulp.task('create-config-file', function() {
   exec('touch config.js', function(err, stdout, stderr) {
-    console.log(stdout);
   });
 });
 
 gulp.task('start-mongo', function() {
   exec('mongod --fork --syslog --dbpath=data --smallfiles', function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
   });
 });
 
 gulp.task('stop-mongo', function() {
   exec('killall mongod', function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
   });
 });
 //gulp.task('start-app', runCommand('node app.js'));
