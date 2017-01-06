@@ -9,6 +9,12 @@ gulp.task('create-data-directory', function() {
   });
 });
 
+gulp.task('create-config-file', function() {
+  exec('touch config.js', function(err, stdout, stderr) {
+    console.log(stdout);
+  });
+});
+
 gulp.task('start-mongo', function() {
   exec('mongod --fork --syslog --dbpath=data --smallfiles', function(err, stdout, stderr) {
     console.log(stdout);
@@ -43,5 +49,5 @@ gulp.task('quit', function() {
 });
 
 gulp.task('default', function() {
-  runSequence('create-data-directory', 'start-mongo', 'start-tests', 'stop-mongo', 'quit');
+  runSequence('create-data-directory', 'create-config-file', 'start-mongo', 'start-tests', 'stop-mongo', 'quit');
 });
