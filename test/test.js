@@ -6,7 +6,7 @@ describe('Functionality tests', function() {
     it('Respond with a webpage.', function(done) {
       request(app)
         .get('/')
-        .expect(300)
+        .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
           done();

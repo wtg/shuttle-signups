@@ -31,7 +31,7 @@ gulp.task('start-tests', () =>
   // gulp-mocha needs filepaths so you can't have any plugins before it
   .pipe(mocha())
   .once('error', () => {
-    runSequence('stop-mongo', 'quit');
+    runSequence('stop-mongo');
   })
   .once('end', () => {
     runSequence('stop-mongo', 'quit');
