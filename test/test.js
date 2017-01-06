@@ -25,6 +25,7 @@ describe('Availability tests', function() {
         .end(function(err, res) {
           if (err) return done(err);
           cookies = res.headers['set-cookie'].pop().split(';')[0];
+          console.log(cookies);
           done();
         });
     });
