@@ -17,7 +17,7 @@ describe('Availability tests', function() {
         });
     });
   });
-  
+
   describe('GET /login', function() {
     it('Respond with a redirect.', function(done) {
       request(app)
@@ -36,17 +36,25 @@ describe('Functionalty tests', function () {
   describe('GET /api/current_user', function() {
     it('Respond with JSON.', function(done) {
       this.timeout(10000);
-      request(app)
-        .get('/api/current_user')
-        .set('Cookie', [cookies])
-        .end(function(err, res) {
-          if (err || !res.ok) return done(err);
-          done();
-        });
+      try{
+        request(app)
+          .get('/api/current_user')
+          .set('Cookie', [cookies])
+          .end(function(err, res) {
+            if (err || !res.ok) return done(err);
+            done();
+          });
+        }
+        catch (error){
+          done(error);
+        }
     });
-    
+
     it('Respond with the correct user.', function(done) {
       this.timeout(10000);
+      try{
+
+
       request(app)
         .get('/api/current_user')
         .set('Cookie', [cookies])
@@ -57,7 +65,10 @@ describe('Functionalty tests', function () {
           assert((res.body.username === username), 'Expected ' + username + ' but got ' + res.body.username);
           done();
         });
+      }
+      catch (error){
+        done(error);
+      }
     });
   });
 });
-
