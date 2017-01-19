@@ -4,6 +4,7 @@ const cms = require('../cms.js');
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
+const eventEmitter = require('../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
 router.post('/', function(req, res) {
@@ -27,12 +28,12 @@ router.post('/', function(req, res) {
 	query.exec(function(err, docs) {
 		if (err) {
 			res.send("There was an error signing up for shuttle " + shuttleID);
-			return
+			return;
 		}
 		// Let's assume that this is the only shuttle with this ID (if not, we have issues).
 		var shuttle = docs[0];
 		if (shuttle == null) {
-			res.send("That shuttle doesn't exist.")
+			res.send("That shuttle doesn't exist.");
 			return;
 		}
 		var riders = shuttle.riders;
@@ -94,7 +95,7 @@ router.post('/', function(req, res) {
 		// ... They're bringing guests (or at least have indicated their willingness to do so)
 		else if (numGuests > 0) {
 			if (riders.indexOf(rcs_id) != -1) {
-				res.send("Hey, you've already signed up for shuttle " + shuttleID);
+				res.send("Hey, you've already signed up for shuttle " + shuttleID + ". To add guests, you'll need to unsignup, and then resignup with your guests.");
 				return;
 			} else if (waitlist.indexOf(rcs_id) != -1) {
 				res.send("Hey, you're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
