@@ -1,11 +1,11 @@
 //include all required helper files
 const express = require('express');
 const router = express.Router();
-const cms = require('../cms.js');
+const cms = require('../../cms.js');
 const mongoose = require('mongoose');
-const Shuttle = require("../schema/shuttle.js");
-const helperLib = require("../helper.js").helpers;
-const eventEmitter = require('../app').eventEmitter;
+const ShuttleGroup = require("../../schema/shuttle-group.js");
+const helperLib = require("../../helper.js").helpers;
+const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
 router.post('/', function(req, res) {
@@ -21,7 +21,7 @@ router.post('/', function(req, res) {
 
 	//checks if user is an administrator
 	if (helper.isAdmin(rcs_id)) {
-		//if so, create the new shuttle from json
+		//if so, create the new shuttle group from json
 		var shuttleGroupJSON = {
 			destination: req.body.destination,
 			origin: req.body.origin,

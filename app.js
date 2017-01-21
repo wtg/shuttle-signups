@@ -46,13 +46,14 @@ app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
 //ROUTES
 app.use('/api/current_user', require('./routes/current_user'));
-app.use('/api/add_shuttle', require('./routes/add_shuttle'));
+app.use('/api/admin/add_shuttle', require('./routes/admin/add_shuttle'));
+app.use('/api/admin/add_shuttle_group', require('./routes/add_shuttle_group'));
 app.use('/api/get_shuttles', require('./routes/get_shuttles'));
 app.ws('/api/websocket', require('./routes/websocket'));
 app.use('/api/get_user_shuttles', require('./routes/get_user_shuttles'));
-app.use('/api/cancel_shuttle', require('./routes/cancel_shuttle'));
-app.use('/api/delete_shuttle', require('./routes/delete_shuttle'));
-app.use('/api/modify_shuttle', require('./routes/modify_shuttle'));
+app.use('/api/admin/cancel_shuttle', require('./routes/admin/cancel_shuttle'));
+app.use('/api/admin/delete_shuttle', require('./routes/admin/delete_shuttle'));
+app.use('/api/admin/modify_shuttle', require('./routes/admin/modify_shuttle'));
 app.use('/api/signup_shuttle', require('./routes/signup_shuttle'));
 app.use('/api/unsignup_shuttle', require('./routes/unsignup_shuttle'));
 
