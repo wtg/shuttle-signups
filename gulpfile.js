@@ -4,25 +4,23 @@ const exec = require('child_process').exec;
 const runSequence = require('run-sequence');
 
 gulp.task('create-data-directory', function() {
-  exec('mkdir -p data', function(err, stdout, stderr) {
-  });
+  exec('mkdir -p data');
 });
 
 gulp.task('create-config-file', function() {
-  exec('touch config.js', function(err, stdout, stderr) {
-  });
+  exec('touch config.js');
 });
 
-gulp.task('start-mongo', function() {
-  exec('mongod --fork --syslog --dbpath=data --smallfiles', function(err, stdout, stderr) {
-  });
+gulp.task('start-mongo', function(cb) {
+  exec('mongod --fork --syslog --dbpath=data --smallfiles');
+  setTimeout(function () {
+        cb();
+    }, 10000);
 });
 
 gulp.task('stop-mongo', function() {
-  exec('killall mongod', function(err, stdout, stderr) {
-  });
+  exec('killall mongod');
 });
-//gulp.task('start-app', runCommand('node app.js'));
 
 gulp.task('start-tests', () =>
   gulp.src('./test/*', {
