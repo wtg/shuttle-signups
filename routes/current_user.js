@@ -15,14 +15,13 @@ router.get('/', function(req, res) {
 		return;
 	}
 	var rcs_id = req.session.cas_user.toLowerCase();
-	console.log(req.session.cas_user.toLowerCase());
 
 	//parse user_data
 	cms.getRCS(rcs_id).then(function(user_data) {
 		user_data = JSON.parse(user_data);
 		// username, student_id (is rin), last_name, middle_name, user_type
-		console.log(user_data.first_name);
-		res.json({
+		console.log(helper.isAdmin(rcs_id));
+		res.status(200).json({
 			username: rcs_id,
 			first_name: user_data.preferred_name || user_data.first_name,
 			isAdmin: helper.isAdmin(rcs_id)
