@@ -11,11 +11,8 @@ gulp.task('create-config-file', function() {
   exec('touch config.js');
 });
 
-gulp.task('start-mongo', function(cb) {
+gulp.task('start-mongo', function() {
   exec('mongod --fork --syslog --dbpath=data --smallfiles');
-  setTimeout(function () {
-        cb();
-    }, 10000);
 });
 
 gulp.task('stop-mongo', function() {
