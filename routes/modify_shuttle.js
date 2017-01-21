@@ -11,29 +11,51 @@ router.post('/', function(req, res) {
 	if (!req.session || !req.session.cas_user) {
 		res.status(401);
 		res.send("You must be logged in to complete this action.");
-	} else {
+	}
+	else {
 		var rcs_id = req.session.cas_user.toLowerCase();
 
 		//checks if user is an admin
 		if (helper.isAdmin(rcs_id)) {
 			var shuttleID = req.body.id;
-			//modify the given shuttle
-			Shuttle.findOneAndUpdate({
+
+			Model.findOne({
 				_id: shuttleID
-			}, function(err) {
-				//to be finished
-				/*
-				origin: req.body.origin,
-				destination: req.body.destination,
-				departureDate: req.body.dateTime,
-				// I guess the size of a shuttle can change, but I'll have to think about how to handle a shuttle losing capacity.
-				maxCapacity: req.body.maxCapacity,
-				vacancies: req.body.maxCapacity,
-				// I don't want to kick guests off if they were originally allowed
-				guestsAllowed: req.body.guestsAllowed,
-				*/
-			})
-		} else {
+			}, function(err, shuttle) {
+				// Let's check to see if the shuttles capacity can be lowered...
+				if (req.body.maxCapacity < shuttle.maxCapacity) {
+					if (!(shuttle.riders.length <= req.body.maxCapacity)) {
+						res.send("This shuttle's capacity cannot be lowered. Doing so would remove riders.");
+						return;
+					}
+
+					else {
+						var newMaxCapacity = req.body.maxCapacity;
+						var newVacancies = req.body.maxCapacity - shuttle.riders.length;
+					}
+				}
+
+				shuttle.isActive = req.body.isActive;
+				shuttle.origin = req.body.origin;
+				shuttle.destination = req.body.destination;
+				shuttle.departureDateTime = req.body.departureDateTime;
+				shuttle.maxCapacity = newMaxCapacity || req.body.maxCapacity;
+				shuttle.vacancies = newVacancies || req.body.vacancies;
+				shuttle.guestsAllowed = req.body.guestsAllowed;
+				shuttle.notes = req.body.notes;
+				shuttle.riders = req.body.riders;
+				shuttle.waitlist = req.body.waitlist;
+				shuttle.group = req.body.group;
+
+				shuttle.save(function(err) {
+					if (err) {
+						res.send("There was an error modifying the shuttle.");
+					}
+				});
+			});
+		}
+
+		else {
 			res.status(403);
 			res.send("You don't seem authorized for this action.");
 		}

@@ -5,7 +5,7 @@ var shuttleSchema = new Schema({
       isActive: Boolean,
       origin: Array,
       destination: Array,
-      departureDate: Date,
+      departureDateTime: Date,
       maxCapacity: Number,
       vacancies: Number,
       guestsAllowed: Number,

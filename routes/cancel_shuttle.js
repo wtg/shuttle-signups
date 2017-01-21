@@ -32,7 +32,7 @@ router.post('/', function(req, res) {
 				res.send("There was an issue cancelling shuttle " + shuttleID);
 				return;
 			}
-			var webSocketResponse = {type: "cancel", shuttleID: shuttleID};
+			var webSocketResponse = {type: "cancel_shuttle", shuttleID: shuttleID};
 			eventEmitter.emit('update_shuttle', JSON.stringify(webSocketResponse));
 			res.send("Shuttle " + shuttleID + " sucessfully cancelled.");
 			return;

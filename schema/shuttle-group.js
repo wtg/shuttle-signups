@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var shuttleGroupSchema = new Schema({
-      destination: String,
+      destination: Array,
       origin: Array,
       departureDate: Date,
-      shuttles: Array
+      shuttles: [Schema.Types.ObjectId]
 });
 
 module.exports = mongoose.model('ShuttleGroup', shuttleSchema);
