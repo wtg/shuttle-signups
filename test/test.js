@@ -33,7 +33,7 @@ describe('Availability tests', function() {
 });
 
 describe('Functionalty tests', function () {
-  describe('GET /api/current_user', function() {
+  describe('GET /api/current-user', function() {
     it('Respond with JSON.', function(done) {
       request(app)
         .get('/api/current_user')
@@ -47,7 +47,7 @@ describe('Functionalty tests', function () {
     
     it('Respond with the correct user.', function(done) {
       request(app)
-        .get('/api/current_user')
+        .get('/api/current-user')
         .set('Cookie', [cookies])
         .expect(200)
         .end(function(err, res) {

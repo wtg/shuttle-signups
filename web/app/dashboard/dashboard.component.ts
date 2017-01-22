@@ -27,10 +27,10 @@ export class DashboardComponent implements OnInit {
         // Display entertaining blank user while async load
         this.user = new User();
 
-        //async load current user from /current_user
+        //async load current user from /current-user
         this.getuser();
 
-        //async load list of shuttles from /get_shuttles
+        //async load list of shuttles from /get-shuttles
         this.getshuttles();
 
         //debug log that the component loaded.

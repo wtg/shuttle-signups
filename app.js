@@ -45,17 +45,17 @@ app.use('/app', express.static('web/app'));
 app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 
 //ROUTES
-app.use('/api/current_user', require('./routes/current_user'));
-app.use('/api/admin/add_shuttle', require('./routes/admin/add_shuttle'));
-app.use('/api/admin/add_shuttle_group', require('./routes/admin/add_shuttle_group'));
-app.use('/api/get_shuttles', require('./routes/get_shuttles'));
+app.use('/api/current-user', require('./routes/current-user'));
+app.use('/api/admin/add-shuttle', require('./routes/admin/add-shuttle'));
+app.use('/api/admin/add-shuttle-group', require('./routes/admin/add-shuttle-group'));
+app.use('/api/get-shuttles', require('./routes/get-shuttles'));
 app.ws('/api/websocket', require('./routes/websocket'));
-app.use('/api/get_user_shuttles', require('./routes/get_user_shuttles'));
-app.use('/api/admin/cancel_shuttle', require('./routes/admin/cancel_shuttle'));
-app.use('/api/admin/delete_shuttle', require('./routes/admin/delete_shuttle'));
-app.use('/api/admin/modify_shuttle', require('./routes/admin/modify_shuttle'));
-app.use('/api/signup_shuttle', require('./routes/signup_shuttle'));
-app.use('/api/unsignup_shuttle', require('./routes/unsignup_shuttle'));
+app.use('/api/get-user-shuttles', require('./routes/get-user-shuttles'));
+app.use('/api/admin/cancel-shuttle', require('./routes/admin/cancel-shuttle'));
+app.use('/api/admin/delete-shuttle', require('./routes/admin/delete-shuttle'));
+app.use('/api/admin/modify-shuttle', require('./routes/admin/modify-shuttle'));
+app.use('/api/signup-shuttle', require('./routes/signup-shuttle'));
+app.use('/api/unsignup-shuttle', require('./routes/unsignup-shuttle'));
 
 app.get('/login', cas.bounce, function (req, res) {
    if (!req.session || !req.session.cas_user) {

@@ -17,9 +17,14 @@ router.post('/', function(req, res) {
 
 		//checks if user is an admin
 		if (helper.isAdmin(rcs_id)) {
-			var shuttleID = req.body.id;
+			var shuttleID = req.body._id;
+			
+			if (!shuttleID) {
+				res.status(400);
+				res.send("You didn't specify the ID of the shuttle to be modified.");
+			}
 
-			Model.findOne({
+			Shuttle.findOne({
 				_id: shuttleID
 			}, function(err, shuttle) {
 				// Let's check to see if the shuttles capacity can be lowered...
@@ -46,10 +51,12 @@ router.post('/', function(req, res) {
 				shuttle.riders = req.body.riders;
 				shuttle.waitlist = req.body.waitlist;
 				shuttle.group = req.body.group;
+				
 
 				shuttle.save(function(err) {
 					if (err) {
 						res.send("There was an error modifying the shuttle.");
+						console.log(err);
 					}
 				});
 			});

@@ -6,7 +6,7 @@ export class User {
   guestsOnly:boolean;
   shuttles:Array<Shuttle>;
   constructor(arg?:any){
-    console.log("made a user");
+    console.log("User created.");
     this.first_name = arg && arg.first_name || "Shirley";
     this.username = arg && arg.username || "001RPI";
     this.numGuests = arg && arg.numGuests || 0;

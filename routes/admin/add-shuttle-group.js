@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const cms = require('../../cms.js');
 const mongoose = require('mongoose');
-const Shuttle = require("../../schema/shuttle.js");
+const ShuttleGroup = require("../../schema/shuttle-group.js");
 const helperLib = require("../../helper.js").helpers;
 const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
@@ -21,34 +21,26 @@ router.post('/', function(req, res) {
 
 	//checks if user is an administrator
 	if (helper.isAdmin(rcs_id)) {
-		//if so, create the new shuttle from json
-		var shuttleJSON = {
-			isActive: req.body.isActive,
-			origin: req.body.origin,
+		//if so, create the new shuttle group from json
+		var shuttleGroupJSON = {
 			destination: req.body.destination,
-			departureDateTime: req.body.departureDateTime,
-			maxCapacity: req.body.maxCapacity,
-			vacancies: req.body.maxCapacity,
-			guestsAllowed: req.body.guestsAllowed,
-			notes: req.body.notes,
-			riders: [],
-			waitlist: [],
-			group: req.body.group
+			origin: req.body.origin,
+			departureDate: req.body.departureDate,
 		}
 		
-		var shuttle = new Shuttle(shuttleJSON);
+		var shuttleGroup = new ShuttleGroup(shuttleGroupJSON);
 
 		//saves the shuttle to the database
-		shuttle.save(function(err) {
+		shuttleGroup.save(function(err) {
 			if (err) {
-				console.log("There was a problem saving a shuttle.");
+				console.log("There was a problem saving that shuttle group.");
 				res.status(500);
-				res.send("There was an error in saving your shuttle. We're looking into it.");
+				res.send("There was an error in saving your shuttle group. We're looking into it.");
 				return;
 			}
-			var webSocketResponse = {type: "add_shuttle", shuttle: shuttleJSON};
-			eventEmitter.emit('update_shuttle', JSON.stringify(webSocketResponse));
-			res.send("Shuttle was sucessfully saved.");
+			var webSocketResponse = {type: "add_shuttle_group", shuttleGroup: shuttleGroupJSON};
+			eventEmitter.emit('websocket-update', JSON.stringify(webSocketResponse));
+			res.send("Shuttle group was sucessfully saved.");
 			return;
 		});
 	} else {

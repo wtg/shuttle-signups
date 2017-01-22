@@ -11,7 +11,7 @@ export class Shuttle {
   origin: Array<any>;
   message:string;
   constructor(arg?:any){
-    console.log("made a shuttle");
+    console.log("Shuttle created.");
     this._id= arg && arg._id || "fillme";
     this.isActive= arg && arg.isActive || false;
     this.maxCapacity= arg && arg.maxCapacity || 0;
