@@ -25,13 +25,22 @@ Look for the the file ```dev-config.js``` and copy it to ```config.js```. Modify
 ```
 module.exports = {
     service_url: URL to call back to after CAS authentication,
-    cas_dev_mode: false,
-    cas_dev_mode_user: '',
+    cas_dev_mode: If you'd like to run CAS in development mode (you need set this to false in production)
+    cas_dev_mode_user: The CAS development mode user
     admins: [Array of the user IDs of the desired administrators],
     cms_key: Your API key for the RPI Club Management System
 };
 ```
+Any of the above configuration parameters can also be set as environment variables.
 
+``` 
+    CMS_KEY
+    CAS_DEV_MODE
+    CAS_DEV_MODE_USER
+    SERVICE_URL
+    ADMINS
+```    
+    
 Great! Now, we're ready to run the application. Make sure MongoDB is already running, and simply run ```npm start```. By default, the application runs on port 8080, but this can easily be changed using an environment variable.
 
 In the future, we'll provide an init script that will allow running Shuttle Signups as a service on Linux distributions (which grants you tons of amenities, such as automatically running on start-up). For now, you can look into using [```forever```](https://www.npmjs.com/package/forever).
