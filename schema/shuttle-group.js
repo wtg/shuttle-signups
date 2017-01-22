@@ -8,4 +8,4 @@ var shuttleGroupSchema = new Schema({
       shuttles: [Schema.Types.ObjectId]
 });
 
-module.exports = mongoose.model('ShuttleGroup', shuttleSchema);
+module.exports = mongoose.model('ShuttleGroup', shuttleGroupSchema);
