@@ -4,6 +4,8 @@ html {
   background: #a62529;
   overflow-x: hidden;
   overflow-y: auto;
+  min-width: 100%;
+  min-height: 100%
 }
 
 body {
