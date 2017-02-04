@@ -51,16 +51,19 @@ router.post('/', function(req, res) {
 		if (!guestsOnly) {
 			// Let's figure out if they're on the waitlist or if they're on the riders list
 			if (riders.indexOf(rcs_id) != -1) {
-				for (var user in riders) {
+				for (var user = 0; user < riders.length; ++user) {
 					if (riders[user].includes(rcs_id)) {
 						riders.splice(user, 1);
+						user--;
 						vacancies++;
 					}
 				}
-			} else {
-				for (var user in waitlist) {
+			}
+			else {
+				for (var user = 0; user < riders.length; ++user) {
 					if (waitlist[user].includes(rcs_id)) {
 						waitlist.splice(user, 1);
+						user--;
 					}
 				}
 			}
@@ -75,7 +78,51 @@ router.post('/', function(req, res) {
 					res.send("There was an error removing you from the shuttle.");
 					return;
 				}
-				res.send("You have been removed from shuttle " + shuttleID);
+				res.send("You and your guests have been removed from shuttle " + shuttleID);
+				return;
+			});
+		}
+
+		// Okay, so let's now focus on only removing the number of guests provided (guestsOnly === true) 
+		else {
+			var guestsRemoved = 0;
+			// Let's figure out if the guests are on the waitlist or the riders list
+			if (riders.indexOf(rcs_id) != -1) {
+				for (var i = 0; i < numGuests; ++i) {
+					for (var user = 0; user < riders.length; ++user) {
+						if (riders[user].includes(rcs_id + "-guest")) {
+							riders.splice(user, 1);
+							user--;
+							guestsRemoved++;
+						}
+					}
+				}
+			}
+
+			else {
+				for (var i = 0; i < numGuests; ++i) {
+					for (var user = 0; user < riders.length; ++user) {
+						if (riders[user].includes(rcs_id + "-guest")) {
+							riders.splice(user, 1);
+							user--;
+							guestsRemoved++;
+						}
+					}
+				}
+			}
+
+			Shuttle.findOneAndUpdate({
+				_id: shuttleID
+			}, {
+				riders: riders,
+				waitlist: waitlist,
+				vacancies: vacancies
+			}, function(err) {
+				if (err) {
+					res.send("There was an error removing your guests from the shuttle.");
+					return;
+				}
+				res.send("Your " + guestsRemoved + " guests have been removed from shuttle " + shuttleID);
 				return;
 			});
 		}

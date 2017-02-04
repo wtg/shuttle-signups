@@ -13,7 +13,6 @@ router.get('/', function(req, res) {
 		res.redirect("/login");
 		return;
 	}
-
 	var rcs_id = req.session.cas_user.toLowerCase();
 	//if the user is an admin
 	if (helper.isAdmin(rcs_id)) {
