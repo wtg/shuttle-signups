@@ -23,6 +23,12 @@ router.post('/', function(req, res) {
 	var query = Shuttle.find({
 		_id: shuttleID
 	}).lean();
+	
+	// Remove unnecessary fields from the query for performance improvement
+	query.select('riders');
+	query.select('waitlist');
+	query.select('vacancies');
+	
 	query.exec(function(err, docs) {
 		if (err) {
 			res.send("There was an error unsigning up for shuttle " + shuttleID);

@@ -25,6 +25,12 @@ router.post('/', function(req, res) {
 	var query = Shuttle.find({
 		_id: shuttleID
 	}).lean();
+
+	// Remove unnecessary fields from the query for performance improvement
+	query.select('riders');
+	query.select('waitlist');
+	query.select('vacancies');
+
 	query.exec(function(err, docs) {
 		if (err) {
 			res.send("There was an error signing up for shuttle " + shuttleID);
@@ -49,10 +55,11 @@ router.post('/', function(req, res) {
 			// Let's go ahead and add them to the list
 			// Let's make sure they're not already signed up for a shuttle.
 			if (riders.indexOf(rcs_id) != -1) {
-				res.send("Hey, you've already signed up for shuttle " + shuttleID);
+				res.send("You've already signed up for shuttle " + shuttleID);
 				return;
-			} else if (waitlist.indexOf(rcs_id) != -1) {
-				res.send("Hey, you're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
+			}
+			else if (waitlist.indexOf(rcs_id) != -1) {
+				res.send("You're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
 				return;
 			}
 			// If the shuttle currently has a vacancy
@@ -95,10 +102,11 @@ router.post('/', function(req, res) {
 		// ... They're bringing guests (or at least have indicated their willingness to do so)
 		else if (numGuests > 0) {
 			if (riders.indexOf(rcs_id) != -1) {
-				res.send("Hey, you've already signed up for shuttle " + shuttleID + ". To add guests, you'll need to unsignup, and then resignup with your guests.");
+				res.send("You've already signed up for shuttle " + shuttleID + ". To add guests, you'll need to unsignup, and then resignup with your guests.");
 				return;
-			} else if (waitlist.indexOf(rcs_id) != -1) {
-				res.send("Hey, you're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
+			}
+			else if (waitlist.indexOf(rcs_id) != -1) {
+				res.send("You're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
 				return;
 			}
 			// Let's check to see if guests are even allowed
@@ -110,7 +118,8 @@ router.post('/', function(req, res) {
 			if (waitlist.length > 0) {
 				res.send("This shuttle has a waitlist. Guests aren't allowed when a shuttle has an outstanding waitlist.");
 				return;
-			} else if (vacancies < numGuests + 1) {
+			}
+			else if (vacancies < numGuests + 1) {
 				res.send("There isn't enough room on this shuttle.");
 				return;
 			}
