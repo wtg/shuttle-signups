@@ -23,6 +23,7 @@ module.exports = {
 
 //configure mongoose to load a configurable mongo url , with backwards compatability for older configs
 mongoose.Promise = global.Promise;
+console.log("Running with mongodb url of: " + process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL || config.mongo_url || "mongodb://localhost/shuttle-signups");
 
 app.use(session({
