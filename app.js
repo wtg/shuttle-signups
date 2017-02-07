@@ -23,7 +23,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect( process.env.MONGO_URL || config.mongo_url || "mongodb://localhost/shuttle-signups");
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'super secret key',
+    secret: process.env.SESSION_SECRET || config.session_secret ||  'super secret key',
     saveUninitialized: false, // don't create session until something stored
     resave: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
@@ -38,7 +38,6 @@ const cas = new CASAuthentication({
     dev_mode_info: {cas_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user},
     cas_version: '2.0',
 });
-
 app.use(express.static('web'));
 app.use(bodyParser.json())
 app.use('/scripts', express.static('node_modules'));
