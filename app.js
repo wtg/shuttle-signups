@@ -18,8 +18,9 @@ const helperLib = require("./helper.js").helpers;
 const helper = new helperLib();
 module.exports = {app, eventEmitter};
 
+//configure mongoose to load a configurable mongo url , with backwards compatability for older configs
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/shuttle-signups');
+mongoose.connect( process.env.MONGO_URL || config.mongo_url || "mongodb://localhost/shuttle-signups");
 
 app.use(session({
     secret: process.env.SESSION_SECRET || 'super secret key',
@@ -30,7 +31,7 @@ app.use(session({
 
 // Create a new instance of CASAuthentication.
 const cas = new CASAuthentication({
-    cas_url: 'https://cas-auth.rpi.edu/cas',
+    cas_url: process.env.CAS_URL || config.mongo_url || 'https://cas-auth.rpi.edu/cas',
     service_url: process.env.SERVICE_URL || config.service_url,
     is_dev_mode: process.env.CAS_DEV_MODE || config.cas_dev_mode,
     dev_mode_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user,
