@@ -16,26 +16,33 @@ const app = express();
 const expressWs = require('express-ws')(app);
 const helperLib = require("./helper.js").helpers;
 const helper = new helperLib();
-module.exports = {app, eventEmitter};
+module.exports = {
+    app,
+    eventEmitter
+};
 
 //configure mongoose to load a configurable mongo url , with backwards compatability for older configs
 mongoose.Promise = global.Promise;
-mongoose.connect( process.env.MONGO_URL || config.mongo_url || "mongodb://localhost/shuttle-signups");
+mongoose.connect(process.env.MONGO_URL || config.mongo_url || "mongodb://localhost/shuttle-signups");
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || config.session_secret ||  'super secret key',
+    secret: process.env.SESSION_SECRET || config.session_secret || 'super secret key',
     saveUninitialized: false, // don't create session until something stored
     resave: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+    })
 }));
 
 // Create a new instance of CASAuthentication.
 const cas = new CASAuthentication({
-    cas_url: process.env.CAS_URL || config.mongo_url || 'https://cas-auth.rpi.edu/cas',
+    cas_url: process.env.CAS_URL || config.cas_url || 'https://cas-auth.rpi.edu/cas',
     service_url: process.env.SERVICE_URL || config.service_url,
     is_dev_mode: process.env.CAS_DEV_MODE || config.cas_dev_mode,
     dev_mode_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user,
-    dev_mode_info: {cas_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user},
+    dev_mode_info: {
+        cas_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user
+    },
     cas_version: '2.0',
 });
 app.use(express.static('web'));
@@ -57,50 +64,52 @@ app.use('/api/admin/modify-shuttle', require('./routes/admin/modify-shuttle'));
 app.use('/api/signup-shuttle', require('./routes/signup-shuttle'));
 app.use('/api/unsignup-shuttle', require('./routes/unsignup-shuttle'));
 
-app.get('/login', cas.bounce, function (req, res) {
-   if (!req.session || !req.session.cas_user) {
+app.get('/login', cas.bounce, function(req, res) {
+    if (!req.session || !req.session.cas_user) {
         res.redirect('/logout');
-   }
+    }
 
-   res.redirect('/dashboard');
+    res.redirect('/dashboard');
 });
 
-app.get('/dashboard', function (req, res) {
-   if (!req.session || !req.session.cas_user) {
+app.get('/dashboard', function(req, res) {
+    if (!req.session || !req.session.cas_user) {
         res.redirect('/login');
-   }
+    }
 
-   res.sendFile( __dirname + "/web/dashboard.html" );
+    res.sendFile(__dirname + "/web/dashboard.html");
 });
 
 app.get('/logout', cas.logout);
 
 // Catch 404s
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.status = 404;
 
-   // respond with html page
-   if (req.accepts('html')) {
-      res.sendFile(__dirname + "/web/404.html");
-      return;
-   }
+    // respond with html page
+    if (req.accepts('html')) {
+        res.sendFile(__dirname + "/web/404.html");
+        return;
+    }
 
-   // respond with json
-   if (req.accepts('json')) {
-       res.send({ error: 'Not found' });
-       return;
-   }
+    // respond with json
+    if (req.accepts('json')) {
+        res.send({
+            error: 'Not found'
+        });
+        return;
+    }
 
-   res.type('txt').send('Not found');
+    res.type('txt').send('Not found');
 });
 
-if(!(process.env.NODE_ENV == "development" ||
-    process.env.NODE_ENV == "production")){
+if (!(process.env.NODE_ENV == "development" ||
+        process.env.NODE_ENV == "production")) {
     process.env.NODE_ENV = "production";
 }
 const port = process.env.PORT || 8080;
-app.listen(port, function () {
-  console.log('Listening on port ' + port);
-  console.log('...in ' + process.env.NODE_ENV + ' mode.');
+app.listen(port, function() {
+    console.log('Listening on port ' + port);
+    console.log('...in ' + process.env.NODE_ENV + ' mode.');
 
 });
