@@ -14,7 +14,7 @@ Before this project came to exist, a Google Form was used to facilitate sign-ups
 
 0. clone this repository and cd into it
 1. [Install docker](https://docs.docker.com/engine/installation/)
-  - $```sudo apt install docker``` , or equivalent
+  - $```sudo apt install docker-engine```, or equivalent
   - $```docker-compose --version```, sanity check for version >= 1.10
 2. ```mv dev-config.js config.js``` and fill out valid run time secrets
   - contact the project maintainers for RPI specific secrets
