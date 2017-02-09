@@ -1,3 +1,4 @@
+"use strict";
 var https = require('https'),
     Q = require('q'),
     token = process.env.CMS_KEY || require('./config.js').cms_key;

@@ -1,3 +1,4 @@
+"use strict";
 //include all required helper files
 const express = require('express');
 const router = express.Router();

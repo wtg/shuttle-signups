@@ -1,3 +1,4 @@
+"use strict";
 //dependencies
 const express = require('express');
 const events = require('events');

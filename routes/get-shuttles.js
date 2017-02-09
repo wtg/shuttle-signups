@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const eventEmitter = require('../app').eventEmitter;
 const router = express.Router();
