@@ -1,4 +1,6 @@
 # Shuttle Signups [![Build Status](https://travis-ci.org/wtg/shuttle-signups.svg?branch=master)](https://travis-ci.org/wtg/shuttle-signups) [![Stories in Ready](https://badge.waffle.io/wtg/shuttle-signups.svg?label=ready&title=Ready)](http://waffle.io/wtg/shuttle-signups) [<img align="right" width="150px" src="http://webtech.union.rpi.edu/assets/css/images/wtg.png">](http://webtech.union.rpi.edu/)
+---
+
 A web interface to simplify the process of signing up for special shuttles at RPI.
 
 ## What exactly is a special shuttle?
@@ -7,9 +9,22 @@ The Rensselaer Union, along with support from Auxiliary Services and Parking & T
 ## Why is this project needed?
 Before this project came to exist, a Google Form was used to facilitate sign-ups for these special shuttles. These forms weren't the best solution. This project aims to simplify that process, helping both students, and those at Auxiliary Services and Parking & Transportation.
 
+## Getting started
+>aka: "I want to see pixels on the screen, pronto"
+
+0. clone this repository and cd into it
+1. [Install docker](https://docs.docker.com/engine/installation/)
+  - $```sudo apt install docker-engine```, or equivalent
+  - $```docker-compose --version```, sanity check for version >= 1.10
+2. ```mv dev-config.js config.js``` and fill out valid run time secrets
+  - contact the project maintainers for RPI specific secrets
+3. Run ```docker-compose up``` , it will build the app and pull a mongo container then link everything
+4. In your browser of choice naviagate to [```http://localhost:8080```](http://localhost:8080)
+
+
 ## Development and Deployment
 
-**It isn't currently reccommended that you deploy this project for production. It's still under heavy development, and things will most likely change (break).**
+**It isn't currently recommended that you deploy this project for production. It's still under heavy development, and things will most likely change (break).**
 
 
 *This project is developed on the MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).*
@@ -33,21 +48,21 @@ module.exports = {
 ```
 Any of the above configuration parameters can also be set as environment variables.
 
-``` 
+```
     CMS_KEY
     CAS_DEV_MODE
     CAS_DEV_MODE_USER
     SERVICE_URL
     ADMINS
 ```    
-    
+
 Great! Now, we're ready to run the application. Make sure MongoDB is already running, and simply run ```npm start```. By default, the application runs on port 8080, but this can easily be changed using an environment variable.
 
 In the future, we'll provide an init script that will allow running Shuttle Signups as a service on Linux distributions (which grants you tons of amenities, such as automatically running on start-up). For now, you can look into using [```forever```](https://www.npmjs.com/package/forever).
 
 ## Roadmap
   - [ ] Implement a functional user-facing and admin-facing frontend.
-  - [ ] Put shuttles into groups, based on origin/destination, and day of departure 
+  - [ ] Put shuttles into groups, based on origin/destination, and day of departure
     * This will allow us to prevent users from signing up for multiple shuttles going to the same destination on the same day.
   - [ ] Allow exportable and printable data about shuttles
   - [ ] Allow storing of student phone numbers
@@ -55,10 +70,10 @@ In the future, we'll provide an init script that will allow running Shuttle Sign
   - [ ] Store shuttle history
     * Currently, shuttles don't ever leave the database, so they can be queryable after they've been completed. However, this can cause the database to fill up rather quickly, so in the future, we'll probably make an archive for shuttles, sepearate from the main, active database.
   - [ ] Email reminders to users
-    * [Nodemailer](https://nodemailer.com/) is totally going to be our friend here. We should allow the time frame for the reminder to be configured per-shuttle, for groups of shuttles, or globally across the application. This will also be useful in notifying students of cancelled, or delayed shuttles.
+    * [Nodemailer](https://nodemailer.com/) is totally going to be our friend here. We should allow the time frame for the reminder to be configured per-shuttle, for groups of shuttles, or globally across the application. This will also be useful in notifying students of canceled, or delayed shuttles.
   - [X] Luggage restrictions
     * This information, and much more, can be specified in the notes section for a shuttle, which was added in ```e09fe30```.
   - [ ] Allow administrator override to add people past bus capacity
-    * We'll need to modify signup_shuttle and unsignup_shuttle to allow administators to specify a user, and add and remove them from shuttles.
-  - [ ] Close waitlist when departure is soon
+    * We'll need to modify signup_shuttle and unsignup_shuttle to allow administrators to specify a user, and add and remove them from shuttles.
+  - [ ] Close wait list when departure is soon
     * Allow the closing time to be configurable. I don't know if we'd like to extend this functionality to the ```users``` list for a shuttle as well.
