@@ -50,7 +50,7 @@ In the future, we'll provide an init script that will allow running Shuttle Sign
 
 ### Docker Production
 
-1. clone this repository and cd into it
+1. Clone this repository and cd into it
 2. [Install Docker](https://docs.docker.com/engine/installation/)
   - $```sudo apt install docker-engine```, or equivalent
   - $```docker-compose --version```, sanity check for version >= 1.10
