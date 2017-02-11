@@ -4,3 +4,4 @@ web/app/*/*.js
 web/app/*/*.map
 data
 npm-debug.log
+web/dist/*
