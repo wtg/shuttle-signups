@@ -10,10 +10,10 @@ $site-color3:#134565;
 }
 
 html{
-  padding: 0;
   margin: 0;
   background: rgb(166, 37, 41);
   overflow-x: hidden;
+  overflow-y: auto;
 //   height: 100%;
 }
 body {
@@ -22,52 +22,50 @@ body {
   // padding: 0;
   margin: 0;
   padding: 0;
-  min-height: 101vh;
+  display: flex;
+  flex-direction: column;
 }
 main{
   // display: inlinfe-block;
   // float: left;
-  min-height: 100vh;
+  flex: 1;
   padding: 20px;
-  margin-left: auto;
   // max-width: 50em;
   // display: flex;
   // justify-content: center;
 }
 nav{
-  // width: 100vw;
+  width: 100%;
   padding: 0;
   margin: 0;
   // height: 5em;
   background-color: black;
-  display: flex;
 
 }
 footer{
-  display: flex;
-  justify-content: flex-end;
-  flex-flow: column;
-  height: 5em;
-  background-color: black;
   position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem;
+  background-color: black;
+  text-align: center;
 }
+
 nav ul{
-  width: 100vw;
-  font: Lato,Helvetica;
+  width: 100%;
+  font: Roboto, Helvetica;
   font-size: 2.5em;
-  padding-left: 0;
+  padding: 0;
   margin: 0;
-  background-color: darken($site-color3,5%);
+  background-color: darken($site-color3, 5%);
   display: flex;
   flex-flow: row;
   justify-content: space-between;
   flex-wrap: nowrap;
-  // justify-content: flex-start;
 }
 nav ul li {
-  // padding: 0 10px 0 10px;
   padding: .25em;
-  // flex-grow: 1;
   // margin-right: 1em;
   list-style: none;
 

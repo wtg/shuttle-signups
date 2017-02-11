@@ -1,14 +1,21 @@
 /* Master Styles */
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
 body {
-  font-family: 'Lato';
+  font-family: 'Roboto';
   margin: 2em;
   background-color: #124364;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 h1 {
    font-weight: 700;
    color: white;
-   margin-bottom: 5px;
+   margin-bottom: 0px;
 }
 
 h2 {
