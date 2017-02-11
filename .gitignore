@@ -2,5 +2,7 @@ node_modules
 config.js
 web/app/*/*.js
 web/app/*/*.map
+web/assets/site.css
+web/assets/styles.css
 data
 npm-debug.log

@@ -5,11 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev-sink": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc -p ./web/\" \"tsc -p ./web/ -w\" \"node app.js\" ",
-    "dev-debug": "concurrently \"tsc -p ./web/ \" \"tsc -p ./web/ -w\" \"PORT=3000 NODE_ENV=development nodemon app.js\" \"npm run build-css\"",
-    "build-css": "node-sass -w web/assets/scss/ -o web/assets/css/",
-    "postinstall": "typings install",
-    "typings": "typings",
+    "start-all": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc -p ./web/\" \"tsc -p ./web/ -w\" \"npm run build-css\" \"node app.js\" ",
+    "dev-no-mongo": "concurrently \"tsc -p ./web/ \" \"tsc -p ./web/ -w\" \"PORT=8080 NODE_ENV=development nodemon app.js\" \"npm run build-css\"",
+    "dev-mongo": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc -p ./web/ \" \"tsc -p ./web/ -w\" \"PORT=8080 NODE_ENV=development nodemon app.js\" \"npm run build-css\"",
+    "build-css": "node-sass web/assets/scss/ -o web/assets/css/",
     "test": "gulp"
   },
   "repository": {

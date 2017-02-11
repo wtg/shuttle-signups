@@ -2,42 +2,33 @@ html {
   padding: 0;
   margin: 0;
   background: #a62529;
-  overflow-x: hidden;
-  overflow-y: auto;
-  min-width: 100%;
-  min-height: 100%
-}
+  overflow-x: hidden; }
 
 body {
   margin: 0;
-  padding: 0; 
-  display: flex;
-  flex-direction: column;
-}
+  padding: 0;
+  min-height: 101vh; }
 
 main {
+  min-height: 100vh;
   padding: 20px;
-  flex: 1;
-}
+  margin-left: auto; }
 
 nav {
   padding: 0;
   margin: 0;
   background-color: black;
-}
+  display: flex; }
 
 footer {
-  position: relative;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  flex-flow: column;
+  height: 5em;
   background-color: black;
-  text-align: center;
-}
+  position: relative; }
 
 nav ul {
-  color: white;
   width: 100vw;
   font: Lato,Helvetica;
   font-size: 2.5em;
