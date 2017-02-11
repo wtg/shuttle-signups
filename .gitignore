@@ -2,8 +2,8 @@ node_modules
 config.js
 web/app/*/*.js
 web/app/*/*.map
-web/assets/site.css
-web/assets/styles.css
+web/assets/css/site.css
+web/assets/css/styles.css
 data
 npm-debug.log
 web/dist/*
