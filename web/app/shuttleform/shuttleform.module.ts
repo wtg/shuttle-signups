@@ -4,12 +4,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { DashboardComponent }   from './dashboard.component';
 import { ShuttleFormComponent} from '../shuttleform/shuttleform.component';
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, JsonpModule],
-    declarations: [DashboardComponent, ShuttleFormComponent],
-    bootstrap: [DashboardComponent]
+    declarations: [ShuttleFormComponent],
+    bootstrap: [ShuttleFormComponent]
 })
-export class DashboardModule { }
-platformBrowserDynamic().bootstrapModule(DashboardModule);
+export class ShuttleFormModule { }
+platformBrowserDynamic().bootstrapModule(ShuttleFormModule);
