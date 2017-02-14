@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/scripts/material-design-lite/material.min.css">
+    <script src="/scripts/material-design-lite/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
     <shuttle-signups>
        <div class = "center">
-          <img alt = "Warning logo." src = "assets/images/warning.png" width = "149" height = "137">
-          <h1>This is a 404.</h1>
-          <h2>This means what you're looking for can't be found.</h2>
+          <h1>
+            <i class="material-icons" id="page-not-found-icon">warning</i><br/>
+            Page not found.
+          </h1>
           <h3>That's okay. This button will take you home.</h3>
-          <a class = "btn" href = "/">Home</a>
+          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="/">Home</a>
        </div>
     </shuttle-signups>
    </body>

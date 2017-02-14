@@ -92,3 +92,7 @@ nav p {
    display: block;
    margin: auto;
 }
+
+#page-not-found-icon {
+  font-size: 30vh;
+}
