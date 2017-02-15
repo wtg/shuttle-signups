@@ -3,7 +3,7 @@ config.js
 web/app/*/*.js
 web/app/*/*.map
 web/assets/css/site.css
-web/assets/css/styles.css
+web/assets/css/dashboard.css
 data
 npm-debug.log
 web/dist/*
