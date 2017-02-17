@@ -35,12 +35,8 @@ main{
   // justify-content: center;
 }
 nav{
-  width: 100%;
   padding: 0;
   margin: 0;
-  // height: 5em;
-  background-color: black;
-
 }
 footer{
   position: relative;
@@ -96,4 +92,13 @@ nav ul li a:active,nav ul li a:hover{
 #account{
   align-self: flex-end;
 
+}
+
+.mdl-layout__drawer-button {
+ display: flex !important;
+ justify-content: center;
+}
+
+.material-icons {
+ align-self: center;
 }
