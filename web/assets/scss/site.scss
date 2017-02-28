@@ -1,6 +1,9 @@
+@import '../../../node_modules/material-design-lite/src/material-design-lite';
+
 $site-color1: #e2231b;
 $site-color2:#af524e;
 $site-color3:#134565;
+$mobile-breakpoint: 1025px;
 
 @mixin centerer {
   position: absolute;
@@ -35,12 +38,8 @@ main{
   // justify-content: center;
 }
 nav{
-  width: 100%;
   padding: 0;
   margin: 0;
-  // height: 5em;
-  background-color: black;
-
 }
 footer{
   position: relative;
@@ -96,4 +95,23 @@ nav ul li a:active,nav ul li a:hover{
 #account{
   align-self: flex-end;
 
+}
+
+.mdl-layout__drawer-button {
+ display: flex;
+ justify-content: center;
+}
+
+.material-icons {
+ align-self: center;
+}
+
+@media screen and (min-width:$mobile-breakpoint) {
+  .mdl-layout__drawer-button {
+    display: none;
+  }
+
+  .mdl-layout__header-row {
+    padding-left: 20px;
+  }
 }
