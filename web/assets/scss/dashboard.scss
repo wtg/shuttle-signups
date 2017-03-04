@@ -27,7 +27,9 @@ button[disabled=disabled], button:disabled{
   color: darken($button-f-color,20%);
 }
 .shuttle-container {
-    width: 100vw;
+  flex-grow: 1;
+  margin: .5em;
+  display: flex;
 }
 .dashboard-container {
     flex-grow: 1;
@@ -41,6 +43,10 @@ button[disabled=disabled], button:disabled{
     display: flex;
     flex-flow: column;
     flex-wrap: wrap;
+}
+.shuttle-card-container{
+  flex-grow: 1;
+  margin: .5em;
 }
 
 .shuttle-route-container {

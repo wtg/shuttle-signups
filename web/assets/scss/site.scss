@@ -12,9 +12,14 @@ $mobile-breakpoint: 1025px;
   transform: translate(-50%, -50%);
 }
 
-html{
-  margin: 0;
+.sick-spinner{
+  height: 20em;
+  width: 20em;
+}
+
+html {
   background: rgb(166, 37, 41);
+  margin: 0;
   overflow-x: hidden;
   overflow-y: auto;
 //   height: 100%;

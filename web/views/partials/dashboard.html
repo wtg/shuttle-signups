@@ -1,5 +1,5 @@
-<div class = "dashboard-container">
-<div class="profile-container">
+<div class="dashboard-container">
+    <!-- <div class="profile-container">
   <h1>
     Hey, {{user.first_name}}
   </h1>
@@ -13,9 +13,9 @@
       guests only: {{user.guestsOnly}}
     </p>
     <hr />
-</div>
+</div> -->
 
-<div class="search-container">
+    <!-- <div class="search-container">
   <div class="search-box">
     <input [(ngModel)]="searchquery" type="text" />
   </div>
@@ -24,72 +24,103 @@
     <button class="search-button">search</button>
     <button class="search-button" (click)="getshuttles() ">refresh</button>
   </div>
-</div>
-<ul class="shuttles">
-  <li *ngFor="let shuttle of shuttles">
-    <div class="shuttle-container">
-      <div class="shuttle">
-        <div class="shuttle-route-container">
-          <ul class="breadcrumb">
-            <li><a href="#">{{shuttle.origin[0].name}}</a>
+</div> -->
+    <style>
+        .demo-card-wide.mdl-card {
+            width: 512px;
+        }
+
+        .demo-card-wide>.mdl-card__title {
+            color: #fff;
+            height: 176px;
+            background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+        }
+
+        .demo-card-wide>.mdl-card__menu {
+            color: #fff;
+        }
+    </style>
+    <ul class="shuttles">
+        <div class="shuttle-container">
+            <li class="shuttle-card-container" *ngFor="let shuttle of shuttles">
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">{{shuttle.origin[0].name}} to {{shuttle.destination[0].name}}</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <span class="mdl-chip mdl-chip--contact">
+                          <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">
+                            R
+                              <!-- <i class="material-icons"></i> -->
+                          </span>
+                        <span class="mdl-chip__text">{{shuttle.riders.length}} of {{shuttle.maxCapacity}}</span>
+                        </span>
+                        <span class="mdl-chip" *ngIf=" ! shuttle.isActive">
+              <span class="mdl-chip__text">disabled</span>
+                        </span>
+                        <span class="mdl-chip mdl-chip--contact">
+              <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">G</span>
+                        <span class="mdl-chip__text">{{shuttle.guestsAllowed}}</span>
+                        </span>
+                        <br /> message: {{shuttle.message}}
+                        <pre *ngIf="godmode">id: {{shuttle._id}}</pre>
+                        <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <!-- <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Sign Up
+          </a> -->
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</a>
+                    </div>
+                    <div class="mdl-card__menu">
+                        <!-- <button class="mdl-button  mdl-js-button mdl-js-ripple-effect"> -->
+              <!-- <i class="material-icons">share</i> -->
+            <!-- </button> -->
+                    </div>
+                </div>
             </li>
-            <li>
-              <a href="#">{{shuttle.destination[0].name}}</a>
-            </li>
-            <li>
-              <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
-            </li>
-          </ul>
+
         </div>
-        <div class="shuttle-info">
-          <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
-          <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
-          <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
-          <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
-          <span *ngIf="godmode">id: {{shuttle._id}}</span>
-          <span>{{shuttle.message}}</span>
-          <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
-        </div>
-      </div>
+    </ul>
+    <hr />
+    <h1>User Shuttles:</h1>
+    <!-- <button  (click)="getusershuttles()">get user shuttles</button> -->
+    <ul class="shuttles">
+        <li *ngFor="let shuttle of usershuttles">
+            <div class="shuttle-container">
+                <div class="">
+                    <div class="">
+                        <ul class="">
+                            <li><a href="#">{{shuttle.origin[0].name}}</a>
+                            </li>
+                            <li>
+                                <a href="#">{{shuttle.destination[0].name}}</a>
+                            </li>
+                            <li>
+                                <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="">
+                        <button *ngIf="shuttle.isActive" (click)="unsignup(shuttle)">Unsign up</button>
+                        <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
+                        <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
+                        <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
+                        <span *ngIf="godmode">id: {{shuttle._id}}</span>
+                        <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
+                        <span *ngIf="shuttle.message">{{shuttle.message}}</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <hr />
+    <h1>Admin</h1>
+    <button (click)="togglegodmode()">god mode</button>
+    <div *ngIf="godmode">
+        <shuttle-form></shuttle-form>
     </div>
-  </li>
-</ul>
-<hr />
-<h1>User Shuttles:</h1>
-<!-- <button  (click)="getusershuttles()">get user shuttles</button> -->
-<ul class="shuttles">
-  <li *ngFor="let shuttle of usershuttles">
-    <div class="shuttle-container">
-      <div class="shuttle">
-        <div class="shuttle-route-container">
-          <ul class="breadcrumb">
-            <li><a href="#">{{shuttle.origin[0].name}}</a>
-            </li>
-            <li>
-              <a href="#">{{shuttle.destination[0].name}}</a>
-            </li>
-            <li>
-              <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
-            </li>
-          </ul>
-        </div>
-        <div class="shuttle-info">
-          <button *ngIf="shuttle.isActive" (click)="unsignup(shuttle)">Unsign up</button>
-          <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
-          <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
-          <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
-          <span *ngIf="godmode">id: {{shuttle._id}}</span>
-          <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
-          <span>{{shuttle.message}}</span>
-        </div>
-      </div>
-    </div>
-  </li>
-</ul>
-<hr />
-<h1>Admin</h1>
-<button (click)="togglegodmode()">god mode</button>
-<div *ngIf="godmode">
-  <shuttle-form></shuttle-form>
-</div>
-</div>
+</div>``
