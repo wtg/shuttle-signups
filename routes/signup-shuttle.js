@@ -66,12 +66,12 @@ router.post('/', function(req, res) {
 			// If the shuttle currently has a vacancy
 			if (vacancies >= 1) {
 				riders.push(rcs_id);
-				vacancies--;
+				//vacancies--;
 				Shuttle.findOneAndUpdate({
 					_id: shuttleID
 				}, {
 					riders: riders,
-					vacancies: vacancies
+					//vacancies: vacancies
 				}, function(err) {
 					if (err) {
 						console.log(err);
@@ -79,6 +79,10 @@ router.post('/', function(req, res) {
 						return;
 					}
 					res.send("OK, you're signed up for shuttle " + shuttleID);
+					var webSocketResponseAdmin = {type: "signup-shuttle", shuttle: [shuttleID, riders, vacancies]};
+					eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
+					var webSocketResponse = {type: "signup-shuttle", shuttle: [shuttleID, vacancies]};
+					eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 					return;
 				});
 			}
@@ -96,6 +100,10 @@ router.post('/', function(req, res) {
 						return;
 					}
 					res.send("You've been added to the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.length + " in line.");
+					var webSocketResponseAdmin = {type: "signup-shuttle-waitlist", shuttle: [shuttleID, waitlist]};
+					eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
+					var webSocketResponse = {type: "signup-shuttle-waitlist", shuttle: [shuttleID, waitlist.length]};
+					eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 					return;
 				});
 			}
@@ -124,9 +132,12 @@ router.post('/', function(req, res) {
 				res.send("There isn't enough room on this shuttle.");
 				return;
 			}
+			
 			riders.push(rcs_id);
 			vacancies--;
+			
 			// Not sure if I like this formatting.
+			// Currently, a guest is formatted like: RCSID-guest#
 			for (var i = 0; i < numGuests; i++) {
 				riders.push(rcs_id + "-guest" + i);
 				vacancies--;
@@ -138,10 +149,14 @@ router.post('/', function(req, res) {
 				vacancies: vacancies
 			}, function(err) {
 				if (err) {
-					res.send("There was an error adding you and your guests to the waitlist for shuttle " + shuttleID);
+					res.send("There was an error adding your guests and you to the shuttle " + shuttleID);
 					return;
 				}
 				res.send("Your " + numGuests + " guests and you have signed up for shuttle " + shuttleID);
+				var webSocketResponseAdmin = {type: "signup-shuttle", shuttle: [shuttleID, riders, vacancies]};
+				eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
+				var webSocketResponse = {type: "signup-shuttle", shuttle: [shuttleID, vacancies]};
+				eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 				return;
 			});
 		}

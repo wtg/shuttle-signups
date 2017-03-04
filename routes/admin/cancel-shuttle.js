@@ -34,6 +34,7 @@ router.post('/', function(req, res) {
 				return;
 			}
 			var webSocketResponse = {type: "cancel_shuttle", shuttleID: shuttleID};
+			eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponse));
 			eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 			res.send("Shuttle " + shuttleID + " sucessfully cancelled.");
 			return;
