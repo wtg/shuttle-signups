@@ -80,7 +80,7 @@ export class DashboardService {
       console.log(data);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.post(this.baseURL + "delete-shuttle/",data,options)
+      return this.http.post(this.baseURL + "admin/delete-shuttle/",data,options)
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
@@ -92,7 +92,7 @@ export class DashboardService {
       console.log(data);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.post(this.baseURL + "cancel-shuttle/",data,options)
+      return this.http.post(this.baseURL + "admin/cancel-shuttle/",data,options)
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
@@ -101,7 +101,7 @@ export class DashboardService {
     addshuttle(shuttle:Shuttle){
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      this.http.post(this.baseURL + "add-shuttle/",shuttle,options)
+      this.http.post(this.baseURL + "admin/add-shuttle/",shuttle,options)
       .toPromise()
       .then(response => console.log(response))
       .catch(this.handleError);

@@ -29,7 +29,12 @@ button[disabled=disabled], button:disabled{
 .shuttle-container {
     width: 100vw;
 }
-
+.dashboard-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .shuttle {
     padding-top: 1em;
     // max-width: 30em;
@@ -204,28 +209,32 @@ button[disabled=disabled], button:disabled{
 }
 
 .search-container{
-  width: 100vw;
   min-width: 20em;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+  }
 
   .search-box{
-    flex-grow: 4;
+    flex-grow: 1;
     padding-right: 10px;
   }
-  .search-buttons{
+  .search-button-container{
     flex-grow: 1;
     align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+  }
+  .search-button{
+    flex-grow: 1;
   }
   .search-box input{
     min-width: 10em;
-    width: 100%;
     font-size: 2em;
     background-color: darken(whitesmoke,5%);
   }
 
-}
 #numguests{
   width: 3em;
 }
