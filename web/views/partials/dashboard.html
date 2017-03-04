@@ -1,4 +1,5 @@
-<div>
+<div class = "dashboard-container">
+<div class="profile-container">
   <h1>
     Hey, {{user.first_name}}
   </h1>
@@ -18,9 +19,10 @@
   <div class="search-box">
     <input [(ngModel)]="searchquery" type="text" />
   </div>
-  <div class="search-buttons">
-    <button>search</button>
-    <button (click)="getshuttles() ">refresh</button>
+  <br/>
+  <div class="search-button-container">
+    <button class="search-button">search</button>
+    <button class="search-button" (click)="getshuttles() ">refresh</button>
   </div>
 </div>
 <ul class="shuttles">
@@ -89,4 +91,5 @@
 <button (click)="togglegodmode()">god mode</button>
 <div *ngIf="godmode">
   <shuttle-form></shuttle-form>
+</div>
 </div>
