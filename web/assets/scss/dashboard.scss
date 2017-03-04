@@ -81,9 +81,8 @@ button[disabled=disabled], button:disabled{
 }
 
 @media(min-width:500px) {
-    .breadcrumb,
+    .breadcrumb ,
     ul {
-        width: 100%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;

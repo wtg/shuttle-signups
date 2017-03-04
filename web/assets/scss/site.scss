@@ -1,10 +1,26 @@
-@import '../../../node_modules/material-design-lite/src/material-design-lite';
+
 
 $site-color1: #e2231b;
 $site-color2:#af524e;
 $site-color3:#134565;
 $mobile-breakpoint: 1025px;
 
+//background color of title bar
+$color-primary: "175,82,78" ;
+
+//unknown
+$color-primary-dark: "41, 64, 92";
+
+//Button background color
+$color-accent: "226,35,27";
+
+//Primary text color (like on title bar)
+$color-primary-contrast: "255, 255, 255";
+
+//Button accent forground
+$color-accent-contrast: "255, 255, 255";
+
+@import '../../../node_modules/material-design-lite/src/material-design-lite';
 @mixin centerer {
   position: absolute;
   top: 50%;

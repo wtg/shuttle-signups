@@ -1,4 +1,7 @@
 import {User} from './user';
+/*
+Schema derived from the mongodb backend schema.
+*/
 export class Shuttle {
   _id:string;
   isActive: boolean;

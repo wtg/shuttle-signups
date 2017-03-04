@@ -62,7 +62,7 @@
               <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">G</span>
                         <span class="mdl-chip__text">{{shuttle.guestsAllowed}}</span>
                         </span>
-                        <br /> message: {{shuttle.message}}
+                        <br />
                         <pre *ngIf="godmode">id: {{shuttle._id}}</pre>
                         <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre>
                     </div>
@@ -111,7 +111,7 @@
                         <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
                         <span *ngIf="godmode">id: {{shuttle._id}}</span>
                         <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
-                        <span *ngIf="shuttle.message">{{shuttle.message}}</span>
+                        <!-- <span ng-show="false">{{shuttle.message}}</span> -->
                     </div>
                 </div>
             </div>

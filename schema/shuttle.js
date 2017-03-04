@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+/*
+When making changes to this schema,
+be a good samaritan and change add refactor the corresponding front end schema in shuttle.ts
+*/
 var shuttleSchema = new Schema({
       isActive: Boolean,
       origin: Array,
