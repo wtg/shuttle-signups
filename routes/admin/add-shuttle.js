@@ -47,6 +47,7 @@ router.post('/', function(req, res) {
 				return;
 			}
 			var webSocketResponse = {type: "add_shuttle", shuttle: shuttleJSON};
+			eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponse));
 			eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 			res.send("Shuttle was sucessfully saved.");
 			return;
