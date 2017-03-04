@@ -7,10 +7,10 @@ export class User {
   shuttles:Array<Shuttle>;
   constructor(arg?:any){
     console.log("User created.");
-    this.first_name = arg && arg.first_name || "Shirley";
-    this.username = arg && arg.username || "001RPI";
-    this.numGuests = arg && arg.numGuests || 0;
-    this.guestsOnly = arg && arg.guestsOnly || false;
+    this.first_name = arg && arg.first_name;
+    this.username = arg && arg.username;
+    this.numGuests = arg && arg.numGuests;
+    this.guestsOnly = arg && arg.guestsOnly;
     this.shuttles = Array<Shuttle>();
   }
 }
