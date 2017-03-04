@@ -66,12 +66,12 @@ router.post('/', function(req, res) {
 			// If the shuttle currently has a vacancy
 			if (vacancies >= 1) {
 				riders.push(rcs_id);
-				vacancies--;
+				//vacancies--;
 				Shuttle.findOneAndUpdate({
 					_id: shuttleID
 				}, {
 					riders: riders,
-					vacancies: vacancies
+					//vacancies: vacancies
 				}, function(err) {
 					if (err) {
 						console.log(err);

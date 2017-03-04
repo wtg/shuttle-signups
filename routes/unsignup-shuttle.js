@@ -55,6 +55,8 @@ router.post('/', function(req, res) {
 			return;
 		}
 		// Let's handle if we're removing both a user and their guests (guestsOnly === false)
+		// Also useful for removing an individual user from a shuttle
+		
 		if (!guestsOnly) {
 			// Let's figure out if they're on the waitlist or if they're on the riders list
 			if (riders.indexOf(rcs_id) != -1) {
@@ -66,14 +68,16 @@ router.post('/', function(req, res) {
 					}
 				}
 			}
+			
 			else {
-				for (var user = 0; user < riders.length; ++user) {
+				for (var user = 0; user < waitlist.length; ++user) {
 					if (waitlist[user].includes(rcs_id)) {
 						waitlist.splice(user, 1);
 						user--;
 					}
 				}
 			}
+			
 			Shuttle.findOneAndUpdate({
 				_id: shuttleID
 			}, {
@@ -85,7 +89,11 @@ router.post('/', function(req, res) {
 					res.send("There was an error removing you from the shuttle.");
 					return;
 				}
-				res.send("You and your guests have been removed from shuttle " + shuttleID);
+				res.send("You have been removed from shuttle " + shuttleID);
+				var webSocketResponseAdmin = {type: "unsignup-shuttle", shuttle: [shuttleID, riders, waitlist, vacancies]};
+				eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
+				var webSocketResponse = {type: "unsignup-shuttle", shuttle: [shuttleID, vacancies, waitlist.length]};
+				eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 				return;
 			});
 		}
@@ -130,6 +138,10 @@ router.post('/', function(req, res) {
 					return;
 				}
 				res.send("Your " + guestsRemoved + " guests have been removed from shuttle " + shuttleID);
+				var webSocketResponseAdmin = {type: "unsignup-shuttle", shuttle: [shuttleID, riders, waitlist, vacancies]};
+				eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
+				var webSocketResponse = {type: "unsignup-shuttle", shuttle: [shuttleID, vacancies, waitlist.length]};
+				eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 				return;
 			});
 		}
