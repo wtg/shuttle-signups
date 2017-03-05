@@ -8,34 +8,40 @@ body,html,div{
   padding: 0;
   margin: 0;
 }
-button{
-  border: none;
-  text-decoration: none;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  max-height: 3em;
-  background-color: $button-bg-color;
-  color: $button-f-color;
-  font-family: $font-stack;
-  font-size: 1em;
-  padding: .25em;
-  margin-right: 1px;
+ul{
+  list-style: none;
 }
-button[disabled=disabled], button:disabled{
-  background-color: lighten($button-bg-color, 10%);
-  color: darken($button-f-color,20%);
+.filling-mdl-card{
+  width: auto;
+  min-width: 300px;
 }
+
 .shuttle-container {
-  flex-grow: 1;
   margin: .5em;
   display: flex;
+  flex-wrap: wrap;
+flex-direction: row;
+flex-grow: 1;
 }
 .dashboard-container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+@media(max-width:700px){
+  .shuttle-container{
+    flex-direction: column;
+  }
+  .right-control-collumn{
+    position: fixed;
+    right: 6%;
+    top: 74px;
+  }
+}
+.shuttles{
+  padding-left: 0;
+  width: 80%;
 }
 .shuttle {
     padding-top: 1em;
@@ -81,135 +87,20 @@ button[disabled=disabled], button:disabled{
 }
 
 @media(min-width:500px) {
-    .breadcrumb ,
-    ul {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 0;
-        list-style: none;
-        overflow: hidden;
-        font: 18px Helvetica, Arial, Sans-Serif;
-    }
-
-    .breadcrumb li {
-        // float: left;
-        // flex-grow: 1;
-    }
-
-    .breadcrumb li a {
-        background-color: $shuttle-color1;
-        color: white;
-        text-decoration: none;
-        position: relative;
-        padding: 10px;
-        display: inline-block;
-        float: left;
-        height: 1em;
-    }
-
-    .breadcrumb li a:after {
-        content: " ";
-        // display: block;
-        width: 0;
-        height: 0;
-        border-top: 50px solid transparent;
-        /* Go big on the size, and let overflow hide */
-        border-bottom: 50px solid transparent;
-        border-left: 30px solid $shuttle-color1;
-        position: absolute;
-        top: 50%;
-        margin-top: -50px;
-        left: 100%;
-        z-index: 2;
-    }
-
-    .breadcrumb li a:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border-top: 50px solid transparent;
-        /* Go big on the size, and let overflow hide */
-        border-bottom: 50px solid transparent;
-        border-left: 30px solid transparent;
-        position: absolute;
-        top: 50%;
-        margin-top: -50px;
-        margin-left: 1px;
-        left: 100%;
-        z-index: 1;
-    }
-
-    .breadcrumb li:first-child {
-        order: 0 !important;
-        // flex-grow: 2;
-        // min-width: 10em;
-    }
-
-    .breadcrumb li:first-child a {
-        padding-left: 10px;
-        width: 100%;
-    }
-
-    ,
-    .breadcrumb li:nth-child(2) a {
-        background: complement(desaturate($shuttle-color1, 20%));
-    }
-
-    .breadcrumb li:nth-child(2) a:after {
-        border-left-color: complement(desaturate($shuttle-color1, 20%));
-    }
-
-    .breadcrumb li:nth-child(3) a {
-        background: desaturate($shuttle-color1, 40%);
-    }
-
-    .breadcrumb li:nth-child(3) a:after {
-        border-left-color: desaturate($shuttle-color1, 40%);
-    }
-
-    .breadcrumb li:nth-child(4) a {
-        background: desaturate($shuttle-color1, 60%);
-    }
-
-    .breadcrumb li:nth-child(4) a:after {
-        border-left-color: invert(desaturate($shuttle-color1, 60%));
-    }
-
-    .breadcrumb li:nth-child(5) a {
-        background: desaturate($shuttle-color1, 80%);
-    }
-
-    .breadcrumb li:nth-child(5) a:after {
-        border-left-color: invert(desaturate($shuttle-color1, 80%));
-    }
-
-    .breadcrumb li:last-child {
-        margin-right: 1em;
-    }
-
-    .breadcrumb li:last-child a {
-      min-width: 10em;
-    }
-
-
-    .breadcrumb li:last-child a:after {}
-
-    .breadcrumb li a:hover {
-        background: rgb(19, 69, 101);
-    }
-
-    .breadcrumb li a:hover:after {
-        border-left-color: rgb(19, 69, 101) !important;
-    }
+  .right-control-collumn{
+    position: fixed;
+    right: 6%;
+    top: 74px;
+  }
 }
 @media(max-width:499px){
-  .breadcrumb  , ul{
-    padding: 0;
-    list-style: none;
-    flex-direction: column;
+  .right-control-collumn{
+    position: fixed;
+    right: 6%;
+    top: 74px;
+  }
+  .shuttles{
+    width: 100%;
   }
 }
 
@@ -238,6 +129,9 @@ button[disabled=disabled], button:disabled{
     min-width: 10em;
     font-size: 2em;
     background-color: darken(whitesmoke,5%);
+  }
+  .right-control-collumn{
+    z-index: 11;
   }
 
 #numguests{
