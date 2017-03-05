@@ -41,6 +41,9 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         console.log("called init");
     }
+    showShuttles(shuttle: Shuttle){
+      alert("This happened!");
+    }
     getuser() {
         this.dashboardService.getUser().then(user => this.user = new User(user));
     }
