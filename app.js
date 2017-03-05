@@ -66,6 +66,15 @@ app.use('/api/admin/modify-shuttle', require('./routes/admin/modify-shuttle'));
 app.use('/api/signup-shuttle', require('./routes/signup-shuttle'));
 app.use('/api/unsignup-shuttle', require('./routes/unsignup-shuttle'));
 
+if (!(process.env.NODE_ENV == "development" ||
+        process.env.NODE_ENV == "production")) {
+    process.env.NODE_ENV = "production";
+}
+//let the developers do things like mocking if running in development.
+if(process.env.NODE_ENV == "development"){
+  app.use('/api/mock/',require('./routes/mock/mock'));
+}
+
 app.get('/login', cas.bounce, function(req, res) {
     if (!req.session || !req.session.cas_user) {
         res.redirect('/logout');
@@ -105,10 +114,7 @@ app.use(function(req, res, next) {
     res.type('txt').send('Not found');
 });
 
-if (!(process.env.NODE_ENV == "development" ||
-        process.env.NODE_ENV == "production")) {
-    process.env.NODE_ENV = "production";
-}
+
 const port = process.env.PORT || 8080;
 app.listen(port, function() {
     console.log('Listening on port ' + port);

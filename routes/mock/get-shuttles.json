@@ -1,0 +1,124 @@
+{
+  "data": [
+    {
+      "_id": "58bb33f26961fa41b9724bab",
+      "isActive": true,
+      "maxCapacity": 30,
+      "vacancies": 30,
+      "guestsAllowed": 4,
+      "waitlist": [],
+      "riders": [],
+      "destination": [
+        {
+          "name": "Sage",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "origin": [
+        {
+          "name": "RPI",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "_id": "58bb34186961fa41b9724bac",
+      "isActive": true,
+      "maxCapacity": 10,
+      "vacancies": 10,
+      "guestsAllowed": 2,
+      "waitlist": [],
+      "riders": [],
+      "destination": [
+        {
+          "name": "Cross Gates",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "origin": [
+        {
+          "name": "RPI Union",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "_id": "58bb5104d277a656433ee845",
+      "isActive": false,
+      "maxCapacity": 40,
+      "vacancies": 40,
+      "guestsAllowed": 2,
+      "waitlist": [],
+      "riders": [],
+      "destination": [
+        {
+          "name": "Troy",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "origin": [
+        {
+          "name": "Albany",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "_id": "58bb514cd277a656433ee846",
+      "isActive": true,
+      "maxCapacity": 23,
+      "vacancies": 23,
+      "guestsAllowed": 2,
+      "waitlist": [],
+      "riders": [],
+      "destination": [
+        {
+          "name": "Cross Gates",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "origin": [
+        {
+          "name": "Union",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "_id": "58bb525dd277a656433ee847",
+      "isActive": true,
+      "maxCapacity": 34,
+      "vacancies": 34,
+      "guestsAllowed": 3,
+      "waitlist": [],
+      "riders": [],
+      "destination": [
+        {
+          "name": "Freshman Hill",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "origin": [
+        {
+          "name": "Library",
+          "latitude": null,
+          "longitude": null
+        }
+      ],
+      "__v": 0
+    }
+  ]
+}
