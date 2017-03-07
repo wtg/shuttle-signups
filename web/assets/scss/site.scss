@@ -142,9 +142,12 @@ nav ul li a:active,nav ul li a:hover{
  justify-content: center;
 }
 
-.mdl-chip__contact > .material-icons {
- align-self: center;
- padding-top: 4px; //fix center in chip
+.material-icons {
+  align-self: center;
+
+  .mdl-chip__contact > & {
+   padding-top: 4px; //fix center in chip
+  }
 }
 
 @media screen and (min-width:$mobile-breakpoint) {
