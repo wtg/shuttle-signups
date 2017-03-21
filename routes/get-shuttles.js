@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
 		//query the database and return all information on all shuttles
 		var query = Shuttle.find({}).lean();
 		query.exec(function(err, docs) {
-			res.send({"data":docs});
+			res.send(docs);
 		});
 	} else {
 		var query = Shuttle.find({}).lean();

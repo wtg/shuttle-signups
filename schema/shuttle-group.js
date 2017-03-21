@@ -5,6 +5,7 @@ var shuttleGroupSchema = new Schema({
       destination: Array,
       origin: Array,
       departureDate: Date,
+      isActive: Boolean,
       shuttles: [Schema.Types.ObjectId]
 });
 

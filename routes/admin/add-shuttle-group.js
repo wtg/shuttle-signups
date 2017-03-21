@@ -25,18 +25,19 @@ router.post('/', function(req, res) {
 		//if so, create the new shuttle group from json
 		var shuttleGroupJSON = {
 			destination: req.body.destination,
+			isActive: req.body.isActive,
 			origin: req.body.origin,
 			departureDate: req.body.departureDate,
 		}
 		
 		var shuttleGroup = new ShuttleGroup(shuttleGroupJSON);
 
-		//saves the shuttle to the database
+		//saves the shuttle group to the database
 		shuttleGroup.save(function(err) {
 			if (err) {
 				console.log("There was a problem saving that shuttle group.");
 				res.status(500);
-				res.send("There was an error in saving your shuttle group. We're looking into it.");
+				res.send("There was an error in saving your shuttle group.");
 				return;
 			}
 			var webSocketResponse = {type: "add_shuttle_group", shuttleGroup: shuttleGroupJSON};
