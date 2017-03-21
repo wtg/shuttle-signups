@@ -5,6 +5,7 @@ const router = express.Router();
 const cms = require('../../cms.js');
 const mongoose = require('mongoose');
 const Shuttle = require("../../schema/shuttle.js");
+const ShuttleGroup = require("../../schema/shuttle-group.js");
 const helperLib = require("../../helper.js").helpers;
 const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
@@ -39,17 +40,36 @@ router.post('/', function(req, res) {
 		var shuttle = new Shuttle(shuttleJSON);
 
 		//saves the shuttle to the database
-		shuttle.save(function(err) {
+		shuttle.save(function(err, shuttleResult) {
 			if (err) {
 				console.log("There was a problem saving a shuttle." + err);
 				res.status(500);
 				res.send("There was an error in saving your shuttle. We're looking into it.");
 				return;
 			}
+			
+			shuttleJSON._id = shuttleResult.id_;
 			var webSocketResponse = {type: "add_shuttle", shuttle: shuttleJSON};
 			eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponse));
 			eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
-			res.send("Shuttle was sucessfully saved.");
+			
+			var shuttleGroupQuery = ShuttleGroup.where({'_id': req.body.group});
+			shuttleGroupQuery.findOne((err, groupResult) => {
+				if (err) {
+					res.err("An error has occured.");
+					return;
+				}
+				
+				groupResult.shuttles.push(shuttleResult);
+				
+				ShuttleGroup.findOneAndUpdate(shuttleGroupQuery, groupResult, (err) => {
+					if (err) {
+						res.err("An error has occured.");
+						return;
+					}
+					res.send("Shuttle was sucessfully saved.");
+				});
+			})
 			return;
 		});
 	} else {

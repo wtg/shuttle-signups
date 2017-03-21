@@ -34,7 +34,7 @@ export class DashboardService {
     getShuttles(): Promise<Shuttle[]> {
         return this.http.get(this.baseURL + "get-shuttles/")
             .toPromise()
-            .then(response => response.json().data as Shuttle[])
+            .then(response => response.json() as Shuttle[])
             .catch(this.handleError);
     }
     signup(user:User,shuttle:Shuttle):Promise<void> {

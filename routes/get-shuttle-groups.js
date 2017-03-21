@@ -2,14 +2,14 @@
 //include all required helper files
 const express = require('express');
 const router = express.Router();
-const cms = require('../../cms.js');
+const cms = require('../cms.js');
 const mongoose = require('mongoose');
-const ShuttleGroup = require("../../schema/shuttle-group.js");
-const helperLib = require("../../helper.js").helpers;
-const eventEmitter = require('../../app').eventEmitter;
+const ShuttleGroup = require("../schema/shuttle-group.js");
+const helperLib = require("../helper.js").helpers;
+const eventEmitter = require('../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.get('/', function(req, res) {
 
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
