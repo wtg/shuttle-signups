@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
   var rcs_id = req.session.cas_user.toLowerCase();
   // Allow admins to query a user's RCS id and get shuttles in which they're signed up.
   if (helper.isAdmin(rcs_id)) {
-    if (req.query.user_rcs_id != null) {
+    if (req.query.user_rcs_id !== null) {
       rcs_id = req.query.user_rcs_id;
     }
     var query = Shuttle.find({
@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
         var onWaitlist;
         // Let's first figure out if the user is on the waitlist or not
         // If the user isn't on the waitlist
-        if (docs[i].waitlist.indexOf(rcs_id) == -1) {
+        if (docs[i].waitlist.indexOf(rcs_id) === -1) {
           onWaitlist = false;
           for (var user in docs[i].riders) {
             if (docs[i].riders[user].includes(rcs_id + "-guest")) {
