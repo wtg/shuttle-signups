@@ -45,7 +45,7 @@ const cas = new CASAuthentication({
     dev_mode_info: {
         cas_user: process.env.CAS_DEV_MODE_USER || config.cas_dev_mode_user
     },
-    cas_version: '2.0',
+    cas_version: '2.0'
 });
 app.use(express.static('web'));
 app.use(bodyParser.json())
@@ -67,12 +67,12 @@ app.use('/api/admin/modify-shuttle', require('./routes/admin/modify-shuttle'));
 app.use('/api/signup-shuttle', require('./routes/signup-shuttle'));
 app.use('/api/unsignup-shuttle', require('./routes/unsignup-shuttle'));
 
-if (!(process.env.NODE_ENV == "development" ||
-        process.env.NODE_ENV == "production")) {
+if (!(process.env.NODE_ENV === "development" ||
+        process.env.NODE_ENV === "production")) {
     process.env.NODE_ENV = "production";
 }
 //let the developers do things like mocking if running in development.
-if(process.env.NODE_ENV == "development"){
+if(process.env.NODE_ENV === "development"){
   app.use('/api/mock/',require('./routes/mock/mock'));
 }
 
