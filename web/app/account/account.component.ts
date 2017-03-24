@@ -5,14 +5,13 @@ import { AccountService } from './account.service';
 
 @Component({
     selector: 'account',
-    templateUrl: 'account.component.html',
-    styleUrls: ['assets/css/account.css'],
+    templateUrl: 'views/partials/account.component.html',
     providers: [AccountService]
 })
 export class AccountComponent {
     user: User;
     shuttles: Shuttle[];
-    
+
     //dashboard constructor, fetch data from server
     constructor(private accountService: AccountService) {
         // Display entertaining blank user while async load
@@ -27,5 +26,5 @@ export class AccountComponent {
         //debug log that the component loaded.
         console.log("Made a Component");
     }
-    
+
 }

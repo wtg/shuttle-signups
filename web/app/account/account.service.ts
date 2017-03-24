@@ -30,7 +30,7 @@ export class AccountService {
             .then(response => response.json() as User)
             .catch(this.handleError);
     }
-    
+
     getusershuttles(user:User):Promise<Shuttle[]>{
       return this.http.get(this.baseURL + "get-user-shuttles/")
           .toPromise()
