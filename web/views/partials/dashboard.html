@@ -50,6 +50,9 @@
             <pre *ngIf="godmode">id: {{shuttle._id}}</pre>
             <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre>
           </div>
+          <div [hidden]="!(shuttle.showMore)" class="mdl-card__actions mdl-card--border">
+            TODO shuttle times go here
+          </div>
           <div class="mdl-card__actions mdl-card--border">
             <!-- <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Sign Up

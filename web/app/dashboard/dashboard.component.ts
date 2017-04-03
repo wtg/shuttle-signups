@@ -42,7 +42,9 @@ export class DashboardComponent implements OnInit {
         console.log("called init");
     }
     showShuttles(shuttle: Shuttle){
-      alert("This happened!");
+      // TODO show time cards under a shuttle
+      shuttle.showMore = !shuttle.showMore;
+      // TODO set showMore to false for all other shuttle groups
     }
     getuser() {
         this.dashboardService.getUser().then(user => this.user = new User(user));

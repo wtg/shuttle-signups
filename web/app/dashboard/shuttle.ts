@@ -13,6 +13,7 @@ export class Shuttle {
   destination: Array<any>;
   origin: Array<any>;
   message:string;
+  showMore: boolean; // only necessary for frontend
   constructor(arg?:any){
     console.log("Shuttle created.");
     this._id= arg && arg._id || "fillme";
@@ -37,6 +38,6 @@ export class Shuttle {
         }
       ];
     this.message= arg && arg.message || "nothing";
-
+    this.showMore = false;
   }
 }
