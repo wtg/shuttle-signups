@@ -15,7 +15,9 @@ var shuttleSchema = new Schema({
       riders: Array,
       waitlist: Array,
       notes: String,
-      group: Schema.Types.ObjectId
+      group: Schema.Types.ObjectId,
+      reminderObject: Schema.Types.Mixed,
+      closeSignup: Date
 });
 
 module.exports = mongoose.model('Shuttle', shuttleSchema);

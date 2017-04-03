@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
 const eventEmitter = require('../app').eventEmitter;
+const moment = require('moment');
 const helper = new helperLib();
 module.exports = router;
 router.post('/', function(req, res) {
@@ -51,6 +52,12 @@ router.post('/', function(req, res) {
 			res.send("This shuttle is inactive.");
 			return;
 		}
+		// Let's check to ensure it has not passed the admin defined close-signup date and time
+		if (moment(Date).isSameOrAfter(shuttle.closeSignup)) {
+			res.send("Signups for this shuttle have ended.");
+			return;
+		}
+		
 		// Great, they're not bringing guests.
 		if (numGuests === 0) {
 			// Let's go ahead and add them to the list

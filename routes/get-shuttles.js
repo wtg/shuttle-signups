@@ -27,6 +27,7 @@ router.get('/', function(req, res) {
 		// Ensure non-admin users cannot see other riders, nor the waitlist for a shuttle.
 		query.select('-riders');
 		query.select('-waitlist');
+		query.select('-reminderObject');
 		query.exec(function(err, docs) {
 			res.send(docs);
 		});
