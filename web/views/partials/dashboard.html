@@ -79,11 +79,11 @@
             <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre>
           </div>
           <!-- <strong>shuttles shown? {{ shuttle.showMore }}</strong> -->
-          <div *ngIf="shuttle.showMore" class="mdl-card__actions mdl-card--border">
-            <div *ngFor="let subshuttle of shuttle.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
+          <div [hidden]="!shuttle.showMore" class="mdl-card__actions mdl-card--border">
+            <div *ngFor="let subshuttleId of shuttle.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title mdl-card--expand">
                 <h4>
-                  subshuttle: {{ subshuttle._id }}
+                  subshuttle: {{ subshuttleId }}
                 </h4>
               </div>
               <div class="mdl-card__actions mdl-card--border">

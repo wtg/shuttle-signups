@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
     getshuttles() {
         this.dashboardService.getShuttleGroups().then(shuttles => {
             // TODO make sure this doesn't break stuff
-            console.log('getShuttleGroups.shuttles:', shuttles);
+            console.log('getShuttleGroups:', shuttles);
             this.dashboardService.getusershuttles(this.user).then(data => {
                 this.usershuttles = data;
                 console.log('getusershuttles.data:', data);
