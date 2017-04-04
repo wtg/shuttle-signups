@@ -37,6 +37,12 @@ export class DashboardService {
             .then(response => response.json() as Shuttle[])
             .catch(this.handleError);
     }
+    getShuttleGroups(): Promise<Shuttle[]> {
+        return this.http.get(this.baseURL + "get-shuttle-groups/")
+            .toPromise()
+            .then(response => response.json() as Shuttle[])
+            .catch(this.handleError);
+    }
     signup(user:User,shuttle:Shuttle):Promise<void> {
       console.log(user);
         var data = {

@@ -4,6 +4,7 @@ import { Observable }       from 'rxjs/Observable';
 import { DashboardService } from './dashboard.service';
 import {User} from './user';
 import {Shuttle} from './shuttle'
+import {ShuttleGroup} from './shuttle-group'
 @Component({
     selector: 'shuttle-dashboard',
     templateUrl: 'views/partials/dashboard.html',
@@ -41,19 +42,27 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         console.log("called init");
     }
-    showShuttles(shuttle: Shuttle){
+    showShuttles(shuttleGroup: ShuttleGroup){
       // TODO show time cards under a shuttle
-      shuttle.showMore = !shuttle.showMore;
+      if (!shuttleGroup.hasOwnProperty('showMore')) {
+        shuttleGroup.showMore = true;
+      }
+      else {
+        shuttleGroup.showMore = !shuttleGroup.showMore;
+      }
       // TODO set showMore to false for all other shuttle groups
+      console.log(shuttleGroup);
     }
     getuser() {
         this.dashboardService.getUser().then(user => this.user = new User(user));
     }
     getshuttles() {
-        this.dashboardService.getShuttles().then(shuttles => {
-            // console.log(this.shuttles = shuttles);
+        this.dashboardService.getShuttleGroups().then(shuttles => {
+            // TODO make sure this doesn't break stuff
+            console.log('getShuttleGroups.shuttles:', shuttles);
             this.dashboardService.getusershuttles(this.user).then(data => {
                 this.usershuttles = data;
+                console.log('getusershuttles.data:', data);
                 //now diff user shuttles and availible shuttles
                 console.log("diff:");
                 var s = new Map();
