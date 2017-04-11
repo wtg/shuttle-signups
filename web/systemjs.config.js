@@ -15,6 +15,7 @@
       login: 'dist/login',
       dashboard: 'dist/dashboard',
       shuttleform: 'dist/shuttleform',
+      account: 'dist/account',
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -39,6 +40,10 @@
       },
       shuttleform: {
         main: './shuttleform.js',
+        defaultExtension: 'js'
+      },
+      account: {
+        main: './account.js',
         defaultExtension: 'js'
       },
       rxjs: {

@@ -6,9 +6,10 @@ import { HttpModule, JsonpModule } from '@angular/http';
 
 import { DashboardComponent }   from './dashboard.component';
 import { ShuttleFormComponent} from '../shuttleform/shuttleform.component';
+import { AccountComponent } from '../account/account.component';
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, JsonpModule],
-    declarations: [DashboardComponent, ShuttleFormComponent],
+    declarations: [DashboardComponent, ShuttleFormComponent, AccountComponent],
     bootstrap: [DashboardComponent]
 })
 export class DashboardModule { }

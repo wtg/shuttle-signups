@@ -50,6 +50,7 @@
       color: #fff;
     }
   </style>
+  <account></account>
   <ul class="shuttles">
     <div class="shuttle-container">
       <li class="shuttle-card-container" *ngFor="let shuttle of shuttles">
@@ -68,7 +69,7 @@
             </span>
             <span class="mdl-chip mdl-chip--contact">
               <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white">                              <i class="material-icons">group_add</i>
-</span>
+              </span>
             <span class="mdl-chip__text">{{shuttle.guestsAllowed}}</span>
             </span>
             <span class="mdl-chip" *ngIf=" ! shuttle.isActive">
@@ -143,3 +144,4 @@
     <shuttle-form></shuttle-form>
   </div>
 </div>
+
