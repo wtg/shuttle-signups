@@ -47,6 +47,17 @@ const cas = new CASAuthentication({
     },
     cas_version: '2.0'
 });
+
+app.get('/', function(req, res, next) {
+    if (req.session && req.session.cas_user) {
+        res.redirect('/dashboard');
+    }
+
+    else {
+      next();
+    }
+});
+
 app.use(express.static('web'));
 app.use(bodyParser.json())
 app.use('/scripts', express.static('node_modules'));
