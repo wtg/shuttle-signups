@@ -12,7 +12,7 @@ export class User {
     this.first_name = arg && arg.first_name;
     this.last_name = arg && arg.last_name;
     this.username = arg && arg.username;
-    this.numGuests = arg && arg.numGuests;
+    this.numGuests = arg && arg.numGuests || 0;
     this.guestsOnly = arg && arg.guestsOnly;
     this.shuttles = Array<Shuttle>();
     this.isAdmin = arg && arg.isAdmin;

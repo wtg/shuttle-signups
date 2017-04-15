@@ -129,14 +129,7 @@
 
     </div>
   </ul>
-  <div class="right-control-collumn">
-    <span class="mdl-chip mdl-chip--contact">
-          <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white">
-            <i class="material-icons">account_circle</i>
-</span>
-    <span class="mdl-chip__text"><span class="mdl-badge" data-badge="0">{{user.first_name}}, "{{user.username}}"</span></span>
-    </span>
-  </div>
+
   <button ngShow="user.isAdmin" (click)="togglegodmode()" class="mdl-button mdl-js-button mdl-button--fab  floating-right-fab mdl-js-ripple-effect mdl-button--colored">
     <i class="material-icons">flash_on</i>
   </button>
@@ -144,4 +137,3 @@
     <shuttle-form></shuttle-form>
   </div>
 </div>
-

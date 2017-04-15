@@ -33,11 +33,7 @@ flex-grow: 1;
   .shuttle-container{
     flex-direction: column;
   }
-  .right-control-collumn{
-    position: fixed;
-    right: 6%;
-    top: 74px;
-  }
+
 }
 .shuttles{
   padding-left: 0;
@@ -87,18 +83,10 @@ flex-grow: 1;
 }
 
 @media(min-width:500px) {
-  .right-control-collumn{
-    position: fixed;
-    right: 6%;
-    top: 74px;
-  }
+
 }
 @media(max-width:499px){
-  .right-control-collumn{
-    position: fixed;
-    right: 6%;
-    top: 74px;
-  }
+
   .shuttles{
     width: 100%;
   }
@@ -129,9 +117,6 @@ flex-grow: 1;
     min-width: 10em;
     font-size: 2em;
     background-color: darken(whitesmoke,5%);
-  }
-  .right-control-collumn{
-    z-index: 11;
   }
 
 #numguests{

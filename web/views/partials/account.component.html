@@ -1,42 +1,12 @@
- <h1>
-    Hey, {{user.first_name}}
-  </h1>
-  <h4>
-  your RCS ID is {{user.username}}
-  </h4>
-  <p>
-
-    number of guests: <input id="numguests" [(ngModel)]="user.numGuests" type = "number" />
-    <p>
-      guests only: {{user.guestsOnly}}
-    </p>
-<ul class="shuttles">
-  <li *ngFor="let shuttle of shuttles">
-    <div class="shuttle-container">
-      <div class="shuttle">
-        <div class="shuttle-route-container">
-          <ul class="breadcrumb">
-            <li><a href="#">{{shuttle.origin[0].name}}</a>
-            </li>
-            <li>
-              <a href="#">{{shuttle.destination[0].name}}</a>
-            </li>
-            <li>
-              <a><span>{{shuttle.riders.length}} of {{shuttle.maxCapacity}} riders</span></a>
-            </li>
-          </ul>
-        </div>
-        <div class="shuttle-info">
-          <button *ngIf="shuttle.isActive" (click)="signup(shuttle)">Sign up</button>
-          <button *ngIf=" ! shuttle.isActive" disabled>Shuttle Inactive</button>
-          <button *ngIf="godmode" (click)="deleteshuttle(shuttle)">delete</button>
-          <button *ngIf="godmode" (click)="cancelshuttle(shuttle)">cancel</button>
-          <span *ngIf="godmode">id: {{shuttle._id}}</span>
-          <span>{{shuttle.message}}</span>
-          <span *ngIf="godmode"> {{getriders(shuttle)}}</span>
-        </div>
-      </div>
-    </div>
-  </li>
-</ul>
-    <hr />
+<div class="account-follow account-container">
+  <span class="mdl-chip mdl-chip--contact">
+          <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white">
+            <span (click)="toggleOptions()" class="icon-stack">
+              <i id="prof-icon" class="material-icons">account_circle</i>
+              <i id="kbd-icon" class="material-icons">keyboard_arrow_down</i>
+            </span>
+  </span>
+  <span class="mdl-chip__text"><span class="mdl-badge" attr.data-badge="+{{user.numGuests}}">{{user.first_name}}, "{{user.username}}"</span></span>
+  </span>
+  <div >{{words}}</div>
+</div>

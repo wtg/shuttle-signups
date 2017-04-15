@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
         this.user = new User();
 
         //async load current user from /current-user
-        this.getuser();
+        // this.getuser();
 
         //async load list of shuttles from /get-shuttles
         this.getshuttles();
