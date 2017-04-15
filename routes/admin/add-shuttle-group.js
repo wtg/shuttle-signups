@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 			origin: req.body.origin,
 			departureDate: req.body.departureDate,
 		}
-		
+
 		var shuttleGroup = new ShuttleGroup(shuttleGroupJSON);
 
 		//saves the shuttle group to the database

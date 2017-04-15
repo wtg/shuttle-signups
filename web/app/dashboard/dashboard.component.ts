@@ -3,7 +3,8 @@ import { Component, OnInit} from '@angular/core';
 import { Observable }       from 'rxjs/Observable';
 import { DashboardService } from './dashboard.service';
 import {User} from './user';
-import {Shuttle} from './shuttle'
+import {Shuttle} from './shuttle';
+import {ShuttleGroup} from './shuttle-group';
 @Component({
     selector: 'shuttle-dashboard',
     templateUrl: 'views/partials/dashboard.html',
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
     //declare member variables of the dashboard class
     public user: User;
     public shuttles: Shuttle[];
+    public shuttleGroups: ShuttleGroup[];
     public usershuttles: Shuttle[];
     private godmode: boolean;
     private searchquery: string;
@@ -26,28 +28,41 @@ export class DashboardComponent implements OnInit {
         this.godmode = false;
         // Display entertaining blank user while async load
         this.user = new User();
+        this.shuttles = [];
+        this.shuttleGroups = [];
 
         //async load current user from /current-user
         this.getuser();
 
         //async load list of shuttles from /get-shuttles
-        this.getshuttles();
+        // and shuttle groups from /get-shuttle-groups
+        this.getShuttles();
+        this.getShuttleGroups();
 
         //debug log that the component loaded.
         console.log("Made a Component");
+        console.log('this.shuttles:', this.shuttles);
     }
 
     //called after construcotr, the promises should be resolved by now.
     ngOnInit() {
         console.log("called init");
     }
-    showShuttles(shuttle: Shuttle){
-      alert("This happened!");
+    showShuttles(shuttleGroup: ShuttleGroup){
+      // Collapse other groups' cards
+      this.shuttleGroups.forEach(group => {
+        if (group._id != shuttleGroup._id) {
+          group.showMore = false;
+        }
+      });
+
+      // Expand this group's cards
+      shuttleGroup.showMore = !shuttleGroup.showMore;
     }
     getuser() {
         this.dashboardService.getUser().then(user => this.user = new User(user));
     }
-    getshuttles() {
+    getShuttles() {
         this.dashboardService.getShuttles().then(shuttles => {
             // console.log(this.shuttles = shuttles);
             this.dashboardService.getusershuttles(this.user).then(data => {
@@ -74,6 +89,13 @@ export class DashboardComponent implements OnInit {
             )
         });
     }
+    getShuttleGroups() {
+        this.dashboardService.getShuttleGroups().then(shuttleGroups => {
+            console.log('getShuttleGroups:', shuttleGroups);
+            shuttleGroups.forEach(shuttleGroup => this.shuttleGroups.push(new ShuttleGroup(shuttleGroup)), this);
+            console.log('this.shuttleGroups:', this.shuttleGroups);
+        });
+    }
     signup(shuttle: Shuttle) {
         this.dashboardService.signup(this.user, shuttle).then(data => {
             this.usershuttles.push(shuttle);
@@ -81,7 +103,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.shuttles.splice(index, 1);
             }
-            this.getshuttles();
+            this.getShuttles();
         }
         )
     }
@@ -92,7 +114,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.usershuttles.splice(index, 1);
             }
-            this.getshuttles();
+            this.getShuttles();
         });
     }
     getusershuttles() {
@@ -105,11 +127,11 @@ export class DashboardComponent implements OnInit {
     }
     deleteshuttle(shuttle: Shuttle) {
         this.dashboardService.deleteshuttle(shuttle).then(dataa =>
-          this.getshuttles()
+          this.getShuttles()
         )
     }
     cancelshuttle(shuttle: Shuttle) {
-        this.dashboardService.cancelshuttle(shuttle).then(data => this.getshuttles());
+        this.dashboardService.cancelshuttle(shuttle).then(data => this.getShuttles());
 
     }
     addshuttle(shuttle: Shuttle) {

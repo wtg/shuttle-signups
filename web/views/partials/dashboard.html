@@ -12,6 +12,13 @@
   </div>
 </div> -->
   <style>
+  .shuttle-card-spacing{
+    display: flex;
+    flex-direction: row;
+  }
+  .shuttle-card-spacing > div{
+    margin: 1rem;
+  }
     .demo-card-wide>.mdl-card__title {
       color: #fff;
       height: 176px;
@@ -21,14 +28,42 @@
     .demo-card-wide>.mdl-card__menu {
       color: #fff;
     }
+
+    .demo-card-event.mdl-card {
+      width: 256px;
+      height: 256px;
+      background: #3E4EB8;
+    }
+    .demo-card-event > .mdl-card__actions {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .demo-card-event > .mdl-card__title {
+      align-items: flex-start;
+    }
+    .demo-card-event > .mdl-card__title > h4 {
+      margin-top: 0;
+    }
+    .demo-card-event > .mdl-card__actions {
+      display: flex;
+      box-sizing:border-box;
+      align-items: center;
+    }
+    .demo-card-event > .mdl-card__actions > .material-icons {
+      padding-right: 10px;
+    }
+    .demo-card-event > .mdl-card__title,
+    .demo-card-event > .mdl-card__actions,
+    .demo-card-event > .mdl-card__actions > .mdl-button {
+      color: #fff;
+    }
   </style>
   <ul class="shuttles">
     <div class="shuttle-container">
-      <li class="shuttle-card-container" *ngFor="let shuttle of shuttles">
+      <li class="shuttle-card-container" *ngFor="let shuttleGroup of shuttleGroups">
         <div class="filling-mdl-card demo-card-wide mdl-card mdl-shadow--2dp">
           <div class="mdl-card__title mdl-card__title-shadow">
-            <h2 class="mdl-card__title-text">{{shuttle.origin[0].name}}
-                          <i class="material-icons">swap_horiz</i>{{shuttle.destination[0].name}}</h2>
+            <h2 class="mdl-card__title-text">{{shuttleGroup.origin[0].name}}
+                          <i class="material-icons">swap_horiz</i>{{shuttleGroup.destination[0].name}}</h2>
           </div>
           <div class="mdl-card__supporting-text">
             <span class="mdl-chip mdl-chip--contact">
@@ -36,48 +71,61 @@
 
                               <i class="material-icons">airline_seat_recline_normal</i>
                           </span>
-            <span class="mdl-chip__text">{{shuttle.riders.length}} of {{shuttle.maxCapacity}}</span>
+            <!-- <span class="mdl-chip__text">{{shuttle.riders.length}} of {{shuttle.maxCapacity}}</span> -->
             </span>
             <span class="mdl-chip mdl-chip--contact">
               <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white">                              <i class="material-icons">group_add</i>
 </span>
-            <span class="mdl-chip__text">{{shuttle.guestsAllowed}}</span>
+            <!-- <span class="mdl-chip__text">{{shuttle.guestsAllowed}}</span> -->
             </span>
-            <span class="mdl-chip" *ngIf=" ! shuttle.isActive">
+            <!-- <span class="mdl-chip" *ngIf=" ! shuttle.isActive">
               <span class="mdl-chip__text">disabled</span>
-            </span>
+            </span> -->
             <br />
-            <pre *ngIf="godmode">id: {{shuttle._id}}</pre>
-            <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre>
+            <pre *ngIf="godmode">id: {{shuttleGroup._id}}</pre>
+            <!-- <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre> -->
+          </div>
+          <div [hidden]="!shuttleGroup.showMore" class="mdl-card__actions mdl-card--border shuttle-card-spacing">
+            <div *ngIf="shuttleGroup.shuttles.length == 0">
+              No shuttles to show.
+            </div>
+            <div *ngFor="let shuttleId of shuttleGroup.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h4>
+                  shuttle: {{ shuttleId }}
+                </h4>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  Sign Up
+                </a>
+                <div class="mdl-layout-spacer"></div>
+                <i class="material-icons">event</i>
+              </div>
+            </div>
           </div>
           <div class="mdl-card__actions mdl-card--border">
-            <!-- <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Sign Up
-          </a> -->
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="shuttle.isActive" (click)="showShuttles(shuttle)">
+          </a>
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="showShuttles(shuttleGroup)">
               <!-- <i class="material-icons">arrow_down</i> -->
-               More
-            </a>
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf=" ! shuttle.isActive" disabled>
-              <!-- <i class="material-icons">do_not_disturb</i> Inactive -->
-              Inactive
-
+               {{ (shuttleGroup.showMore) ? 'Hide' : 'Show' }}
             </a>
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="deleteshuttle(shuttle)">
-
-              <!-- <i class="material-icons">remove_circle_outline</i> delete -->
+              <i class="material-icons">remove_circle_outline</i> delete
               Delete
             </a>
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelshuttle(shuttle)">
-              <!-- <i class="material-icons">clear</i> cancel -->
+              <i class="material-icons">clear</i> cancel
               Cancel
             </a>
           </div>
-          <div class="mdl-card__menu">
-            <!-- <button class="mdl-button  mdl-js-button mdl-js-ripple-effect"> -->
-            <!-- <i class="material-icons">share</i> -->
-            <!-- </button> -->
-          </div>
+          <!-- <div class="mdl-card__menu">
+            <button class="mdl-button  mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </div> -->
         </div>
       </li>
 
