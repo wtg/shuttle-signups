@@ -32,6 +32,7 @@ router.post('/', function(req, res) {
 	query.select('riders');
 	query.select('waitlist');
 	query.select('vacancies');
+	query.select('isActive');
 
 	query.exec(function(err, docs) {
 		if (err) {
