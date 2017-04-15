@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
 
         //debug log that the component loaded.
         console.log("Made a Component");
+        console.log('this.shuttles:', this.shuttles);
     }
 
     //called after construcotr, the promises should be resolved by now.
@@ -48,9 +49,11 @@ export class DashboardComponent implements OnInit {
         console.log("called init");
     }
     showShuttles(shuttleGroup: ShuttleGroup){
+      // Collapse other groups' cards
+      this.shuttleGroups.forEach(shuttleGroup => shuttleGroup.showMore = false);
+
+      // Expand this group's cards
       shuttleGroup.showMore = !shuttleGroup.showMore;
-      // TODO set showMore to false for all other shuttle groups
-      console.log(shuttleGroup);
     }
     getuser() {
         this.dashboardService.getUser().then(user => this.user = new User(user));
@@ -85,12 +88,7 @@ export class DashboardComponent implements OnInit {
     getShuttleGroups() {
         this.dashboardService.getShuttleGroups().then(shuttleGroups => {
             console.log('getShuttleGroups:', shuttleGroups);
-
-            for (let i = 0; i < shuttleGroups.length; i++) {
-                let s = new ShuttleGroup(shuttleGroups[i]);
-                this.shuttleGroups.push(s);
-            }
-
+            shuttleGroups.forEach(shuttleGroup => this.shuttleGroups.push(new ShuttleGroup(shuttleGroup)), this);
             console.log('this.shuttleGroups:', this.shuttleGroups);
         });
     }
