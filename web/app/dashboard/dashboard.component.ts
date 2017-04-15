@@ -3,8 +3,8 @@ import { Component, OnInit} from '@angular/core';
 import { Observable }       from 'rxjs/Observable';
 import { DashboardService } from './dashboard.service';
 import {User} from './user';
-import {Shuttle} from './shuttle'
-import {ShuttleGroup} from './shuttle-group'
+import {Shuttle} from './shuttle';
+import {ShuttleGroup} from './shuttle-group';
 @Component({
     selector: 'shuttle-dashboard',
     templateUrl: 'views/partials/dashboard.html',
@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     //declare member variables of the dashboard class
     public user: User;
     public shuttles: Shuttle[];
+    public shuttleGroups: ShuttleGroup[];
     public usershuttles: Shuttle[];
     private godmode: boolean;
     private searchquery: string;
@@ -27,12 +28,16 @@ export class DashboardComponent implements OnInit {
         this.godmode = false;
         // Display entertaining blank user while async load
         this.user = new User();
+        this.shuttles = [];
+        this.shuttleGroups = [];
 
         //async load current user from /current-user
         this.getuser();
 
         //async load list of shuttles from /get-shuttles
-        this.getshuttles();
+        // and shuttle groups from /get-shuttle-groups
+        this.getShuttles();
+        this.getShuttleGroups();
 
         //debug log that the component loaded.
         console.log("Made a Component");
@@ -43,26 +48,18 @@ export class DashboardComponent implements OnInit {
         console.log("called init");
     }
     showShuttles(shuttleGroup: ShuttleGroup){
-      // TODO show time cards under a shuttle
-      if (!shuttleGroup.hasOwnProperty('showMore')) {
-        shuttleGroup.showMore = true;
-      }
-      else {
-        shuttleGroup.showMore = !shuttleGroup.showMore;
-      }
+      shuttleGroup.showMore = !shuttleGroup.showMore;
       // TODO set showMore to false for all other shuttle groups
       console.log(shuttleGroup);
     }
     getuser() {
         this.dashboardService.getUser().then(user => this.user = new User(user));
     }
-    getshuttles() {
-        this.dashboardService.getShuttleGroups().then(shuttles => {
-            // TODO make sure this doesn't break stuff
-            console.log('getShuttleGroups:', shuttles);
+    getShuttles() {
+        this.dashboardService.getShuttles().then(shuttles => {
+            // console.log(this.shuttles = shuttles);
             this.dashboardService.getusershuttles(this.user).then(data => {
                 this.usershuttles = data;
-                console.log('getusershuttles.data:', data);
                 //now diff user shuttles and availible shuttles
                 console.log("diff:");
                 var s = new Map();
@@ -85,6 +82,18 @@ export class DashboardComponent implements OnInit {
             )
         });
     }
+    getShuttleGroups() {
+        this.dashboardService.getShuttleGroups().then(shuttleGroups => {
+            console.log('getShuttleGroups:', shuttleGroups);
+
+            for (let i = 0; i < shuttleGroups.length; i++) {
+                let s = new ShuttleGroup(shuttleGroups[i]);
+                this.shuttleGroups.push(s);
+            }
+
+            console.log('this.shuttleGroups:', this.shuttleGroups);
+        });
+    }
     signup(shuttle: Shuttle) {
         this.dashboardService.signup(this.user, shuttle).then(data => {
             this.usershuttles.push(shuttle);
@@ -92,7 +101,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.shuttles.splice(index, 1);
             }
-            this.getshuttles();
+            this.getShuttles();
         }
         )
     }
@@ -103,7 +112,7 @@ export class DashboardComponent implements OnInit {
             if (index > -1) {
                 this.usershuttles.splice(index, 1);
             }
-            this.getshuttles();
+            this.getShuttles();
         });
     }
     getusershuttles() {
@@ -116,11 +125,11 @@ export class DashboardComponent implements OnInit {
     }
     deleteshuttle(shuttle: Shuttle) {
         this.dashboardService.deleteshuttle(shuttle).then(dataa =>
-          this.getshuttles()
+          this.getShuttles()
         )
     }
     cancelshuttle(shuttle: Shuttle) {
-        this.dashboardService.cancelshuttle(shuttle).then(data => this.getshuttles());
+        this.dashboardService.cancelshuttle(shuttle).then(data => this.getShuttles());
 
     }
     addshuttle(shuttle: Shuttle) {

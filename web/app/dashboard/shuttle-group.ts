@@ -7,8 +7,8 @@ export class ShuttleGroup {
   destination: Array<any>;
   origin: Array<any>;
   showMore: boolean; // only necessary for frontend
+  shuttles: Array<string>;
   constructor(arg?:any){
-    alert('shuttlegroup!!');
     console.log("ShuttleGroup created.");
     this._id= arg && arg._id || "fillme";
     this.destination= arg && arg.destination || [
@@ -25,6 +25,7 @@ export class ShuttleGroup {
           "name": "No Where"
         }
       ];
-    this.showMore = true;
+    this.showMore = false;
+    this.shuttles = arg && arg.shuttles || [];
   }
 }
