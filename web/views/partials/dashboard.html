@@ -12,6 +12,13 @@
   </div>
 </div> -->
   <style>
+  .shuttle-card-spacing{
+    display: flex;
+    flex-direction: row;
+  }
+  .shuttle-card-spacing > div{
+    margin: 1rem;
+  }
     .demo-card-wide>.mdl-card__title {
       color: #fff;
       height: 176px;
@@ -79,7 +86,7 @@
             <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre>
           </div>
           <!-- <strong>shuttles shown? {{ shuttle.showMore }}</strong> -->
-          <div [hidden]="!shuttle.showMore" class="mdl-card__actions mdl-card--border">
+          <div [hidden]="!shuttle.showMore" class="mdl-card__actions mdl-card--border shuttle-card-spacing">
             <div *ngFor="let subshuttleId of shuttle.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title mdl-card--expand">
                 <h4>
