@@ -19,7 +19,7 @@ router.post('/', function(req, res) {
 	var numGuests = req.body.numGuests;
 	var guestsOnly = req.body.guestsOnly;
 	// Now let's do some basic validation of the request body
-	if (typeof numGuests != "number" || typeof guestsOnly != "boolean") {
+	if (typeof numGuests !== "number" || typeof guestsOnly !== "boolean") {
 		res.status(400);
 		res.send("Your request appears to be malformed.");
 		return;
@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
 		}
 		// Let's assume that this is the only shuttle with this ID (if not, we have issues).
 		var shuttle = docs[0];
-		if (shuttle == null) {
+		if (shuttle === null) {
 			res.send("That shuttle doesn't exist.");
 			return;
 		}
@@ -62,11 +62,11 @@ router.post('/', function(req, res) {
 		if (numGuests === 0) {
 			// Let's go ahead and add them to the list
 			// Let's make sure they're not already signed up for a shuttle.
-			if (riders.indexOf(rcs_id) != -1) {
+			if (riders.indexOf(rcs_id) !== -1) {
 				res.send("You've already signed up for shuttle " + shuttleID);
 				return;
 			}
-			else if (waitlist.indexOf(rcs_id) != -1) {
+			else if (waitlist.indexOf(rcs_id) !== -1) {
 				res.send("You're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
 				return;
 			}
@@ -117,11 +117,11 @@ router.post('/', function(req, res) {
 		}
 		// ... They're bringing guests (or at least have indicated their willingness to do so)
 		else if (numGuests > 0) {
-			if (riders.indexOf(rcs_id) != -1) {
+			if (riders.indexOf(rcs_id) !== -1) {
 				res.send("You've already signed up for shuttle " + shuttleID + ". To add guests, you'll need to unsignup, and then resignup with your guests.");
 				return;
 			}
-			else if (waitlist.indexOf(rcs_id) != -1) {
+			else if (waitlist.indexOf(rcs_id) !== -1) {
 				res.send("You're already on the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.indexOf(rcs_id) + " in line.");
 				return;
 			}
