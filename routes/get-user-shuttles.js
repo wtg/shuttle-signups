@@ -30,6 +30,7 @@ router.get('/', function(req, res) {
       return;
     });
   }
+  
   else {
     var query = Shuttle.find({
       $or: [{
