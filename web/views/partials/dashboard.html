@@ -86,6 +86,9 @@
             <!-- <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre> -->
           </div>
           <div [hidden]="!shuttleGroup.showMore" class="mdl-card__actions mdl-card--border shuttle-card-spacing">
+            <div *ngIf="shuttleGroup.shuttles.length == 0">
+              No shuttles to show.
+            </div>
             <div *ngFor="let shuttleId of shuttleGroup.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title mdl-card--expand">
                 <h4>
@@ -107,7 +110,7 @@
           </a>
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="showShuttles(shuttleGroup)">
               <!-- <i class="material-icons">arrow_down</i> -->
-               More
+               {{ (shuttleGroup.showMore) ? 'Hide' : 'Show' }}
             </a>
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="deleteshuttle(shuttle)">
               <i class="material-icons">remove_circle_outline</i> delete
@@ -118,11 +121,11 @@
               Cancel
             </a>
           </div>
-          <div class="mdl-card__menu">
+          <!-- <div class="mdl-card__menu">
             <button class="mdl-button  mdl-js-button mdl-js-ripple-effect">
               <i class="material-icons">share</i>
             </button>
-          </div>
+          </div> -->
         </div>
       </li>
 

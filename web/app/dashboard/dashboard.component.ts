@@ -50,7 +50,11 @@ export class DashboardComponent implements OnInit {
     }
     showShuttles(shuttleGroup: ShuttleGroup){
       // Collapse other groups' cards
-      this.shuttleGroups.forEach(shuttleGroup => shuttleGroup.showMore = false);
+      this.shuttleGroups.forEach(group => {
+        if (group._id != shuttleGroup._id) {
+          group.showMore = false;
+        }
+      });
 
       // Expand this group's cards
       shuttleGroup.showMore = !shuttleGroup.showMore;
