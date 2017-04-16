@@ -7,7 +7,7 @@ const Shuttle = require("../../schema/shuttle.js");
 const helperLib = require("../../helper.js").helpers;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
 		res.status(401);
@@ -27,8 +27,12 @@ router.post('/', function(req, res) {
 
 			Shuttle.findOne({
 				_id: shuttleID
-			}, function(err, shuttle) {
+			}, (err, shuttle) => {
 				// Let's check to see if the shuttles capacity can be lowered...
+				if (err) {
+					res.send("An error has occurred finding the shuttle ID specified.");
+					return;
+				}
 				if (req.body.maxCapacity < shuttle.maxCapacity) {
 					if (!(shuttle.riders.length <= req.body.maxCapacity)) {
 						res.send("This shuttle's capacity cannot be lowered. Doing so would remove riders.");
@@ -54,10 +58,11 @@ router.post('/', function(req, res) {
 				shuttle.group = req.body.group;
 				
 
-				shuttle.save(function(err) {
+				shuttle.save((err) => {
 					if (err) {
 						res.send("There was an error modifying the shuttle.");
 						console.log(err);
+						return;
 					}
 				});
 			});

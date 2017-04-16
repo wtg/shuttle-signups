@@ -7,7 +7,7 @@ const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
 const Shuttle = require("../schema/shuttle.js");
 module.exports = router;
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   if (!req.session || !req.session.cas_user) {
     res.redirect("/login");
     return;
@@ -25,7 +25,10 @@ router.get('/', function(req, res) {
         'waitlist': rcs_id
       }]
     }).lean();
-    query.exec(function(err, docs) {
+    query.exec((err, docs) => {
+      if (err) {
+        res.send("An error has occurred retrieving the list of shuttles.");
+      }
       res.send(docs);
       return;
     });
@@ -45,7 +48,7 @@ router.get('/', function(req, res) {
     query.select('waitlist');
     query.select('guestsAllowed');
 
-    query.exec(function(err, docs) {
+    query.exec((err, docs) => {
       var response = [];
       for (var i in docs) {
         var numGuests = 0;

@@ -8,7 +8,7 @@ const helperLib = require("../../helper.js").helpers;
 const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
 		res.status(401);
@@ -23,7 +23,7 @@ router.post('/', function(req, res) {
 		//find and remove shuttle from database
 		Shuttle.findOneAndRemove({
 			_id: shuttleID
-		}, function(err) {
+		}, (err) => {
 			if (err) {
 				res.send("There was an issue deleting shuttle " + shuttleID);
 				return;
@@ -34,6 +34,7 @@ router.post('/', function(req, res) {
 			res.send("Shuttle " + shuttleID + " sucessfully deleted.");
 			return;
 		});
+		
 	} else {
 	  //deny access if not an admin
       res.status(403);
