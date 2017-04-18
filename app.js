@@ -48,7 +48,7 @@ const cas = new CASAuthentication({
     cas_version: '2.0'
 });
 
-app.get('/', function(req, res, next) {
+app.get('/', (req, res, next) => {
     if (req.session && req.session.cas_user) {
         res.redirect('/dashboard');
     }
@@ -82,12 +82,8 @@ if (!(process.env.NODE_ENV === "development" ||
         process.env.NODE_ENV === "production")) {
     process.env.NODE_ENV = "production";
 }
-//let the developers do things like mocking if running in development.
-if(process.env.NODE_ENV === "development"){
-  app.use('/api/mock/',require('./routes/mock/mock'));
-}
 
-app.get('/login', cas.bounce, function(req, res) {
+app.get('/login', cas.bounce, (req, res) => {
     if (!req.session || !req.session.cas_user) {
         res.redirect('/logout');
     }
@@ -95,7 +91,7 @@ app.get('/login', cas.bounce, function(req, res) {
     res.redirect('/dashboard');
 });
 
-app.get('/dashboard', function(req, res) {
+app.get('/dashboard', (req, res) => {
     if (!req.session || !req.session.cas_user) {
         res.redirect('/login');
     }
@@ -106,7 +102,7 @@ app.get('/dashboard', function(req, res) {
 app.get('/logout', cas.logout);
 
 // Catch 404s
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.status = 404;
 
     // respond with html page
@@ -128,7 +124,7 @@ app.use(function(req, res, next) {
 
 
 const port = process.env.PORT || 8080;
-app.listen(port, function() {
+app.listen(port, () => {
     console.log('Listening on port ' + port);
     console.log('...in ' + process.env.NODE_ENV + ' mode.');
 

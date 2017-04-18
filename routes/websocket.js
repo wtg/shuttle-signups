@@ -12,7 +12,7 @@ function get_shuttles(ws, req) {
 		return;
 	}
 	
-    eventEmitter.on('websocket', function(update) {
+    eventEmitter.on('websocket', (update) => {
         console.log(update);
         ws.send(update);
     });

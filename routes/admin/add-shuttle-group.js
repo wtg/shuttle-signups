@@ -9,7 +9,7 @@ const helperLib = require("../../helper.js").helpers;
 const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
@@ -33,7 +33,7 @@ router.post('/', function(req, res) {
 		var shuttleGroup = new ShuttleGroup(shuttleGroupJSON);
 
 		//saves the shuttle group to the database
-		shuttleGroup.save(function(err) {
+		shuttleGroup.save((err) => {
 			if (err) {
 				console.log("There was a problem saving that shuttle group.");
 				res.status(500);

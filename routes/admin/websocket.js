@@ -21,7 +21,7 @@ function get_shuttles(ws, req) {
 	    return;
 	}
 	
-    eventEmitter.on('websocket-admin', function(update) {
+    eventEmitter.on('websocket-admin', (update) => {
         console.log(update);
         ws.send(update);
     });

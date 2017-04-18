@@ -5,7 +5,7 @@ const cms = require('../cms.js');
 const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
 module.exports = router;
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
 
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
 	var rcs_id = req.session.cas_user.toLowerCase();
 
 	//parse user_data
-	cms.getRCS(rcs_id).then(function(user_data) {
+	cms.getRCS(rcs_id).then((user_data) => {
 		user_data = JSON.parse(user_data);
 		// username, student_id (is rin), last_name, middle_name, user_type
 		res.status(200).json({
