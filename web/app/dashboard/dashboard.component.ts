@@ -104,6 +104,7 @@ export class DashboardComponent implements OnInit {
                 this.shuttles.splice(index, 1);
             }
             this.getShuttles();
+            // TODO show a candybar or something
         }
         )
     }
@@ -130,9 +131,21 @@ export class DashboardComponent implements OnInit {
           this.getShuttles()
         )
     }
-    cancelshuttle(shuttle: Shuttle) {
-        this.dashboardService.cancelshuttle(shuttle).then(data => this.getShuttles());
+    cancelShuttle(shuttleId: string) {
+      let c = this.getShuttleById(shuttleId);
+      this.dashboardService.cancelshuttle(c).then(data => this.getShuttles());
+      // TODO make this change in the backend
+    }
+    cancelShuttleGroup(shuttleGroup: ShuttleGroup) {
+      let cancelPromises = [];
 
+      shuttleGroup.shuttles.forEach(shuttleId => {
+        let cancelPromise = this.dashboardService.cancelshuttle(this.getShuttleById(shuttleId));
+        cancelPromises.push(cancelPromise);
+      }, this);
+
+      Promise.all(cancelPromises).then(data => this.getShuttles());
+      // TODO make this change in the backend
     }
     addshuttle(shuttle: Shuttle) {
         this.dashboardService.addshuttle(shuttle);
@@ -144,5 +157,7 @@ export class DashboardComponent implements OnInit {
     //   this.dashboardService.modifyshuttle(shuttle);
     //
     // }
-
+    getShuttleById(shuttleId: string) {
+      return this.shuttles.find(shuttle => shuttle._id == shuttleId);
+    }
 }

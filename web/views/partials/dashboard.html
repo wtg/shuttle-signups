@@ -92,13 +92,19 @@
             <!-- shuttle cards -->
             <div *ngFor="let shuttleId of shuttleGroup.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title mdl-card--expand shuttle-card-body">
-                <strong>
-                  Shuttle {{ shuttleId }}
-                </strong>
+                <p>
+                  <span *ngIf="godmode">Shuttle: {{ shuttleId }}<br/></span>
+                  Departs {{ getShuttleById(shuttleId)?.departureDateTime | date: 'h:mm a' }}<br/>
+                  {{ getShuttleById(shuttleId)?.departureDateTime | date: 'MMMM d, y' }}
+                </p>
               </div>
               <div class="mdl-card__actions mdl-card--border">
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                   Sign Up
+                </a>
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelShuttle(shuttleId)">
+                  <i class="material-icons">clear</i>
+                  Cancel
                 </a>
                 <div class="mdl-layout-spacer"></div>
                 <i class="material-icons">event</i>
