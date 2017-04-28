@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
         this.user = new User();
         this.shuttles = [];
         this.shuttleGroups = [];
+        this.usershuttles = [];
 
         //async load current user from /current-user
         this.getuser();
@@ -97,6 +98,7 @@ export class DashboardComponent implements OnInit {
         });
     }
     signup(shuttle: Shuttle) {
+      console.log('TODO signup shuttle:', shuttle);
         this.dashboardService.signup(this.user, shuttle).then(data => {
             this.usershuttles.push(shuttle);
             var index: number = this.shuttles.indexOf(shuttle, 0);
@@ -105,6 +107,7 @@ export class DashboardComponent implements OnInit {
             }
             this.getShuttles();
             // TODO show a candybar or something
+            console.log('successfully signed up for shuttle:', shuttle);
         }
         )
     }
@@ -159,5 +162,10 @@ export class DashboardComponent implements OnInit {
     // }
     getShuttleById(shuttleId: string) {
       return this.shuttles.find(shuttle => shuttle._id == shuttleId);
+    }
+    isSignedUp(shuttleId: string) {
+      // TypeScript doesn't support Array.includes()
+      return this.usershuttles.map(userShuttle => { return userShuttle._id }).indexOf(shuttleId) != -1;
+      // return this.getShuttleById(shuttleId).riders.map(rider => { return rider.username }).indexOf(this.user.username) != -1;
     }
 }

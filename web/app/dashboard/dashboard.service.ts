@@ -48,8 +48,8 @@ export class DashboardService {
       console.log(user);
         var data = {
           "id":shuttle._id,
-          "numGuests":user.numGuests,
-          "guestsOnly":user.guestsOnly
+          "numGuests":user.numGuests || 0,
+          "guestsOnly":user.guestsOnly || false
         }
         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -63,8 +63,8 @@ export class DashboardService {
       console.log(user);
         var data = {
           "id":shuttle._id,
-          "numGuests":user.numGuests,
-          "guestsOnly":user.guestsOnly
+          "numGuests":user.numGuests || 0,
+          "guestsOnly":user.guestsOnly || false
         }
         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });

@@ -30,7 +30,6 @@
     }
 
     .demo-card-event.mdl-card {
-      width: 256px;
       height: 256px;
       background: #3E4EB8;
     }
@@ -97,11 +96,20 @@
                   Departs {{ getShuttleById(shuttleId)?.departureDateTime | date: 'h:mm a' }}<br/>
                   {{ getShuttleById(shuttleId)?.departureDateTime | date: 'MMMM d, y' }}
                 </p>
+                <!-- <div class="mdl-textfield mdl-js-textfield">
+                  <label for="num-guests-{{ shuttleId }}" class="mdl-textfield__label">Number of guests</label>
+                  <input type="number" id="num-guests-{{ shuttleId }}" class="mdl-textfield__input">
+                </div> -->
               </div>
               <div class="mdl-card__actions mdl-card--border">
                 <!-- TODO disable if user is already signed up -->
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <!-- <a (click)="signup(getShuttleById(shuttleId))" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> -->
+                <a (click)="signup(getShuttleById(shuttleId))" [hidden]="isSignedUp(shuttleId)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                   Sign Up
+                </a>
+                <!-- <a (click)="unsignup(getShuttleById(shuttleId))" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->
+                <a (click)="unsignup(getShuttleById(shuttleId))" [hidden]="!isSignedUp(shuttleId)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                  Cancel Signup
                 </a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelShuttle(shuttleId)">
                   <i class="material-icons">clear</i>
