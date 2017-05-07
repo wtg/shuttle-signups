@@ -9,7 +9,7 @@ const helperLib = require("../../helper.js").helpers;
 const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
@@ -28,7 +28,7 @@ router.post('/', function(req, res) {
 			_id: shuttleID
 		}, {
 			isActive: false
-		}, function(err) {
+		}, (err) => {
 			if (err) {
 				res.send("There was an issue cancelling shuttle " + shuttleID);
 				return;

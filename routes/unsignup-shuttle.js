@@ -5,9 +5,10 @@ const cms = require('../cms.js');
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
+const eventEmitter = require('../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 	if (!req.session || !req.session.cas_user) {
 		res.redirect("/login");
 		return;
@@ -29,8 +30,9 @@ router.post('/', function(req, res) {
 	query.select('riders');
 	query.select('waitlist');
 	query.select('vacancies');
+	query.select('isActive');
 	
-	query.exec(function(err, docs) {
+	query.exec((err, docs) => {
 		if (err) {
 			res.send("There was an error unsigning up for shuttle " + shuttleID);
 		}
@@ -84,7 +86,7 @@ router.post('/', function(req, res) {
 				riders: riders,
 				waitlist: waitlist,
 				vacancies: vacancies
-			}, function(err) {
+			}, (err) => {
 				if (err) {
 					res.send("There was an error removing you from the shuttle.");
 					return;
@@ -132,7 +134,7 @@ router.post('/', function(req, res) {
 				riders: riders,
 				waitlist: waitlist,
 				vacancies: vacancies
-			}, function(err) {
+			}, (err) => {
 				if (err) {
 					res.send("There was an error removing your guests from the shuttle.");
 					return;

@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import {User } from './user';
 import {Shuttle} from './shuttle';
+import {ShuttleGroup} from './shuttle-group';
 import { Headers, RequestOptions } from '@angular/http';
 
 // Statics
@@ -37,12 +38,18 @@ export class DashboardService {
             .then(response => response.json() as Shuttle[])
             .catch(this.handleError);
     }
+    getShuttleGroups(): Promise<ShuttleGroup[]> {
+        return this.http.get(this.baseURL + "get-shuttle-groups/")
+            .toPromise()
+            .then(response => response.json() as ShuttleGroup[])
+            .catch(this.handleError);
+    }
     signup(user:User,shuttle:Shuttle):Promise<void> {
       console.log(user);
         var data = {
           "id":shuttle._id,
-          "numGuests":user.numGuests,
-          "guestsOnly":user.guestsOnly
+          "numGuests":user.numGuests || 0,
+          "guestsOnly":user.guestsOnly || false
         }
         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -56,8 +63,8 @@ export class DashboardService {
       console.log(user);
         var data = {
           "id":shuttle._id,
-          "numGuests":user.numGuests,
-          "guestsOnly":user.guestsOnly
+          "numGuests":user.numGuests || 0,
+          "guestsOnly":user.guestsOnly || false
         }
         console.log(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });

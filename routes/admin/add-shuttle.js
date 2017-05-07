@@ -10,7 +10,7 @@ const helperLib = require("../../helper.js").helpers;
 const eventEmitter = require('../../app').eventEmitter;
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 
 	//checks if the user is logged in
 	if (!req.session || !req.session.cas_user) {
@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
 		var shuttle = new Shuttle(shuttleJSON);
 
 		//saves the shuttle to the database
-		shuttle.save(function(err, shuttleResult) {
+		shuttle.save((err, shuttleResult) => {
 			if (err) {
 				console.log("There was a problem saving a shuttle." + err);
 				res.status(500);

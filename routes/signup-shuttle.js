@@ -9,7 +9,7 @@ const eventEmitter = require('../app').eventEmitter;
 const moment = require('moment');
 const helper = new helperLib();
 module.exports = router;
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
 	if (!req.session || !req.session.cas_user) {
 		res.redirect("/login");
 		return;
@@ -32,8 +32,9 @@ router.post('/', function(req, res) {
 	query.select('riders');
 	query.select('waitlist');
 	query.select('vacancies');
+	query.select('isActive');
 
-	query.exec(function(err, docs) {
+	query.exec((err, docs) => {
 		if (err) {
 			res.send("There was an error signing up for shuttle " + shuttleID);
 			return;
@@ -79,7 +80,7 @@ router.post('/', function(req, res) {
 				}, {
 					riders: riders,
 					vacancies: vacancies
-				}, function(err) {
+				}, (err) => {
 					if (err) {
 						console.log(err);
 						res.send("There was an error signing up for shuttle " + shuttleID);
@@ -101,7 +102,7 @@ router.post('/', function(req, res) {
 					_id: shuttleID
 				}, {
 					waitlist: waitlist
-				}, function(err) {
+				}, (err) => {
 					if (err) {
 						res.send("There was an error adding you to the waitlist for shuttle " + shuttleID);
 						return;
@@ -154,7 +155,7 @@ router.post('/', function(req, res) {
 			}, {
 				riders: riders,
 				vacancies: vacancies
-			}, function(err) {
+			}, (err) => {
 				if (err) {
 					res.send("There was an error adding your guests and you to the shuttle " + shuttleID);
 					return;

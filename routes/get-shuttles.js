@@ -8,7 +8,7 @@ const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
 const helper = new helperLib();
 module.exports = router;
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
 	//checks if user is logged in
 	if (!req.session || !req.session.cas_user) {
 		res.redirect("/login");
@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 	if (helper.isAdmin(rcs_id)) {
 		//query the database and return all information on all shuttles
 		var query = Shuttle.find({}).lean();
-		query.exec(function(err, docs) {
+		query.exec((err, docs) => {
 			res.send(docs);
 		});
 	} else {
@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
 		query.select('-riders');
 		query.select('-waitlist');
 		query.select('-reminderObject');
-		query.exec(function(err, docs) {
+		query.exec((err, docs) => {
 			res.send(docs);
 		});
 	}
