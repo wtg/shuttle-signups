@@ -3,6 +3,7 @@
 label{
   color: white;
 }
+
 button {
   border: none;
   text-decoration: none;
@@ -20,6 +21,18 @@ button {
 button[disabled=disabled], button:disabled {
   background-color: #9a9a9a;
   color: #cccccc; }
+
+.controls{
+ border-color: gray;
+ border-style: solid;
+ display: block;
+ margin-left: auto;
+ padding: 1em;
+ margin-bottom: 1em;
+ width: 40em;
+ border-width: .5em;
+ border-radius:.4em;
+}
 
 .shuttle-container {
   width: 100vw; }
@@ -146,6 +159,7 @@ button[disabled=disabled], button:disabled {
     list-style: none;
     flex-direction: column; } }
 </style>
+<div class="controls">
   <ul class="shuttles">
     <li>
       <div class="shuttle-container">
@@ -211,4 +225,5 @@ button[disabled=disabled], button:disabled {
     <br>
     <button class="" (click)="submitted=false">Edit</button>
   </div>
+</div>
 <!-- </div> -->
