@@ -1,7 +1,7 @@
 <!-- <div class="container"> -->
 <style>
 label{
-  color: white;
+  color: black;
 }
 
 button {
@@ -41,7 +41,9 @@ button[disabled=disabled], button:disabled {
   padding-top: 1em;
   display: flex;
   flex-flow: column;
-  flex-wrap: wrap; }
+  flex-wrap: wrap; 
+  padding-left: 50px;
+}
 
 .shuttle-route-container {
   background-color: #134565;
@@ -50,7 +52,9 @@ button[disabled=disabled], button:disabled {
   overflow-y: visible;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap; }
+  flex-wrap: nowrap; 
+  padding-right: 50px;
+}
 
 .shuttle-info {
   padding: 0;
@@ -159,7 +163,8 @@ button[disabled=disabled], button:disabled {
     list-style: none;
     flex-direction: column; } }
 </style>
-<div class="controls">
+
+
   <ul class="shuttles">
     <li>
       <div class="shuttle-container">
@@ -197,24 +202,24 @@ button[disabled=disabled], button:disabled {
         </div>
       </div>
       <div class="form-group">
-        <label for="maxCapacity">maxCapacity</label>
+        <label for="maxCapacity">Shuttle Capacity</label>
         <input type="number" class="form-control" id="maxCapacity" required [(ngModel)]="model.maxCapacity" name="maxCapacity" #name="ngModel">
       </div>
       <div class="form-group">
-        <label for="guestsAllowed">guestsAllowed</label>
+        <label for="guestsAllowed">Number of Guests Allowed</label>
         <input type="number" class="form-control" id="guestsAllowed" required [(ngModel)]="model.guestsAllowed" name="guestsAllowed" #name="ngModel">
       </div>
       <div class="form-group">
-        <label for="origin">origin</label>
+        <label for="origin">Origin Location</label>
         <input type="text" class="form-control" id="origin" required [(ngModel)]="model.origin[0].name" name="origin" #name="ngModel">
       </div>
       <div class="form-group">
-        <label for="destination">destination</label>
+        <label for="destination">Destination Location</label>
         <input type="text" class="form-control" id="destination" required [(ngModel)]="model.destination[0].name" name="destination" #name="ngModel">
       </div>
       <br />
       <button type="submit" class="" [disabled]="!shuttleForm.form.valid">Submit</button>
-      <button type="button" class="" (click)="newShuttle(); shuttleForm.reset()">New shuttle</button>
+      <button type="button" class="" (click)="newShuttle(); shuttleForm.reset()">New Shuttle</button>
     </form>
   </div>
   <div [hidden]="!submitted">

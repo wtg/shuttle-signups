@@ -98,8 +98,8 @@ export class DashboardComponent implements OnInit {
         });
     }
     signup(shuttle: Shuttle) {
-      console.log('TODO signup shuttle:', shuttle);
         this.dashboardService.signup(this.user, shuttle).then(data => {
+            if (data)
             this.usershuttles.push(shuttle);
             var index: number = this.shuttles.indexOf(shuttle, 0);
             if (index > -1) {
@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
             }
             this.getShuttles();
             // TODO show a candybar or something
-            console.log('successfully signed up for shuttle:', shuttle);
+            console.log('CLIENT: Successfully signed up for shuttle:', shuttle);
         }
         )
     }
