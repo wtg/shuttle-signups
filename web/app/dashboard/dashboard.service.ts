@@ -56,7 +56,8 @@ export class DashboardService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.baseURL + "signup-shuttle/",data,options).toPromise().then(res =>{
           console.log(res);
-          shuttle.message = "" + res["_body"];
+          // shuttle.message = "" + res["_body"];
+          alert(res["_body"]);
         } );
     }
     unsignup(user:User,shuttle:Shuttle):Promise<void>{
@@ -71,7 +72,8 @@ export class DashboardService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.baseURL + "unsignup-shuttle/",data,options).toPromise().then(res =>{
           console.log(res);
-          shuttle.message = "" + res["_body"];
+          // shuttle.message = "" + res["_body"];
+          alert(res["_body"]);
         } );
     }
     getusershuttles(user:User):Promise<Shuttle[]>{

@@ -107,8 +107,8 @@
                   Sign Up
                 </a>
                 <!-- <a (click)="unsignup(getShuttleById(shuttleId))" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->
-                <a (click)="unsignup(getShuttleById(shuttleId))" [hidden]="!isSignedUp(shuttleId)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                  Cancel Signup
+                <a (click)="unsignup(getShuttleById(shuttleId))" [hidden]="false" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                  UnSignup
                 </a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelShuttle(shuttleId)">
                   <i class="material-icons">clear</i>

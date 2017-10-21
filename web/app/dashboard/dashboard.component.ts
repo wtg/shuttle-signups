@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { Observable }       from 'rxjs/Observable';
 import { DashboardService } from './dashboard.service';
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     private searchquery: string;
 
     //dashboard constructor, fetch data from server
-    constructor(private dashboardService: DashboardService) {
+    constructor(private dashboardService: DashboardService, private ref:ChangeDetectorRef) {
         this.searchquery = "Rensselaer Union to Crossgates 09/12/16";
         this.godmode = false;
         // Display entertaining blank user while async load
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
         console.log('this.shuttles:', this.shuttles);
     }
 
-    //called after construcotr, the promises should be resolved by now.
+    //called after constructor, the promises should be resolved by now.
     ngOnInit() {
         console.log("called init");
     }
@@ -97,9 +97,12 @@ export class DashboardComponent implements OnInit {
             console.log('this.shuttleGroups:', this.shuttleGroups);
         });
     }
+    // TODO: make this update the signup button state. So when signup is called it toggles the button to unsignup
     signup(shuttle: Shuttle) {
         this.dashboardService.signup(this.user, shuttle).then(data => {
-            if (data)
+            if (data){
+            console.log("---->>>> signup data:");
+            console.log(data);
             this.usershuttles.push(shuttle);
             var index: number = this.shuttles.indexOf(shuttle, 0);
             if (index > -1) {
@@ -108,6 +111,14 @@ export class DashboardComponent implements OnInit {
             this.getShuttles();
             // TODO show a candybar or something
             console.log('CLIENT: Successfully signed up for shuttle:', shuttle);
+            this.ref.detectChanges()
+            // change the button action to unsign up shuttle
+            for(let s of this.shuttles){
+              console.log(s);
+            }
+          }else{
+            console.log('CLIENT: Could not add user to shuttle :(, network error');
+          }
         }
         )
     }
