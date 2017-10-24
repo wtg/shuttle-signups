@@ -8,6 +8,7 @@ const helperLib = require("../helper.js").helpers;
 const eventEmitter = require('../app').eventEmitter;
 const moment = require('moment');
 const helper = new helperLib();
+
 module.exports = router;
 router.post('/', (req, res) => {
 	if (!req.session || !req.session.cas_user) {

@@ -39,6 +39,7 @@
     "express": "latest",
     "express-session": "latest",
     "express-ws": "latest",
+    "handlebars": "^4.0.10",
     "material-design-lite": "latest",
     "moment": "^2.18.1",
     "mongoose": "latest",
