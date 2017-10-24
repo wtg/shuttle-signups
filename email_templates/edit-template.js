@@ -17,7 +17,7 @@ readHTML('NotificationEmail.html', function(error,html) {
     var template = handlebars.compile(html);
     var replacements = { username: "Matthew" };
     
-    var completeHTLML = template(replacements);
+    var completeHTML = template(replacements);
     
-    console.log(completeHTLML);
+    console.log(completeHTML);
 });
