@@ -42,7 +42,7 @@
     "handlebars": "^4.0.10",
     "material-design-lite": "latest",
     "moment": "^2.18.1",
-    "mongoose": "latest",
+    "mongoose": "4.10.0",
     "node-sass": "latest",
     "nodemon": "latest",
     "q": "latest",
