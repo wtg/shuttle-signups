@@ -7,8 +7,32 @@ const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
 const eventEmitter = require('../app').eventEmitter;
 const moment = require('moment');
+const fs = require("fs");
+const nodemailer = require("nodemailer");
+const config = require('../config.js');
 const helper = new helperLib();
 module.exports = router;
+
+function emailuser(emailOptions){
+	let transporter = nodemailer.createTransport({
+		host: config.emailHost,
+		port: 587,
+		secure: false,
+		auth: {
+			user: config.emailUsername,
+			pass: config.emailPassword
+		}
+	});
+						
+	// send mail with defined transport object
+	transporter.sendMail(emailOptions, function(error, info){
+	if(error){
+        return console.log(error);
+    }
+	console.log('Message sent: ' + info.response);
+	});
+}
+
 router.post('/', (req, res) => {
 	if (!req.session || !req.session.cas_user) {
 		res.redirect("/login");
@@ -91,6 +115,23 @@ router.post('/', (req, res) => {
 					eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
 					var webSocketResponse = {type: "signup-shuttle", shuttle: [shuttleID, vacancies]};
 					eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
+					var htmlToSend = "";
+					fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
+						if(err) throw err;
+						htmlToSend = data.toString();
+						var mailOptions = {// sender address
+    						to: 'dawsonandrew49@gmail.com', // list of receivers
+    						subject: 'TESTING NODEMAILER', // Subject line
+    						text: 'Node mailed succussfully!', // plaintext body
+    						html: htmlToSend// html body
+						};
+						emailuser(mailOptions);
+					});
+					console.log(htmlToSend);
+					// Nodemailer here to email the user about their shuttle signup
+					// create reusable transporter object using the default SMTP transport
+				
+					//emailuser(mailOptions);
 					return;
 				});
 			}
