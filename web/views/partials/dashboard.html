@@ -8,7 +8,7 @@
   <br/>
   <div class="search-button-container">
     <button class="search-button">search</button>
-    <button class="search-button" (click)="getshuttles() ">refresh</button>
+    <button class="search-button" (click)="getshuttles()">refresh</button>
   </div>
 </div> -->
   <style>
@@ -73,28 +73,27 @@
             <!-- <span class="mdl-chip__text">{{shuttle.riders.length}} of {{shuttle.maxCapacity}}</span> -->
             </span>
             <span class="mdl-chip mdl-chip--contact">
-              <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white">                              <i class="material-icons">group_add</i>
-</span>
+              <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white"> <i class="material-icons">group_add</i>
+            </span>
             <!-- <span class="mdl-chip__text">{{shuttle.guestsAllowed}}</span> -->
             </span>
             <!-- <span class="mdl-chip" *ngIf=" ! shuttle.isActive">
               <span class="mdl-chip__text">disabled</span>
             </span> -->
             <br />
-            <pre *ngIf="godmode">id: {{shuttleGroup._id}}</pre>
+            <pre *ngIf="godmode"><b>ID:</b> {{shuttleGroup._id}}</pre>
             <!-- <pre *ngIf="godmode">riders:{{getriders(shuttle)}}</pre> -->
           </div>
           <div [hidden]="!shuttleGroup.showMore" class="mdl-card__actions mdl-card--border shuttle-card-spacing">
             <div *ngIf="shuttleGroup.shuttles.length == 0">
-              No shuttles to show.
+              There are currently no shuttles to show.
             </div>
             <!-- shuttle cards -->
             <div *ngFor="let shuttleId of shuttleGroup.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title mdl-card--expand shuttle-card-body">
                 <p>
-                  <span *ngIf="godmode">Shuttle: {{ shuttleId }}<br/></span>
-                  Departs {{ getShuttleById(shuttleId)?.departureDateTime | date: 'h:mm a' }}<br/>
-                  {{ getShuttleById(shuttleId)?.departureDateTime | date: 'MMMM d, y' }}
+                  <span *ngIf="godmode"><b>Shuttle:</b> {{ shuttleId }}<br/></span>
+                  <b>Departure:</b> {{ getShuttleById(shuttleId)?.departureDateTime | date: 'MMMM d, y' }} at {{ getShuttleById(shuttleId)?.departureDateTime | date: 'h:mm a' }}<br/>
                 </p>
                 <!-- <div class="mdl-textfield mdl-js-textfield">
                   <label for="num-guests-{{ shuttleId }}" class="mdl-textfield__label">Number of guests</label>
@@ -108,8 +107,8 @@
                   Sign Up
                 </a>
                 <!-- <a (click)="unsignup(getShuttleById(shuttleId))" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->
-                <a (click)="unsignup(getShuttleById(shuttleId))" [hidden]="!isSignedUp(shuttleId)" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                  Cancel Signup
+                <a (click)="unsignup(getShuttleById(shuttleId))" [hidden]="false" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                  UnSignup
                 </a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelShuttle(shuttleId)">
                   <i class="material-icons">clear</i>
@@ -123,7 +122,7 @@
           <div class="mdl-card__actions mdl-card--border">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" (click)="showShuttles(shuttleGroup)">
               <i class="material-icons">{{ shuttleGroup.showMore ? 'arrow_upward' : 'arrow_downward' }}</i>
-               {{ shuttleGroup.showMore ? 'Hide' : 'Show' }}
+               {{ shuttleGroup.showMore ? 'Hide Shuttles' : 'Show Shuttles' }}
             </a>
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="deleteshuttle(shuttle)">
               <i class="material-icons">remove_circle_outline</i>
