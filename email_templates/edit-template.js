@@ -15,7 +15,7 @@ var readHTML = function(filePath, callback) {
 
 readHTML('NotificationEmail.html', function(error,html) {
     var template = handlebars.compile(html);
-    var replacements = { username: "Matthew" };
+    var replacements = { NAME: "Matthew", TIMEVAR: "13:37", LOCVAR: "Narnia"};
     
     var completeHTML = template(replacements);
     
