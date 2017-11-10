@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const cms = require('../cms.js');
+const handlebars = require('handlebars')
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
@@ -10,11 +11,24 @@ const moment = require('moment');
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const config = require('../config.js');
+const replaceHTML = require('../email_templates/edit-template.js');
 const helper = new helperLib();
 
 module.exports = router;
 
-function emailuser(emailOptions){
+var readHTML = function(filePath,time,location,rcs_id,callback) {
+    fs.readFile(filePath, {encoding: 'utf-8'}, function(error, html) {
+        if(error) {
+            throw error;
+            callback(error);
+        }
+        else {
+            callback(null, html);
+        }
+    });
+};
+
+function emailuser(emailOptions) {
 	let transporter = nodemailer.createTransport({
 		host: config.emailHost,
 		port: 587,
@@ -24,13 +38,13 @@ function emailuser(emailOptions){
 			pass: config.emailPassword
 		}
 	});
-						
+
 	// send mail with defined transport object
-	transporter.sendMail(emailOptions, function(error, info){
-	if(error){
-        return console.log(error);
-    }
-	console.log('Message sent: ' + info.response);
+	transporter.sendMail(emailOptions, function(error, info) {
+		if (error) {
+			return console.log(error);
+		}
+		console.log('Message sent: ' + info.response);
 	});
 }
 
@@ -58,6 +72,8 @@ router.post('/', (req, res) => {
 	query.select('waitlist');
 	query.select('vacancies');
 	query.select('isActive');
+	query.select('departureDateTime');
+	query.select('destination');
 
 	query.exec((err, docs) => {
 		if (err) {
@@ -73,6 +89,9 @@ router.post('/', (req, res) => {
 		var riders = shuttle.riders;
 		var waitlist = shuttle.waitlist;
 		var vacancies = shuttle.vacancies;
+		var time = shuttle.departureDateTime.toString();
+		var destination = shuttle.destination[0].name
+		; 
 		// Let's check to make sure the shuttle is active.
 		if (!shuttle.isActive) {
 			res.send("This shuttle is inactive.");
@@ -83,7 +102,7 @@ router.post('/', (req, res) => {
 			res.send("Signups for this shuttle have ended.");
 			return;
 		}
-		
+
 		// Great, they're not bringing guests.
 		if (numGuests === 0) {
 			// Let's go ahead and add them to the list
@@ -112,26 +131,36 @@ router.post('/', (req, res) => {
 						return;
 					}
 					res.send("OK, you're signed up for shuttle " + shuttleID);
-					var webSocketResponseAdmin = {type: "signup-shuttle", shuttle: [shuttleID, riders, vacancies]};
+					var webSocketResponseAdmin = { type: "signup-shuttle", shuttle: [shuttleID, riders, vacancies] };
 					eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
-					var webSocketResponse = {type: "signup-shuttle", shuttle: [shuttleID, vacancies]};
+					var webSocketResponse = { type: "signup-shuttle", shuttle: [shuttleID, vacancies] };
 					eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 					var htmlToSend = "";
-					fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
-						if(err) throw err;
-						htmlToSend = data.toString();
-						var mailOptions = {// sender address
-    						to: 'dawsonandrew49@gmail.com', // list of receivers
-    						subject: 'TESTING NODEMAILER', // Subject line
-    						text: 'Node mailed succussfully!', // plaintext body
-    						html: htmlToSend// html body
-						};
-						emailuser(mailOptions);
+					// fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
+					// 	if(err) throw err;
+					htmlToSend = readHTML(__dirname + '/NotificationEmail.html',time,destination,rcs_id, function(error,html) {
+					    var template = handlebars.compile(html);
+					    var replacements = { NAME: rcs_id, TIMEVAR: time, LOCVAR: destination};
+
+					    var completeHTML = template(replacements);
+
+					    console.log(completeHTML);
+
+					    return completeHTML.toString();
 					});
+					// htmlToSend = readHTML('../email_templates/NotificationEmail.html', '13:37', 'Narnia', 'Bob');
+					var mailOptions = { // sender address
+						to: 'dawsonandrew49@gmail.com', // list of receivers
+						subject: 'TESTING NODEMAILER', // Subject line
+						text: 'Node mailed succussfully!', // plaintext body
+						html: htmlToSend // html body
+					};
+					emailuser(mailOptions);
+					// });
 					console.log(htmlToSend);
 					// Nodemailer here to email the user about their shuttle signup
 					// create reusable transporter object using the default SMTP transport
-				
+
 					//emailuser(mailOptions);
 					return;
 				});
@@ -150,9 +179,9 @@ router.post('/', (req, res) => {
 						return;
 					}
 					res.send("You've been added to the waitlist for shuttle " + shuttleID + ". You're currently number " + waitlist.length + " in line.");
-					var webSocketResponseAdmin = {type: "signup-shuttle-waitlist", shuttle: [shuttleID, waitlist]};
+					var webSocketResponseAdmin = { type: "signup-shuttle-waitlist", shuttle: [shuttleID, waitlist] };
 					eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
-					var webSocketResponse = {type: "signup-shuttle-waitlist", shuttle: [shuttleID, waitlist.length]};
+					var webSocketResponse = { type: "signup-shuttle-waitlist", shuttle: [shuttleID, waitlist.length] };
 					eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 					return;
 				});
@@ -182,10 +211,10 @@ router.post('/', (req, res) => {
 				res.send("There isn't enough room on this shuttle.");
 				return;
 			}
-			
+
 			riders.push(rcs_id);
 			vacancies--;
-			
+
 			// Not sure if I like this formatting.
 			// Currently, a guest is formatted like: RCSID-guest#
 			for (var i = 0; i < numGuests; i++) {
@@ -203,9 +232,9 @@ router.post('/', (req, res) => {
 					return;
 				}
 				res.send("Your " + numGuests + " guests and you have signed up for shuttle " + shuttleID);
-				var webSocketResponseAdmin = {type: "signup-shuttle", shuttle: [shuttleID, riders, vacancies]};
+				var webSocketResponseAdmin = { type: "signup-shuttle", shuttle: [shuttleID, riders, vacancies] };
 				eventEmitter.emit('websocket-admin', JSON.stringify(webSocketResponseAdmin));
-				var webSocketResponse = {type: "signup-shuttle", shuttle: [shuttleID, vacancies]};
+				var webSocketResponse = { type: "signup-shuttle", shuttle: [shuttleID, vacancies] };
 				eventEmitter.emit('websocket', JSON.stringify(webSocketResponse));
 				return;
 			});
