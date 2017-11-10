@@ -90,7 +90,7 @@ router.post('/', (req, res) => {
 		var waitlist = shuttle.waitlist;
 		var vacancies = shuttle.vacancies;
 		var time = shuttle.departureDateTime.toString();
-		var destination = shuttle.destination[0].name
+		var destination = shuttle.destination;
 		; 
 		// Let's check to make sure the shuttle is active.
 		if (!shuttle.isActive) {
@@ -138,30 +138,21 @@ router.post('/', (req, res) => {
 					var htmlToSend = "";
 					// fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
 					// 	if(err) throw err;
+					
 					htmlToSend = readHTML(__dirname + '/NotificationEmail.html',time,destination,rcs_id, function(error,html) {
 					    var template = handlebars.compile(html);
+					    time = moment(time).utcOffset(-5).format("dddd, MMMM Do YYYY, h:mm a");
 					    var replacements = { NAME: rcs_id, TIMEVAR: time, LOCVAR: destination};
-
 					    var completeHTML = template(replacements);
-
-					    console.log(completeHTML);
-
-					    return completeHTML.toString();
-					});
-					// htmlToSend = readHTML('../email_templates/NotificationEmail.html', '13:37', 'Narnia', 'Bob');
-					var mailOptions = { // sender address
-						to: 'dawsonandrew49@gmail.com', // list of receivers
-						subject: 'TESTING NODEMAILER', // Subject line
-						text: 'Node mailed succussfully!', // plaintext body
-						html: htmlToSend // html body
+					    console.log(completeHTML.toString());
+					    var mailOptions = { // sender address
+						to: 'stephendzialo7@gmail.com', // list of receivers
+						subject: 'Shuttle Signup Confirmation', // Subject line
+						html: completeHTML.toString() // html body
 					};
-					emailuser(mailOptions);
-					// });
-					console.log(htmlToSend);
-					// Nodemailer here to email the user about their shuttle signup
-					// create reusable transporter object using the default SMTP transport
-
-					//emailuser(mailOptions);
+					    emailuser(mailOptions);
+					});
+					
 					return;
 				});
 			}

@@ -84,7 +84,6 @@
           <div [hidden]="!shuttleGroup.showMore" class="mdl-card__actions mdl-card--border shuttle-card-spacing">
             <div *ngIf="shuttleGroup.shuttles.length == 0">
               There are currently no shuttles to show.
-              {{shuttleGroup.destinationPhoto}}
             </div>
             <!-- shuttle cards -->
             <div *ngFor="let shuttleId of shuttleGroup.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">

@@ -6,6 +6,7 @@ export class Shuttle {
   _id:string;
   group: string,
   isActive: boolean;
+  destination: String;
   maxCapacity: number;
   vacancies: number;
   guestsAllowed: number;
@@ -15,7 +16,8 @@ export class Shuttle {
   departureDateTime: Date;
   constructor(arg?:any){
     console.log("Shuttle created.");
-    this._id= arg && arg._id || "fillme";
+    this._id= arg && arg._id || "";
+    this.destination = arg && arg.destination;
     this.group = arg && arg.group || "";
     this.isActive= arg && arg.isActive || false;
     this.maxCapacity= arg && arg.maxCapacity || 0;
@@ -23,7 +25,7 @@ export class Shuttle {
     this.guestsAllowed= arg && arg.guestsAllowed || 0;
     this.riders= arg && arg.riders || [];
     this.waitlist= arg && arg.waitlist || [];
-    this.message= arg && arg.message || "nothing";
+    this.message= arg && arg.message || "";
     this.departureDateTime = arg && arg.departureDateTime || new Date();
   }
 }
