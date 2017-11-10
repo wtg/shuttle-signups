@@ -4,8 +4,8 @@
   "description": "A web interface to simplify the process of signing up for special shuttles at RPI.",
   "main": "app.js",
   "scripts": {
-    "start-all": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc --project ./web/\" \"tsc --project ./web/ -w\" \"npm run build-css\" \"nodemon app.js\" ",
-    "start-all-nomongo": "concurrently \"tsc --project ./web/\"  \"tsc --project ./web/ -w\" \"npm run build-css\" \"NODE_ENV=development nodemon app.js\"",
+    "start": "concurrently \"mongod --dbpath=data --smallfiles\" \"tsc --project ./web/\" \"tsc --project ./web/ -w\" \"npm run build-css\" \"nodemon app.js\" ",
+    "start-nomongo": "concurrently \"tsc --project ./web/\"  \"tsc --project ./web/ -w\" \"npm run build-css\" \"NODE_ENV=development nodemon app.js\"",
     "build-css": "concurrently \"node-sass web/assets/scss/ -o web/assets/css/\" \"node-sass -w web/assets/scss/ -o web/assets/css/\"",
     "start-app-only": "node app.js",
     "test": "gulp"
@@ -44,12 +44,14 @@
     "moment": "^2.18.1",
     "mongoose": "4.10.0",
     "node-sass": "latest",
+    "nodemailer": "^4.4.0",
     "nodemon": "latest",
     "q": "latest",
     "reflect-metadata": "latest",
     "rxjs": "latest",
     "serve-favicon": "latest",
     "systemjs": "latest",
+    "v9": "^1.0.8",
     "zone.js": "latest"
   },
   "devDependencies": {

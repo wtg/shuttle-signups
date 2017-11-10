@@ -25,8 +25,6 @@ router.post('/', (req, res) => {
 		//if so, create the new shuttle from json
 		var shuttleJSON = {
 			isActive: req.body.isActive,
-			origin: req.body.origin,
-			destination: req.body.destination,
 			departureDateTime: req.body.departureDateTime,
 			maxCapacity: req.body.maxCapacity,
 			vacancies: req.body.maxCapacity,

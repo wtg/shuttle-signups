@@ -28,6 +28,8 @@ router.post('/', (req, res) => {
 			isActive: req.body.isActive,
 			origin: req.body.origin,
 			departureDate: req.body.departureDate,
+			destinationPhoto: req.body.destinationPhoto,
+			notes: req.body.notes
 		}
 
 		var shuttleGroup = new ShuttleGroup(shuttleGroupJSON);

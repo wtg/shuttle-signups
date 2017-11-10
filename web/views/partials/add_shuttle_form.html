@@ -164,7 +164,7 @@ button[disabled=disabled], button:disabled {
     flex-direction: column; } }
 </style>
 
-
+<div class="controls">
   <ul class="shuttles">
     <li>
       <div class="shuttle-container">
@@ -215,6 +215,10 @@ button[disabled=disabled], button:disabled {
       </div>
       <div class="form-group">
         <label for="destination">Destination Location</label>
+        <input type="text" class="form-control" id="destination" required [(ngModel)]="model.destination[0].name" name="destination" #name="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="destination">Shuttle Group ID</label>
         <input type="text" class="form-control" id="destination" required [(ngModel)]="model.destination[0].name" name="destination" #name="ngModel">
       </div>
       <br />

@@ -24,12 +24,7 @@ router.post('/', (req, res) => {
 	if (helper.isAdmin(rcs_id)) {
 		
 		// Before deleting the group, let start by deleting all shuttles from within the group
-		var shuttleGroupJSON = {
-			destination: req.body.destination,
-			isActive: req.body.isActive,
-			origin: req.body.origin,
-			departureDate: req.body.departureDate,
-		}
+		shuttleGroupID = req.body.id;
 
 		var shuttleGroup = new ShuttleGroup(shuttleGroupJSON);
 

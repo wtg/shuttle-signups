@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
 
     //dashboard constructor, fetch data from server
     constructor(private dashboardService: DashboardService, private ref:ChangeDetectorRef) {
-        this.searchquery = "Rensselaer Union to Crossgates 09/12/16";
         this.godmode = false;
         // Display entertaining blank user while async load
         this.user = new User();

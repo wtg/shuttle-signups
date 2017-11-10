@@ -19,10 +19,9 @@
   .shuttle-card-spacing > div{
     margin: 1rem;
   }
-    .demo-card-wide>.mdl-card__title {
+    .demo-card-wide > .mdl-card__title {
       color: #fff;
       height: 176px;
-      background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
     }
 
     .demo-card-wide>.mdl-card__menu {
@@ -60,14 +59,12 @@
     <div class="shuttle-container">
       <li class="shuttle-card-container" *ngFor="let shuttleGroup of shuttleGroups">
         <div class="filling-mdl-card demo-card-wide mdl-card mdl-shadow--2dp">
-          <div class="mdl-card__title mdl-card__title-shadow">
-            <h2 class="mdl-card__title-text">{{shuttleGroup.origin[0].name}}
-                          <i class="material-icons">swap_horiz</i>{{shuttleGroup.destination[0].name}}</h2>
+          <div class="mdl-card__title mdl-card__title-shadow" [ngStyle]="{'background-image': 'url(' + shuttleGroup.destinationPhoto + ')', 'background-position': 'center'}">
+            <h1 class="mdl-card__title-text">{{shuttleGroup.origin[0].name}} <i class="material-icons">swap_horiz</i>{{shuttleGroup.destination[0].name}}</h1>
           </div>
           <div class="mdl-card__supporting-text">
             <span class="mdl-chip mdl-chip--contact">
                           <span class="mdl-chip__contact mdl-color--primary mdl-color-text--white">
-
                               <i class="material-icons">airline_seat_recline_normal</i>
                           </span>
             <!-- <span class="mdl-chip__text">{{shuttle.riders.length}} of {{shuttle.maxCapacity}}</span> -->
@@ -87,6 +84,7 @@
           <div [hidden]="!shuttleGroup.showMore" class="mdl-card__actions mdl-card--border shuttle-card-spacing">
             <div *ngIf="shuttleGroup.shuttles.length == 0">
               There are currently no shuttles to show.
+              {{shuttleGroup.destinationPhoto}}
             </div>
             <!-- shuttle cards -->
             <div *ngFor="let shuttleId of shuttleGroup.shuttles" class="demo-card-event mdl-card mdl-shadow--2dp">
@@ -94,6 +92,8 @@
                 <p>
                   <span *ngIf="godmode"><b>Shuttle:</b> {{ shuttleId }}<br/></span>
                   <b>Departure:</b> {{ getShuttleById(shuttleId)?.departureDateTime | date: 'MMMM d, y' }} at {{ getShuttleById(shuttleId)?.departureDateTime | date: 'h:mm a' }}<br/>
+                  <b>Seats Available:</b> {{getShuttleById(shuttleId)?.vacancies}} <br/>
+                  <b>Maximum Guests Permitted:</b> {{getShuttleById(shuttleId)?.guestsAllowed }} <br/>
                 </p>
                 <!-- <div class="mdl-textfield mdl-js-textfield">
                   <label for="num-guests-{{ shuttleId }}" class="mdl-textfield__label">Number of guests</label>
@@ -104,11 +104,11 @@
                 <!-- TODO disable if user is already signed up -->
                 <!-- <a (click)="signup(getShuttleById(shuttleId))" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> -->
                 <a (click)="signup(getShuttleById(shuttleId))" [hidden]="isSignedUp(shuttleId)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                  Sign Up
+                  Signup
                 </a>
                 <!-- <a (click)="unsignup(getShuttleById(shuttleId))" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"> -->
                 <a (click)="unsignup(getShuttleById(shuttleId))" [hidden]="false" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                  UnSignup
+                  Unsignup
                 </a>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" *ngIf="godmode" (click)="cancelShuttle(shuttleId)">
                   <i class="material-icons">clear</i>

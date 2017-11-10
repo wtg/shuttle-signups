@@ -7,6 +7,8 @@ export class ShuttleGroup {
   destination: Array<any>;
   origin: Array<any>;
   showMore: boolean; // only necessary for frontend
+  destinationPhoto: String;
+  notes: String;
   shuttles: Array<string>;
   constructor(arg?:any){
     console.log("ShuttleGroup created.");
@@ -27,5 +29,7 @@ export class ShuttleGroup {
       ];
     this.showMore = false;
     this.shuttles = arg && arg.shuttles || [];
+    this.destinationPhoto = arg && arg.destinationPhoto || "";
+    this.notes = arg && arg.notes || "";
   }
 }

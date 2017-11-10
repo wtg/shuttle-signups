@@ -2,12 +2,9 @@ import { Component } from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { Shuttle }    from '../dashboard/shuttle';
 
-// NOTE: moduleId does not belong in our project, omit it.
-//https://stackoverflow.com/questions/34844206/templateurl-does-not-work-for-me
-// It resets the path resolution, we want it to be served from app as root
 @Component({
     selector: 'shuttle-form',
-    templateUrl: 'views/partials/shuttleform.html',
+    templateUrl: 'views/partials/add_shuttle_form.html',
     styleUrls: ['assets/css/dashboard.css'],
 })
 export class ShuttleFormComponent {
