@@ -11,7 +11,7 @@ const moment = require('moment');
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const config = require('../config.js');
-const replaceHTML = require('../email_templates/edit-template.js');
+const replaceHTML = require('../email/edit-template.js');
 const helper = new helperLib();
 
 module.exports = router;
@@ -139,6 +139,7 @@ router.post('/', (req, res) => {
 					// fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
 					// 	if(err) throw err;
 					
+<<<<<<< Updated upstream
 					htmlToSend = readHTML(__dirname + '/NotificationEmail.html',time,destination,rcs_id, function(error,html) {
 					    var template = handlebars.compile(html);
 					    time = moment(time).utcOffset(-5).format("dddd, MMMM Do YYYY, h:mm a");
@@ -152,8 +153,26 @@ router.post('/', (req, res) => {
 					};
 					    emailuser(mailOptions);
 					    console.log(rcs_id);
+=======
+					htmlToSend = readHTML(__dirname + '/../email/templates/signup_confirmation.html',time,destination,rcs_id, function(error,html) {
+							var template = handlebars.compile(html);
+						    time = moment(time).utcOffset(-5).format("dddd, MMMM Do YYYY, h:mm a");
+						    helper.getUserData(rcs_id).then(function (user_data) {
+						    var replacements = { NAME: user_data.preferred_name || user_data.first_name, TIMEVAR: time, LOCVAR: destination};
+						    var completeHTML = template(replacements);
+						    console.log(completeHTML.toString());
+						    var mailOptions = { // sender address
+							to: user_data.email, // list of receivers
+							subject: 'Shuttle Signup Confirmation', // Subject line
+							html: completeHTML.toString() // html body
+						}
+						
+						emailuser(mailOptions);
+						    })
+						    
+					    
+>>>>>>> Stashed changes
 					});
-					
 					return;
 				});
 			}
