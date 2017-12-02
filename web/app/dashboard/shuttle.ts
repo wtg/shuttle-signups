@@ -4,7 +4,7 @@ Schema derived from the mongodb backend schema.
 */
 export class Shuttle {
   _id:string;
-  group: string,
+  group: string;
   isActive: boolean;
   destination: String;
   maxCapacity: number;

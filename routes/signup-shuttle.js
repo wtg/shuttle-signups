@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const cms = require('../cms.js');
-const handlebars = require('handlebars')
+const handlebars = require('handlebars');
 const mongoose = require('mongoose');
 const Shuttle = require("../schema/shuttle.js");
 const helperLib = require("../helper.js").helpers;
@@ -146,11 +146,12 @@ router.post('/', (req, res) => {
 					    var completeHTML = template(replacements);
 					    console.log(completeHTML.toString());
 					    var mailOptions = { // sender address
-						to: 'stephendzialo7@gmail.com', // list of receivers
+						to: (rcs_id + "@rpi.edu"), // list of receivers
 						subject: 'Shuttle Signup Confirmation', // Subject line
 						html: completeHTML.toString() // html body
 					};
 					    emailuser(mailOptions);
+					    console.log(rcs_id);
 					});
 					
 					return;
