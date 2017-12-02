@@ -139,21 +139,6 @@ router.post('/', (req, res) => {
 					// fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
 					// 	if(err) throw err;
 					
-<<<<<<< Updated upstream
-					htmlToSend = readHTML(__dirname + '/NotificationEmail.html',time,destination,rcs_id, function(error,html) {
-					    var template = handlebars.compile(html);
-					    time = moment(time).utcOffset(-5).format("dddd, MMMM Do YYYY, h:mm a");
-					    var replacements = { NAME: rcs_id, TIMEVAR: time, LOCVAR: destination};
-					    var completeHTML = template(replacements);
-					    console.log(completeHTML.toString());
-					    var mailOptions = { // sender address
-						to: (rcs_id + "@rpi.edu"), // list of receivers
-						subject: 'Shuttle Signup Confirmation', // Subject line
-						html: completeHTML.toString() // html body
-					};
-					    emailuser(mailOptions);
-					    console.log(rcs_id);
-=======
 					htmlToSend = readHTML(__dirname + '/../email/templates/signup_confirmation.html',time,destination,rcs_id, function(error,html) {
 							var template = handlebars.compile(html);
 						    time = moment(time).utcOffset(-5).format("dddd, MMMM Do YYYY, h:mm a");
@@ -171,7 +156,6 @@ router.post('/', (req, res) => {
 						    })
 						    
 					    
->>>>>>> Stashed changes
 					});
 					return;
 				});
