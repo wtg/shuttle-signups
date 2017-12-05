@@ -139,7 +139,7 @@ router.post('/', (req, res) => {
 					// fs.readFile(__dirname + "/NotificationEmail.html","utf8", function(err, data) {
 					// 	if(err) throw err;
 					
-					htmlToSend = readHTML(__dirname + '/../email/templates/signup_confirmation.html',time,destination,rcs_id, function(error,html) {
+					htmlToSend = readHTML(__dirname + '/../email/templates/signup-confirmation.html',time,destination,rcs_id, function(error,html) {
 							var template = handlebars.compile(html);
 						    time = moment(time).utcOffset(-5).format("dddd, MMMM Do YYYY, h:mm a");
 						    helper.getUserData(rcs_id).then(function (user_data) {
