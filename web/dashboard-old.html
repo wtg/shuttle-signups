@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Shuttle Signups</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- 1. Load libraries -->
+  <!-- Polyfill(s) for older browsers -->
+  <script src="/scripts/core-js/client/shim.min.js"></script>
+  <script src="/scripts/zone.js/dist/zone.min.js"></script>
+  <script src="/scripts/reflect-metadata/Reflect.js"></script>
+  <script src="/scripts/systemjs/dist/system.src.js"></script>
+
+  <!-- 2. Configure SystemJS -->
+  <script src="systemjs.config.js"></script>
+  <script>
+    System.import('dashboard').catch(function(err) {
+      console.error(err);
+    });
+  </script>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title"><b>Shuttle Signups</b></span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="">Dashboard</a>
+          <a class="mdl-navigation__link" href="/account">Account</a>
+          <a class="mdl-navigation__link" href="/logout">Logout</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Shuttle Signups</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Dashboard</a>
+        <a class="mdl-navigation__link" href="/account">Account</a>
+        <a class="mdl-navigation__link" href="/logout">Logout</a>
+      </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <shuttle-dashboard>
+          <center>
+            <div class="loading-spinner mdl-spinner mdl-js-spinner is-active"></div>
+          </center>
+        </shuttle-dashboard>
+      </div>
+    </main>
+    <footer>
+      <div class="credits">
+        🛠 w/ ❤️ by  the <a href="http://webtech.union.rpi.edu/">Web Technologies Group</a> at <a href="http://www.rpi.edu/">Rensselaer Polytechnic Institute</a> with this <a href="https://raw.githubusercontent.com/wtg/shuttle-signups/master/LICENSE">LICENSE</a>.
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

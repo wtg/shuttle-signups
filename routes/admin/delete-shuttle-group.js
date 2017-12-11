@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
 				res.send("There was an error in saving your shuttle group.");
 				return;
 			}
-			var webSocketResponse = {type: "add_shuttle_group", shuttleGroup: shuttleGroupJSON};
+			var webSocketResponse = {type: "delete_shuttle_group", shuttleGroup: shuttleGroupJSON};
 			eventEmitter.emit('websocket-update', JSON.stringify(webSocketResponse));
 			res.send("Shuttle group was sucessfully saved.");
 			return;

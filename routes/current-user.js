@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 		user_data = JSON.parse(user_data);
 		// username, student_id (is rin), last_name, middle_name, user_type
 		res.status(200).json({
-			username: rcs_id,
+			rcs_id: rcs_id,
 			email: user_data.email,
 			first_name: user_data.preferred_name || user_data.first_name,
 			isAdmin: helper.isAdmin(rcs_id)

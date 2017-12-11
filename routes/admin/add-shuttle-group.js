@@ -27,7 +27,8 @@ router.post('/', (req, res) => {
 			destination: req.body.destination,
 			isActive: req.body.isActive,
 			origin: req.body.origin,
-			departureDate: req.body.departureDate,
+			startDate: req.body.startDate,
+			endDate: req.body.endDate,
 			destinationPhoto: req.body.destinationPhoto,
 			notes: req.body.notes
 		}

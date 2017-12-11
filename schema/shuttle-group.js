@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var shuttleGroupSchema = new Schema({
-      destination: Array,
-      origin: Array,
+      destination: String,
+      origin: String,
       startDate: Date,
       endDate: Date,
       isActive: Boolean,

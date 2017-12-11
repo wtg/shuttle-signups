@@ -1,8 +1,19 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+
 node_modules
 config.js
-web/app/*/*.js
-web/app/*/*.map
 web/assets/css/
 data
 npm-debug.log
-web/dist/*

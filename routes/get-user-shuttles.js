@@ -12,12 +12,12 @@ router.get('/', (req, res) => {
     res.redirect("/login");
     return;
   }
+  
   var rcs_id = req.session.cas_user.toLowerCase();
   // Allow admins to query a user's RCS id and get shuttles in which they're signed up.
-  if (helper.isAdmin(rcs_id)) {
-    if (req.query.user_rcs_id !== null) {
-      rcs_id = req.query.user_rcs_id;
-    }
+  if (helper.isAdmin(rcs_id) && req.query.user_rcs_id !== undefined) {
+    console.log(req.query.user_rcs_id);
+    rcs_id = req.query.user_rcs_id;
     var query = Shuttle.find({
       $or: [{
         'riders': rcs_id

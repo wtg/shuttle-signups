@@ -1,78 +1,18 @@
-# Shuttle Signups [![Build Status](https://travis-ci.org/wtg/shuttle-signups.svg?branch=master)](https://travis-ci.org/wtg/shuttle-signups) [![Stories in Ready](https://badge.waffle.io/wtg/shuttle-signups.svg?label=ready&title=Ready)](http://waffle.io/wtg/shuttle-signups) [![Code Climate](https://img.shields.io/codeclimate/github/wtg/shuttle-signups.svg)](https://codeclimate.com/github/wtg/shuttle-signups)[<img align="right" width="150px" src="http://webtech.union.rpi.edu/static/wtg.svg">](http://webtech.union.rpi.edu/)
+# shuttle-signups
 
-A web interface to simplify the process of signing up for special shuttles at RPI.
+> A Vue.js project
 
-## What exactly is a special shuttle?
-The Rensselaer Union, along with support from Auxiliary Services and Parking & Transportation, runs a pilot program for a Capital District shuttle service. Certain weekends of the year, shuttles leave from the Rensselaer Union to destinations around the Capital District such as Crossgates Mall and Albany International Airport.
+## Build Setup
 
-## Why is this project needed?
-Before this project came to exist, a Google Form was used to facilitate sign-ups for these special shuttles. These forms weren't the best solution. This project aims to simplify that process, helping both students, and those at Auxiliary Services and Parking & Transportation.
+``` bash
+# install dependencies
+npm install
 
-## Development and Deployment
+# serve with hot reload at localhost:8080
+npm run dev
 
-**It isn't currently recommended that you deploy this project for production. It's still under heavy development, and things will most likely change (break, but we didn't say that 😉).**
-
-*This project is developed on the MEAN stack (MongoDB, Express.js, Angular.js, and Node.js).*
-
-### Development and Non-Docker Production
-
-Before you begin, you should make sure that you have both MongoDB and Node.js installed on your system. If you don't, you can find information about installing each [here](https://docs.mongodb.com/v3.2/installation/) and [here](https://nodejs.org/en/download/package-manager/), respectively.
-Eventually, we want to look into installing MongoDB using [npm](https://www.npmjs.com/) automatically when you run ```npm install``` below.
-
-Next, you're going to want to clone this repository (if you haven't done so already), and ```cd``` into it. Run ```npm install```, sit back and relax. This project has many dependencies that need to download.
-
-After that's finished, we need to configure the application with some basic parameters.
-Look for the the file ```dev-config.js``` and copy it to ```config.js```. Modify the configuration parameters to match your desired configuration.
-
+# build for production with minification
+npm run build
 ```
-module.exports = {
-    service_url: URL to call back to after CAS authentication,
-    cas_dev_mode: If you'd like to run CAS in development mode (you need set this to false in production)
-    cas_dev_mode_user: The CAS development mode user
-    admins: [Array of the user IDs of the desired administrators],
-    cms_key: Your API key for the RPI Club Management System
-};
-```
-Any of the above configuration parameters can also be set as environment variables.
 
-```
-    CMS_KEY
-    CAS_DEV_MODE
-    CAS_DEV_MODE_USER
-    SERVICE_URL
-    ADMINS
-```    
-
-Great! Now, we're ready to run the application. Make sure MongoDB is already running, and simply run ```npm start```. By default, the application runs on port 8080, but this can easily be changed using an environment variable.
-
-In the future, we'll provide an init script that will allow running Shuttle Signups as a service on Linux distributions (which grants you tons of amenities, such as automatically running on start-up). For now, you can look into using [```forever```](https://www.npmjs.com/package/forever).
-
-
-### Docker Production
-
-1. Clone this repository and cd into it
-2. [Install Docker](https://docs.docker.com/engine/installation/)
-  - $```sudo apt install docker-engine```, or equivalent
-  - $```docker-compose --version```, sanity check for version >= 1.10
-3. ```mv dev-config.js config.js``` and fill out valid run time secrets (see above for more information)
-  - Contact the project maintainers for RPI specific secrets
-4. Run ```docker-compose up``` , it will build the app and pull a mongo container then link everything
-5. In your browser of choice naviagate to [```http://localhost:8080```](http://localhost:8080)
-
-## Roadmap
-  - [ ] Implement a functional user-facing and admin-facing frontend.
-  - [ ] Put shuttles into groups, based on origin/destination, and day of departure
-    * This will allow us to prevent users from signing up for multiple shuttles going to the same destination on the same day.
-  - [ ] Allow exportable and printable data about shuttles
-  - [ ] Allow storing of student phone numbers
-    * This one is rather tricky because it requires us to actually store users in the database in some form, instead of relying completely on CMS
-  - [ ] Store shuttle history
-    * Currently, shuttles don't ever leave the database, so they can be queryable after they've been completed. However, this can cause the database to fill up rather quickly, so in the future, we'll probably make an archive for shuttles, sepearate from the main, active database.
-  - [ ] Email reminders to users
-    * [Nodemailer](https://nodemailer.com/) is totally going to be our friend here. We should allow the time frame for the reminder to be configured per-shuttle, for groups of shuttles, or globally across the application. This will also be useful in notifying students of canceled, or delayed shuttles.
-  - [X] Luggage restrictions
-    * This information, and much more, can be specified in the notes section for a shuttle, which was added in ```e09fe30```.
-  - [ ] Allow administrator override to add people past bus capacity
-    * We'll need to modify signup_shuttle and unsignup_shuttle to allow administrators to specify a user, and add and remove them from shuttles.
-  - [ ] Close wait list when departure is soon
-    * Allow the closing time to be configurable. I don't know if we'd like to extend this functionality to the ```users``` list for a shuttle as well.
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
