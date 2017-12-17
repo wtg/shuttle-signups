@@ -17,3 +17,4 @@ config.js
 web/assets/css/
 data
 npm-debug.log
+web/assets/js/components/

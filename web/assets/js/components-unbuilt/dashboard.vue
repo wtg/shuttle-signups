@@ -1,103 +1,133 @@
 <template>
-    <div class="col">
-    <div class="column-sm-6">
-        <div v-if="loaded == true && userShuttles.length != 0" class="card border-success">
-            <h3 class="card-header border-success">Your Upcoming Shuttles</h3>
-            <div class="card-block">
-                <h4 class="card-title text-muted">These are shuttles that you've signed up for that are happening soon!</h4>
-                <div class="card-deck">
-                    <li style="list-style: none;" v-for="shuttle in userShuttles">
-                        <div class="card">
-                            <div class="card-block">
-                                <div class="card-title">
-                                    <h4>{{ shuttle.destination }}</h4>
-                                    <h5 class="text-muted">from {{ shuttle.origin }}</h5>
-                                </div>
-                                <p><i class="fa fa-clock-o" aria-hidden="true"></i>{{ shuttle.departureDateTime | moment("dddd, MMMM Do YYYY [at] h:mm a") }}</p>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#unsignup-modal">Cancel</button>
-                                <!--UNSIGNUP MODAL-->
-                                <div class="modal fade" id="unsignup-modal" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Cancel signup for shuttle to {{ shuttle.destination }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p v-if="shuttle.numGuests == 0">This will remove you from this shuttle. Continuing with this action will <b>require</b> you to resignup.</p>
-                                                <p v-else>This will remove you and your {{ shuttle.numGuests }} guests from this shuttle. Continuing with this action will <b>require</b> you to resignup.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" v-on:click="unsignupShuttle(shuttle.id, shuttle.numGuests, false)" class="btn btn-danger" data-dismiss="modal">Confirm</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#change-modal">Change</button>
-                                <!--CHANGE SIGNUP MODAL-->
-                                <div class="modal fade" id="change-modal" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Change signup for shuttle to {{ shuttle.destination }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p v-if="shuttle.numGuests == 0">This will remove you from this shuttle. Continuing with this action will <b>require</b> you to resignup.</p>
-                                                <p v-else>This will remove you and your {{ shuttle.numGuests }} guests from this shuttle. Continuing with this action will <b>require</b> you to resignup.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+   <div class="col">
+   <div class="column-sm-6">
+      <div v-if="loaded == true && userShuttles.length != 0" class="card border-success">
+         <h3 class="card-header border-success">Your Upcoming Shuttles</h3>
+         <div class="card-block">
+            <h4 class="card-title text-muted">These are shuttles that you've signed up for that are happening soon!</h4>
+            <div class="card-deck">
+               <li style="list-style: none;" v-for="shuttle in userShuttles">
+                  <div class="card">
+                     <div class="card-block">
+                        <div class="card-title">
+                           <h4>{{ shuttle.destination }}</h4>
+                           <h5 class="text-muted">from {{ shuttle.origin }}</h5>
                         </div>
-                    </li>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row-sm-6">
-        <div v-if="loaded == true" class="card border-primary">
-            <h3 class="card-header border-primary">Featured</h3>
-            <div v-if="shuttles.length != 0" class="card-block">
-                <h4 class="card-title text-muted">Here are some upcoming shuttles!</h4>
-                <div class="card-deck">
-                    <li style="list-style: none;" v-for="shuttleGroup in shuttleGroups">
-                        <div class="card">
-                            <img class="card-img-top" >
-                            <div class="card-block">
-                                <div class="card-title">
-                                    <h4>{{ shuttleGroup.destination }}</h4>
-                                    <h5 class="text-muted">from {{ shuttleGroup.origin }}</h5>
-                                </div>
-                                <p>{{ shuttleGroup.notes }}</p>
-                                <p><i class="fa fa-clock-o" aria-hidden="true"></i>{{ shuttleGroup.startDate | moment("dddd, MMMM Do YYYY") }}</p>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <a href="#" class="btn btn-success">Signup</a>
-                            </div>
+                        <p><i class="far fa-clock" aria-hidden="true"></i>{{ shuttle.departureDateTime | moment("dddd, MMMM Do YYYY [at] h:mm a") }}</p>
+                     </div>
+                     <div class="card-footer text-muted">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" v-bind:data-target="'#unsignup' + shuttle.id">Cancel</button>
+                        <!--UNSIGNUP MODAL-->
+                        <div class="modal fade" v-bind:id="'unsignup' + shuttle.id" tabindex="-1" role="dialog">
+                           <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <h5 class="modal-title">Canceling {{ shuttle.destination }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    </button>
+                                 </div>
+                                 <div class="modal-body">
+                                    <p>
+                                       This will remove you <span v-if="shuttle.numGuests != 0">and your {{ shuttle.numGuests }} <span v-if="shuttle.numGuests == 1">guest</span><span v-else>guests</span></span> from this shuttle. 
+                                       Continuing with this action will <b>require</b> you to resignup.
+                                    </p>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" v-on:click="unsignupShuttle(shuttle.id, shuttle.numGuests, false)" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
                         </div>
-                </div>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" v-bind:data-target="'#change' + shuttle.id">Change</button>
+                        <!--CHANGE SIGNUP MODAL-->
+                        <div class="modal fade" v-bind:id="'change' + shuttle.id" tabindex="-1" role="dialog">
+                           <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <h5 class="modal-title">Changing {{ shuttle.destination }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                 </div>
+                                 <div class="modal-body">
+                                    <h4>Departure Shuttle</h4>
+                                    <h4>Return Shuttle</h4>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Confirm</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </li>
             </div>
-            <div v-else-if="shuttles.length == 0">
-            <div class="card-block text-center">
-            <h1 class="text-muted">There are no upcoming shuttles right now! Check back later!</h1>
+         </div>
+      </div>
+   </div>
+   <div class="row-sm-6">
+      <div v-if="loaded == true" class="card border-primary">
+         <h3 class="card-header border-primary">Featured</h3>
+         <div v-if="shuttles.length != 0" class="card-block">
+            <h4 class="card-title text-muted">Here are some upcoming shuttles!</h4>
+            <div class="card-deck">
+               <li style="list-style: none;" v-for="shuttleGroup in shuttleGroups">
+                  <div class="card">
+                     <img class="card-img-top" >
+                     <div class="card-block">
+                        <div class="card-title">
+                           <h4>{{ shuttleGroup.destination }}</h4>
+                           <h5 class="text-muted">from {{ shuttleGroup.origin }}</h5>
+                        </div>
+                        <p>{{ shuttleGroup.notes }}</p>
+                        <p><i class="far fa-clock" aria-hidden="true"></i>{{ shuttleGroup.startDate | moment("dddd, MMMM Do YYYY") }}</p>
+                     </div>
+                     <div class="card-footer text-muted">
+                        <a href="#" class="btn btn-success" data-toggle="modal" v-bind:data-target="'#signup' + shuttleGroup._id">Signup</a>
+                        <!--SIGNUP MODAL-->
+                        <div class="modal fade" v-bind:id="'signup' + shuttleGroup._id" tabindex="-1" role="dialog">
+                           <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <h5 class="modal-title">Signing up for {{ shuttleGroup.destination }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    </button>
+                                 </div>
+                                 <div class="modal-body">
+                                    <h5>Departing</h5>
+                                    <div v-if="shuttleGroup.shuttles != []" class="card-deck">
+                                       <div class="card" v-for="shuttle in shuttleGroup.shuttles">
+                                          <div class="card-block">
+                                                <div class="card-title">
+                                                 <h1>{{ shuttleGroup.shuttles[shuttle] }}</h1>
+                                                </div>  
+                                          </div>
+                                          
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button type="button" v-on:click="unsignupShuttle(shuttle.id, shuttle.numGuests, false)" class="btn btn-success" data-dismiss="modal">Signup</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
             </div>
-            </div>
-            </li>
-        </div>
-    </div>
+         </div>
+         <div v-else-if="shuttles.length == 0">
+         <div class="card-block text-center">
+         <h1 class="text-muted">There are no upcoming shuttles right now! Check back later!</h1>
+         </div>
+         </div>
+         </li>
+      </div>
+   </div>
 </template>
 
 <script>
@@ -106,6 +136,7 @@
             return {
                 loaded: false,
                 title: "Shuttle Signups",
+                stagingSignupShuttles: [],
                 shuttleGroups: [],
                 shuttles: [],
                 userShuttles: [],
@@ -198,6 +229,10 @@
                 })
                 return promise;
             },
+            
+            test: function(test) {
+                console.log(test);
+            },
 
             unsignupShuttle: function(shuttleID, numGuests, guestsOnly) {
                 var vue = this;
@@ -209,8 +244,11 @@
                     };
 
                     vue.$http.post('/api/unsignup-shuttle', request).then(response => {
+                        vue.shuttleGroups = [];
+                        vue.shuttles = [];
+                        vue.userShuttles = [];
+                        vue.userShuttleGroups = [];
                         vue.getAPIData();
-                        vue.$forceUpdate();
                         resolve();
                     });
 
