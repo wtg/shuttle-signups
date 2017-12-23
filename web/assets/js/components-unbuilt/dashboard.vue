@@ -83,13 +83,13 @@
                            <h5 class="text-muted">from {{ shuttleGroup.origin }}</h5>
                         </div>
                         <p>{{ shuttleGroup.notes }}</p>
-                        <p><i class="far fa-clock" aria-hidden="true"></i>{{ shuttleGroup.startDate | moment("dddd, MMMM Do YYYY") }}</p>
+                        <p><i class="far fa-calendar-alt" aria-hidden="true"></i>{{ shuttleGroup.startDate | moment("dddd, MMMM Do YYYY") }}</p>
                      </div>
                      <div class="card-footer text-muted">
                         <a href="#" class="btn btn-success" data-toggle="modal" v-bind:data-target="'#signup' + shuttleGroup._id">Signup</a>
                         <!--SIGNUP MODAL-->
                         <div class="modal fade" v-bind:id="'signup' + shuttleGroup._id" tabindex="-1" role="dialog">
-                           <div class="modal-dialog" role="document">
+                           <div class="modal-dialog modal-lg" role="document">
                               <div class="modal-content">
                                  <div class="modal-header">
                                     <h5 class="modal-title">Signing up for {{ shuttleGroup.destination }}</h5>
@@ -98,15 +98,43 @@
                                  </div>
                                  <div class="modal-body">
                                     <h5>Departing</h5>
-                                    <div v-if="shuttleGroup.shuttles != []" class="card-deck">
-                                       <div class="card" v-for="shuttle in shuttleGroup.shuttles">
-                                          <div class="card-block">
-                                                <div class="card-title">
-                                                 <h1>{{ shuttleGroup.shuttles[shuttle] }}</h1>
-                                                </div>  
+                                    <div v-if="shuttleGroup.shuttles.length != 0" class="container-fluid">
+                                       <div class="row flex-row flex-nowrap">
+                                          <div v-for="shuttle in shuttleGroup.shuttles" class="col-5">
+                                             <div class="card" v-if="shuttles.filter(obj=>obj._id===shuttle)[0].origin == shuttleGroup.origin">
+                                                <div class="card-block">
+                                                   <div class="card-title">
+                                                      <h5>{{ shuttles.filter(obj=>obj._id===shuttle)[0].origin }}</h5>
+                                                      <h6 class="text-muted">to {{ shuttles.filter(obj=>obj._id===shuttle)[0].destination }} </h6>
+                                                   </div>
+                                                   <p><i class="far fa-clock" aria-hidden="true"></i>{{ shuttles.filter(obj=>obj._id===shuttle)[0].departureDateTime | moment("dddd, MMMM Do YYYY [at] h:mm a") }} </p>
+                                                </div>
+                                             </div>
                                           </div>
-                                          
                                        </div>
+                                    </div>
+                                    <div v-else-if="shuttleGroup.shuttles.length == 0">
+                                       <p>There are no available shuttles departing at this time.</p>
+                                    </div>
+                                    
+                                    <h5>Returning</h5>
+                                    <div v-if="shuttleGroup.shuttles.length != 0" class="container-fluid">
+                                       <div class="row flex-row flex-nowrap">
+                                          <div v-for="shuttle in shuttleGroup.shuttles" class="col-5">
+                                             <div class="card" v-if="shuttles.filter(obj=>obj._id===shuttle)[0].origin == shuttleGroup.destination">
+                                                <div class="card-block">
+                                                   <div class="card-title">
+                                                      <h5>{{ shuttles.filter(obj=>obj._id===shuttle)[0].origin }}</h5>
+                                                      <h6 class="text-muted">to {{ shuttles.filter(obj=>obj._id===shuttle)[0].destination }} </h6>
+                                                   </div>
+                                                   <p><i class="far fa-clock" aria-hidden="true"></i>{{ shuttles.filter(obj=>obj._id===shuttle)[0].departureDateTime | moment("dddd, MMMM Do YYYY [at] h:mm a") }} </p>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div v-else-if="shuttleGroup.shuttles.length == 0">
+                                       <p>There are no available shuttles returning at this time.</p>
                                     </div>
                                  </div>
                                  <div class="modal-footer">
