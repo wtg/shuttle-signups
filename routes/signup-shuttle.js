@@ -55,6 +55,7 @@ router.post('/', (req, res) => {
 	}
 	var rcs_id = req.session.cas_user.toLowerCase();
 	var shuttleID = req.body.id;
+	console.log(shuttleID);
 	var numGuests = req.body.numGuests;
 	var guestsOnly = req.body.guestsOnly;
 	// Now let's do some basic validation of the request body
@@ -82,7 +83,8 @@ router.post('/', (req, res) => {
 		}
 		// Let's assume that this is the only shuttle with this ID (if not, we have issues).
 		var shuttle = docs[0];
-		if (shuttle === null) {
+		if (shuttle === undefined) {
+			res.status(400);
 			res.send("That shuttle doesn't exist.");
 			return;
 		}
