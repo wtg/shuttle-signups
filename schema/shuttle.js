@@ -6,6 +6,7 @@ be a good samaritan and change add refactor the corresponding front end schema i
 */
 var shuttleSchema = new Schema({
       isActive: Boolean,
+      type: String,
       departureDateTime: Date,
       maxCapacity: Number,
       vacancies: Number,

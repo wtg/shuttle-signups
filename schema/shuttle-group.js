@@ -8,6 +8,7 @@ var shuttleGroupSchema = new Schema({
       endDate: Date,
       isActive: Boolean,
       destinationPhoto: String,
+      description: String,
       notes: String,
       shuttles: [Schema.Types.ObjectId]
 });

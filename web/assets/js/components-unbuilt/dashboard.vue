@@ -6,53 +6,61 @@
             <div class="card-block">
                 <h4 class="card-title text-muted">These are shuttles that you've signed up for that are happening soon!</h4>
                 <div class="card-deck">
-                    <li style="list-style: none;" v-for="shuttle in userShuttles">
+                    <li style="list-style: none;" v-for="shuttleGroup in userShuttleGroups">
+                        <transition name="fade" mode="out-in">
                         <div class="card">
                             <div class="card-block">
                                 <div class="card-title">
-                                    <h4>{{ shuttle.destination }}</h4>
-                                    <h5 class="text-muted">from {{ shuttle.origin }}</h5>
+                                    <h4>{{ shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].destination }}</h4>
+                                    <h5 class="text-muted">from {{ shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].origin }}</h5>
                                 </div>
-                                <p><i class="far fa-clock" aria-hidden="true"></i>{{ shuttle.departureDateTime | moment("dddd, MMMM Do YYYY [at] h:mm a") }}</p>
+                                <hr>
+                                <div>
+                                    <h5><i class="far fa-calendar-alt" aria-hidden="true"></i>{{ userShuttles.filter(obj=>obj._id===(shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].shuttles[0]))[0].departureDateTime | moment("dddd, MMMM Do YYYY") }}</i></h5>
+                                    <h6><i class="fas fa-angle-double-right" aria-hidden="true"></i>{{ userShuttles.filter(obj=>obj._id===(shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].shuttles[0]))[0].departureDateTime | moment("h:mm a") }}</h6>
+                                    <h6><i class="fas fa-angle-double-left" aria-hidden="true"></i>{{ userShuttles.filter(obj=>obj._id===(shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].shuttles[0]))[0].departureDateTime | moment("h:mm a") }}</h6>
+                                </div>
+                                
                             </div>
                             <div class="card-footer text-muted">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" v-bind:data-target="'#unsignup' + shuttle.id">Cancel</button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" v-bind:data-target="'#unsignup' + shuttleGroup">Cancel</button>
                                 <!--UNSIGNUP MODAL-->
-                                <div class="modal fade" v-bind:id="'unsignup' + shuttle.id" tabindex="-1" role="dialog">
+                                <div class="modal fade" v-bind:id="'unsignup' + shuttleGroup" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Canceling {{ shuttle.destination }}</h5>
+                                                <h5 class="modal-title">Canceling {{ shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].destination }}</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <p>
-                                                    This will remove you <span v-if="shuttle.numGuests != 0">and your {{ shuttle.numGuests }} <span v-if="shuttle.numGuests == 1">guest</span><span v-else>guests</span></span> from this shuttle. 
-                                                    Continuing with this action will <b>require</b> you to resignup.
+                                                    This will remove you <span v-if="userShuttles.filter(obj=>obj._id===(shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].shuttles[0]))[0].numGuests != 0">and your {{ shuttle.numGuests }} <span v-if="userShuttles.filter(obj=>obj._id===(shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].shuttles[0]))[0].numGuests == 1">guest</span><span v-else>guests</span></span> from this shuttle. 
+                                                    Continuing with this action will <b>require</b> you to resignup. If you'd like to change your signups, use the change button instead.
                                                 </p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" v-on:click="unsignupShuttle(shuttle.id, shuttle.numGuests, false); " class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                <button type="button" v-on:click="unsignupShuttle(userShuttles.filter(obj=>obj.group===shuttleGroup).map(obj => obj.id),userShuttles.filter(obj=>obj._id===(shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].shuttles[0]))[0].numGuests, false); " class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" v-bind:data-target="'#change' + shuttle.id">Change</button>
+                                
+                                <button type="button" class="btn btn-warning" data-toggle="modal" v-bind:data-target="'#change' + shuttleGroup">Change</button>
                                 <!--CHANGE SIGNUP MODAL-->
-                                <div class="modal fade" v-bind:id="'change' + shuttle.id" tabindex="-1" role="dialog">
+                                <div class="modal fade" v-bind:id="'change' + shuttleGroup" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Changing {{ shuttle.destination }}</h5>
+                                                <h5 class="modal-title">Changing {{ shuttleGroups.filter(obj=>obj._id===shuttleGroup)[0].destination }}</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <h4>Departure Shuttle</h4>
-                                                <h4>Return Shuttle</h4>
+                                                <h4>Departing</h4>
+                                                <h4>Returning</h4>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Confirm</button>
@@ -63,6 +71,7 @@
                                 </div>
                             </div>
                         </div>
+                        </transition>
                     </li>
                 </div>
             </div>
@@ -82,8 +91,9 @@
                                     <h4>{{ shuttleGroup.destination }}</h4>
                                     <h5 class="text-muted">from {{ shuttleGroup.origin }}</h5>
                                 </div>
-                                <p>{{ shuttleGroup.notes }}</p>
-                                <p><i class="far fa-calendar-alt" aria-hidden="true"></i>{{ shuttleGroup.startDate | moment("dddd, MMMM Do YYYY") }}</p>
+                                <h5><i class="far fa-calendar-alt" aria-hidden="true"></i>{{ shuttleGroup.startDate | moment("dddd, MMMM Do YYYY") }}</h5>
+                                <hr>
+                                <p>{{ shuttleGroup.description }}</p>
                             </div>
                             <div class="card-footer text-muted">
                                 <a href="#" class="btn btn-success" data-toggle="modal" v-bind:data-target="'#signup' + shuttleGroup._id">Signup</a>
@@ -96,12 +106,13 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="signup modal-body">
+                                                <h4>{{ shuttleGroup.notes }}</h4>
                                                 <h5>Departing</h5>
                                                 <div v-if="shuttleGroup.shuttles.length != 0" class="container-fluid">
                                                     <div class="row flex-row flex-nowrap">
-                                                        <div v-for="shuttle in shuttleGroup.shuttles" class="col-5">
-                                                            <div class="card" v-bind:class="{'border-success': queuedSignupShuttles.indexOf(shuttle) != -1}" v-if="shuttles.filter(obj=>obj._id===shuttle)[0].origin == shuttleGroup.origin">
+                                                        <div v-for="shuttle in shuttleGroup.shuttles">
+                                                            <div class="card card-fixed-width" v-bind:class="{'border-success': queuedSignupShuttles.indexOf(shuttle) != -1}" v-if="shuttles.filter(obj=>obj._id===shuttle)[0].origin == shuttleGroup.origin">
                                                                 <div class="card-block">
                                                                     <div class="card-title">
                                                                         <h5>{{ shuttles.filter(obj=>obj._id===shuttle)[0].origin }}</h5>
@@ -124,8 +135,8 @@
                                                 <h5>Returning</h5>
                                                 <div v-if="shuttleGroup.shuttles.length != 0" class="container-fluid">
                                                     <div class="row flex-row flex-nowrap">
-                                                        <div v-for="shuttle in shuttleGroup.shuttles" class="col-5">
-                                                            <div class="card" v-if="shuttles.filter(obj=>obj._id===shuttle)[0].origin == shuttleGroup.destination">
+                                                        <div v-for="shuttle in shuttleGroup.shuttles">
+                                                            <div class="card card-fixed-width" v-bind:class="{'border-success': queuedSignupShuttles.indexOf(shuttle) != -1}" v-if="shuttles.filter(obj=>obj._id===shuttle)[0].origin == shuttleGroup.destination">
                                                                 <div class="card-block">
                                                                     <div class="card-title">
                                                                         <h5>{{ shuttles.filter(obj=>obj._id===shuttle)[0].origin }}</h5>
@@ -136,7 +147,7 @@
                                                                     <p v-if="shuttles.filter(obj=>obj._id===shuttle)[0].guestsAllowed != 0">{{ shuttles.filter(obj=>obj._id===shuttle)[0].guestsAllowed }} guests permitted</p>
                                                                 </div>
                                                                 <div class="card-footer text-muted">
-                                                                    <a href="#" class="btn btn-success">Select</a>
+                                                                    <button :disabled="shuttles.filter(obj=>obj._id===shuttle)[0].vacancies <= 0" class="btn btn-success" v-on:click="queueSignupShuttle('returning', shuttles.filter(obj=>obj._id===shuttle)[0]._id)">Select</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -172,7 +183,6 @@
         data() {
             return {
                 loaded: false,
-                title: "Shuttle Signups",
                 numGuests: 0,
                 queuedSignupShuttles: [],
                 shuttleGroups: [],
@@ -181,11 +191,22 @@
                 userShuttleGroups: []
             };
         },
+         components: {
+            user: { /* ... */ },
+            admin: { /* ... */ },
+            
+        },
         mounted: function() {
             this.getAPIData();
         },
         methods: {
             getAPIData: function() {
+                var vue = this;
+                vue.shuttleGroups = [];
+                vue.shuttles = [];
+                vue.userShuttles = [];
+                vue.userShuttleGroups = [];
+                vue.queueSignupShuttles = [];
                 // Make API calls async
                 var apiCalls = [];
                 // GET USER SHUTTLES
@@ -225,19 +246,17 @@
                 var promise = new Promise(function(resolve, reject) {
                     var resShuttles = response.body;
                     // Let's cross reference the IDs provided by the API with the entire list of shuttles given
-
                     for (var userShuttle in resShuttles) {
                         for (var shuttle in vue.shuttles) {
-                            if (resShuttles[userShuttle].id == vue.shuttles[shuttle]._id) {
+                            if (resShuttles[userShuttle].id === vue.shuttles[shuttle]._id) {
                                 var temp = $.extend({}, resShuttles[userShuttle], vue.shuttles[shuttle]);
                                 vue.userShuttles.push(temp);
 
                                 // Add the group the current shuttle is apart of to the list of userShuttleGroups
 
-                                // First check to see if the group doesn't  exist already
-                                if (vue.userShuttleGroups.map(function(el) {return el._id;}).indexOf(temp.group) == -1) {
+                                // First check to see if the group doesn't exist already
+                                if (vue.userShuttleGroups.indexOf(temp.group) == -1) {
                                     // Iterate to find it
-                                          
                                         for (var shuttleGroup in vue.shuttleGroups) {
                                             if (vue.shuttleGroups[shuttleGroup]._id == temp.group) {
                                                 vue.userShuttleGroups.push(vue.shuttleGroups[shuttleGroup]._id);
@@ -256,14 +275,22 @@
                 var vue = this;
                 var promise = new Promise(function(resolve, reject) {
                     var resShuttles = response.body;
-                    // Cross reference a shuttle's group for origin and destination information based on it's type (outgoing or incoming)
+                    // Cross reference a shuttle's group for origin and destination information based on it's type (departing or returning)
 
                     for (var shuttle in resShuttles) {
                         shuttleGroupIter: for (var shuttleGroup in vue.shuttleGroups) {
                             for (var shuttleGroupShuttle in vue.shuttleGroups[shuttleGroup].shuttles) {
-                                if (resShuttles[shuttle]._id == vue.shuttleGroups[shuttleGroup].shuttles[shuttleGroupShuttle]) {
-                                    resShuttles[shuttle].destination = vue.shuttleGroups[shuttleGroup].destination;
-                                    resShuttles[shuttle].origin = vue.shuttleGroups[shuttleGroup].origin;
+                                if (resShuttles[shuttle]._id === vue.shuttleGroups[shuttleGroup].shuttles[shuttleGroupShuttle]) {
+                                    
+                                    if (resShuttles[shuttle].type === "returning") {
+                                        resShuttles[shuttle].origin = vue.shuttleGroups[shuttleGroup].destination;
+                                        resShuttles[shuttle].destination = vue.shuttleGroups[shuttleGroup].origin;
+                                    }
+                                    
+                                    else {
+                                        resShuttles[shuttle].destination = vue.shuttleGroups[shuttleGroup].destination;
+                                        resShuttles[shuttle].origin = vue.shuttleGroups[shuttleGroup].origin;
+                                    }
                                     vue.shuttles.push(resShuttles[shuttle]);
                                     break shuttleGroupIter;
                                 }
@@ -283,30 +310,33 @@
                 return promise;
             },
 
-            unsignupShuttle: function(shuttleID, numGuests, guestsOnly) {
+            unsignupShuttle: function(shuttles, numGuests, guestsOnly) {
                 var vue = this;
-                var promise = new Promise(function(resolve, reject) {
+                var promises = [];
+                for (var shuttle in shuttles) {
+                    var promise = new Promise(function(resolve, reject) {
                     var request = {
-                        "id": shuttleID,
+                        "id": shuttles[shuttle],
                         "numGuests": numGuests,
                         "guestsOnly": guestsOnly
                     };
 
                     vue.$http.post('/api/unsignup-shuttle', request).then(response => {
-                        vue.shuttleGroups = [];
-                        vue.shuttles = [];
-                        vue.userShuttles = [];
-                        vue.userShuttleGroups = [];
-                        vue.getAPIData();
                         resolve();
                     });
 
+                    });
+                    promises.push(promise);
+                }
+                
+                Promise.all(promises).then(function(values) {
+                    vue.getAPIData();
                 });
-                return promise;
             },
             
             signupShuttle: function(shuttles, numGuests, guestsOnly) {
                 var vue = this;
+                var promises = [];
                 for (var shuttle in shuttles) {
                     var promise = new Promise(function(resolve, reject) {
                     var request = {
@@ -320,16 +350,12 @@
                     });
 
                 });
-                    return promise;
+                    promises.push(promise);
                 }
                 
-                vue.shuttleGroups = [];
-                vue.shuttles = [];
-                vue.userShuttles = [];
-                vue.userShuttleGroups = [];
-                vue.queueSignupShuttles = [];
-                vue.getAPIData();
-                
+                Promise.all(promises).then(function(values) {
+                    vue.getAPIData();
+                });
             }
         }
     }

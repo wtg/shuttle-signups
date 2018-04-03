@@ -68,6 +68,7 @@ app.use(favicon(path.join(__dirname, '/web/assets/images', 'favicon.ico')));
 app.use('/api/current-user', require('./routes/current-user'));
 app.use('/api/admin/add-shuttle', require('./routes/admin/add-shuttle'));
 app.use('/api/admin/add-shuttle-group', require('./routes/admin/add-shuttle-group'));
+app.use('/api/admin/delete-shuttle-group', require('./routes/admin/delete-shuttle-group'));
 app.use('/api/get-shuttles', require('./routes/get-shuttles'));
 app.use('/api/get-shuttle-groups', require('./routes/get-shuttle-groups'));
 app.ws('/api/websocket', require('./routes/websocket'));

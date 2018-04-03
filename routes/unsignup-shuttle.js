@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
 		res.send("Your request appears to be malformed.");
 		return;
 	}
+	console.log(shuttleID);
 	var query = Shuttle.find({
 		_id: shuttleID
 	}).lean();

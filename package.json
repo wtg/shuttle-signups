@@ -4,7 +4,7 @@
   "description": "A web interface to simplify the process of signing up for special shuttles at RPI.",
   "main": "app.js",
   "scripts": {
-    "start": "concurrently \"cross-env NODE_ENV=production webpack --progress --hide-modules --watch\" \"mongod --dbpath=data --smallfiles\" \"npm run build-css\" \"nodemon app.js\" ",
+    "start": "concurrently \"cross-env NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules --watch\" \"mongod --dbpath=data --smallfiles\" \"npm run build-css\" \"nodemon app.js\" ",
     "start-nomongo": "concurrently \"tsc --project ./web/\"  \"NODE_ENV=development nodemon app.js\"",
     "build-css": "concurrently \"node-sass web/assets/scss/ -o web/assets/css/\" \"node-sass -w web/assets/scss/ -o web/assets/css/\"",
     "start-app-only": "node app.js",

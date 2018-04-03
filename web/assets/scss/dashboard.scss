@@ -18,12 +18,21 @@ body {
   color: rgba(0,0,0,.5);
 }
 
+.card-fixed-width {
+  min-width: 256px !important;
+  max-width: 256px !important;
+}
+
 .card {
   margin: 1em;
   display: block;
 }
 
 .card-title > h4,h5 {
+  margin: 0;
+}
+
+.card-block > h5,h6 {
   margin: 0;
 }
 
@@ -43,4 +52,8 @@ i {
 .container-fluid {
   overflow: scroll;
   margin-bottom: 10px;
+}
+
+.signup .modal-body h5 {
+  margin-top: 50px;
 }

@@ -3,7 +3,7 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <h4 class="my-auto"><a class="navbar-brand" href="#">Shuttle Signups</a></h4>
+        <h4 class="my-auto"><a class="navbar-brand" href="#">{{ title }}</a></h4>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -11,7 +11,7 @@
                     <a class="nav-link" href="#">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a v-if="user.isAdmin == true"class="nav-link" href="#">Admin</a>
+                    <router-link v-if="user.isAdmin == true" class="nav-link" to="admin">Admin</router-link>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

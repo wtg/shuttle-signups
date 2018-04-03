@@ -30,6 +30,7 @@ router.post('/', (req, res) => {
 			startDate: req.body.startDate,
 			endDate: req.body.endDate,
 			destinationPhoto: req.body.destinationPhoto,
+			description: req.body.description,
 			notes: req.body.notes
 		}
 
